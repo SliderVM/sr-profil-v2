@@ -37,7 +37,7 @@ export default {
             links: [
                     {
                         title: "Бухта",
-                        href:"/index"
+                        href:"/buhtas"
                     },
                     {
                         title: "Штрипс",
@@ -62,7 +62,8 @@ export default {
                     {
                         title: "Клиенты",
                         href:"info4"
-                    }
+                    },
+
                 ]
                 }
         }

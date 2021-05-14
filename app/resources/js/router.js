@@ -3,7 +3,7 @@ import Vue from 'vue';
 
 Vue.use(vueRouter);
 
-import index from "./views/index.vue"
+import buhtas from "./views/buhtas.vue"
 import demands from "./views/demands.vue"
 import truba from "./views/truba.vue"
 import shtrips from "./views/shtrips.vue"
@@ -15,8 +15,8 @@ import info4 from "./views/info4.vue"
 
 const routes = [
     {
-        path: "/index",
-        component: index
+        path: "/buhtas",
+        component: buhtas
     },
     {
         path: "/demands",
@@ -45,7 +45,8 @@ const routes = [
     {
         path: "/info4",
         component: info4
-    }
+    },
+
 ];
 
 export default new vueRouter ({
