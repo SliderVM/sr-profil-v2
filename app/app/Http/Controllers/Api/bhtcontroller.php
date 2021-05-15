@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\buhta;
+use App\Models\Buhta;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -16,7 +16,7 @@ class bhtcontroller extends Controller
      */
     public function index()
     {
-        return buhta::all();
+        return Buhta::all();
     }
 
     /**

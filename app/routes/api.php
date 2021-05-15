@@ -19,4 +19,4 @@ use App\Http\Controllers\Api\bhtcontroller;
 //     return $request->user();
 // });
 
-Route::resource('buhtas', bhtcontroller::class);
+Route::resource('buhtas', BhtController::class);
