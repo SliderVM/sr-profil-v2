@@ -1,9 +1,3 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -13,25 +7,22 @@ import { BootstrapVue} from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
 Vue.component('v-header', require('./components/header.vue').default);
 Vue.component('v-buhta', require('./components/buhta.vue').default);
+Vue.component('v-types', require('./components/types.vue').default);
+Vue.component('v-thicknesse', require('./components/thicknesse.vue').default);
+Vue.component('v-counterparties', require('./components/counterparties.vue').default);
+Vue.component('v-modalbuht', require('./components/modalbuht.vue').default);
+Vue.component('v-selecttype', require('./components/addbuht/selecttype.vue').default);
+Vue.component('v-selectthickness', require('./components/addbuht/selectthickness.vue').default);
+Vue.component('v-inputdata', require('./components/addbuht/input/inputdata.vue').default);
+Vue.component('v-inputprice', require('./components/addbuht/input/inputprice.vue').default);
+Vue.component('v-inputweight', require('./components/addbuht/input/inputweight.vue').default);
+Vue.component('v-inputwidth', require('./components/addbuht/input/inputwidth.vue').default);
+Vue.component('v-selectcounterparties', require('./components/addbuht/selectcounterparties.vue').default);
+Vue.component('v-selectwarehouse', require('./components/addbuht/selectwarehouse.vue').default);
+Vue.component('v-checkbox', require('./components/addbuht/checkbox.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 import router from "./router";
 
 const app = new Vue({

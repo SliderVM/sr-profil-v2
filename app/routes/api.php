@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\bhtcontroller;
+use App\Http\Controllers\Api\typecontroller;
+use App\Http\Controllers\Api\thicknessecontroller;
+use App\Http\Controllers\Api\counterpartiescontroller;
+use App\Http\Controllers\Api\warehousecontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +24,7 @@ use App\Http\Controllers\Api\bhtcontroller;
 // });
 
 Route::resource('buhtas', BhtController::class);
+Route::resource('types', typecontroller::class);
+Route::resource('thicknesse', thicknessecontroller::class);
+Route::resource('counterparties', counterpartiescontroller::class);
+Route::resource('warehouse', warehousecontroller::class);

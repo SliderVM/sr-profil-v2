@@ -19,11 +19,12 @@ class CreateBuhtasTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('counterparty_id')->comment = 'Контрагент';
             $table->unsignedBigInteger('type_metal_id');
-            $table->unsignedInteger('metal_thickness_id');
+            $table->unsignedInteger('metal_thickness_id'); // толщина
             $table->integer('width')->comment = 'Ширина';
             $table->integer('weight')->comment = 'Вес';
             $table->integer('length');
             $table->decimal('price');
+            $table->date('receipt_date');
             $table->tinyInteger('available');
             $table->timestamps($precision = 0);
 

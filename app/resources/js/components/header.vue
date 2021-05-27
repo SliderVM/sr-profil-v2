@@ -5,7 +5,7 @@
                 <a href="#" class="top-brand">СР-Профиль</a>
                 <nav class="nav-main">
                     <!-- <li class="active" ><a href="#" class="top-brand">СР-Профиль</a></li> -->
-                    <router-link :to="link.href" v-for="link in links">{{link.title}}</router-link>
+                    <router-link :to="link.href" v-for="link in links" :key="link.id">{{link.title}}</router-link>
 
                 </nav>
 
@@ -56,13 +56,9 @@ export default {
                         href:"/info"
                     },
                     {
-                        title: "Производители",
+                        title: "Контрагенты",
                         href:"/info3"
-                    },
-                    {
-                        title: "Клиенты",
-                        href:"info4"
-                    },
+                    }
 
                 ]
                 }

@@ -1,15 +1,18 @@
 <template>
-    <h3>{{title}}</h3>
+    <tr>
+        <td>{{buhta.name}}</td>
+        <td>{{buhta.type_metal_id}}</td>
+        <td>{{buhta.width}}</td>
+        <td>{{buhta.metal_thickness_id}}</td>
+        <td>{{buhta.length}}</td>
+        <td>{{buhta.weight}}</td>
+        <td>{{buhta.price}}</td>
+    </tr>
 </template>
 
 <script>
 export default {
     name: "buhta",
-    props: {
-        title: {
-            type: String,
-            default: "NULL"
-        }
-    }
+    props: ["buhta"]
 }
 </script>

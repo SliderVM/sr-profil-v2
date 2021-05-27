@@ -10,7 +10,7 @@ import shtrips from "./views/shtrips.vue"
 import info from "./views/info.vue"
 import info3 from "./views/info3.vue"
 import info2 from "./views/info2.vue"
-import info4 from "./views/info4.vue"
+import info5 from "./views/info5.vue"
 
 
 const routes = [
@@ -43,8 +43,8 @@ const routes = [
         component: info2
     },
     {
-        path: "/info4",
-        component: info4
+        path: "/info5",
+        component: info5
     },
 
 ];

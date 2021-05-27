@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Buhta;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 
 class bhtcontroller extends Controller
 {
@@ -40,17 +41,36 @@ class bhtcontroller extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                "title" => ["required"]
+                "warehouse_id" => ["required"],
+                "receipt_date" => ["required"],
+                "type_metal_id" => ["required"],
+                "width" => ["required"],
+                "weight" => ["required"],
+                "metal_thickness_id" => ["required"],
+                "length" => ["required"],
+                "price" => ["required"],
+                "available" => ["required"],
+                "counterparty_id" => ["required"]
             ]
         );
         if ($validator->fails()) {
             return [
                 "status" => false,
-                "errors" => $validator->messages(),
+                $errors = $validator->errors()
             ];
         };
         $buhta = buhta::create([
-            "title" => $request->title
+            "receipt_date" =>$request->receipt_date,
+            "warehouse_id" => $request->warehouse_id,
+            "name" => (buhta::max('id') +1).' / '.$request->warehouse_id,
+            "type_metal_id" => $request->type_metal_id,
+            "width" => $request->width,
+            "weight" => $request->weight,
+            "metal_thickness_id" => $request->metal_thickness_id,
+            "length" => $request->length,
+            "price" => $request->price,
+            "available" => $request->available,
+            "counterparty_id" => $request->counterparty_id
         ]);
 
         return [

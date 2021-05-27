@@ -3,73 +3,83 @@
 
         <h5 class="mb-3">Справочники</h5>
 
-        <div class="row">
-            <div class="col-3">
-                <div class="list-group small">
-                    <router-link :to="link.href" v-for="link in links"class="list-group-item">{{link.title}}</a></router-link>
+            <div class="row">
+                <div class="col-3">
+                    <div class="list-group small">
+                        <router-link :to="link.href" v-for="link in links" :key="link.id" class="list-group-item">{{link.title}} </router-link>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <h2 class="mb-3">Тип металла</h2>
+                    <div class="input-group my-4">
+                        <input v-model="form.name" placeholder="тип" class="form-control">
+                        <button v-on:click="send" class="btn btn-primary input-group-addon">Добавить</button>
+                    </div>
+
+                    <table class="table mt-3">
+                        <thead>
+                            <th>Тип</th>
+                        </thead>
+                        <tr>
+                            <tbody>
+                                <types v-for="type in types" :key="type.id" :name="type.name" />
+                                    <v-types></v-types>
+                            </tbody>
+                        </tr>
+                    </table>
                 </div>
             </div>
-            <div class="col-9">
-                <h6 class="mb-3">Тип и толщина бухт</h6>
-                <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#info1Modal"><i class="fa fa-plus"></i> Добавить</button>
-
-                <table class="table table-sm mt-3 table-metal-weight">
-                    <thead>
-                        <tr>
-                            <th width="20%">Тип</th>
-                            <th>Размер, мм</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>ХК</td>
-                            <td>
-                                <a href="#" class="badge badge-pill badge-secondary">0.7</a>
-                                <a href="#" class="badge badge-pill badge-secondary">0.8</a>
-                                <a href="#" class="badge badge-pill badge-secondary">0.9</a>
-                                <a href="#" class="badge badge-pill badge-secondary">1.0</a>
-                                <a href="#" class="badge badge-pill badge-secondary">1.1</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ГК</td>
-                            <td>
-                                <a href="#" class="badge badge-pill badge-secondary">0.7</a>
-                                <a href="#" class="badge badge-pill badge-secondary">0.8</a>
-                                <a href="#" class="badge badge-pill badge-secondary">0.9</a>
-                                <a href="#" class="badge badge-pill badge-secondary">1.0</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Цинк</td>
-                            <td>
-                                <a href="#" class="badge badge-pill badge-secondary">0.7</a>
-                                <a href="#" class="badge badge-pill badge-secondary">0.8</a>
-                                <a href="#" class="badge badge-pill badge-secondary">0.9</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
     </div>
 </template>
-        <script>
-        export default {
-            data(){
-                return {
-                    links: [
-                            {
-                                title: "Тип и толщина бухт",
-                                href:"/info"
-                            },
-                            {
-                                title: "Размеры труб",
-                                href:"/info2"
-                            }
-                        ]
+
+<script>
+    import axios from 'axios';
+    import types from '../components/types.vue';
+
+    export default {
+        components: {types},
+        data: () => ({
+            types: [],
+            form:{
+                name: ""
+            },
+            links: [
+                {
+                    title: "Тип металла",
+                    href:"/info"
+                },
+                {
+                    title: "Размеры труб",
+                    href:"/info2"
+                },
+                {
+                     title: "Толщина металла",
+                     href:"/info5"
                 }
+            ]
+        }),
+        mounted() {
+        this.loadtypes();
+        },
+        methods: {
+            loadtypes() {
+                axios.get('/api/types')
+                .then(res => {
+                    this.types = res.data;
+                })
+            },
+            send: function () {
+                axios.post('/api/types',this.form, {
+                   headers: {"Content-type": "application/json"}
+            })
+            .then((response) => {
+
+               this.form = response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
             }
-                        }
-        </script>
+        }
+        }
+</script>
