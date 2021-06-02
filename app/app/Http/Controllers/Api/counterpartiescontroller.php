@@ -17,7 +17,8 @@ class counterpartiescontroller extends Controller
      */
     public function index()
     {
-        return counterparties::all();
+
+        return counterparties::all('name', 'id');
     }
 
     /**

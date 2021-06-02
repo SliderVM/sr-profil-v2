@@ -1,80 +1,80 @@
 <template>
     <div>
-
         <b-button v-b-modal.modal-1 class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-plus"></i> Приход металла</b-button>
 
             <b-modal id="modal-1" title="Приход металла">
-
                 <!-- <v-inputdata></v-inputdata> -->
                 <div class="form-group">
                     <label>Дата поступления</label>
-                    <input type="date" v-model="form.receipt_date" placeholder="Введите дату" class="form-control" />
+                    <input type="date" v-model="Form.ReceiptDate" placeholder="Введите дату" class="form-control" />
                 </div>
-
                 <!-- <v-selectcounterparties></v-selectcounterparties> -->
-                <div>
-                    <label>Контрагенты</label>
-                    <select v-model="form.counterparty_id">
+                <!-- <div> -->
+                    <!-- <select v-model="form.counterparty_id">
                         <option v-for="counterparties in counterpartiesArray" v-bind:key="counterparties.id" v-bind:value="counterparties.id">{{counterparties.name}} </option>
                     </select>
+                </div> -->
+                <div>
+                    <label>Контрагенты</label>
+                    <multiselect v-model="Value" :options="CounterpartiesArray" @search-change="CounterpartiesSearch"></multiselect>
                 </div>
+
 
                 <!-- <v-selectwarehouse></v-selectwarehouse> -->
                 <div>
                     <label>Склад</label>
-                    <select v-model="form.warehouse_id">
-                        <option size="sm" class="mt-3"  v-for="warehouse in warehouseArray" v-bind:key="warehouse.message" v-bind:value="warehouse.id">{{warehouse.name}} </option>
+                    <select v-model="Form.WarehouseId">
+                        <option v-for="Warehouse in WarehouseArray" v-bind:key="Warehouse.id" v-bind:value="Warehouse.id">{{Warehouse.name}} </option>
                     </select>
                 </div>
                 <!-- <v-selecttype></v-selecttype> -->
                 <div>
                     <label>Тип металла</label>
-                    <select v-model="form.type_metal_id">
-                        <option v-for="types in selecttype" v-bind:key="types.id" v-bind:value="types.id">{{types.name}} </option>
+                    <select v-model="Form.TypeMetalId">
+                        <option v-for="types in SelectType" v-bind:key="types.id" v-bind:value="types.id">{{types.name}} </option>
                     </select>
                 </div>
 
                 <!-- <v-inputwidth></v-inputwidth> -->
                 <div class="form-group">
                     <label>Ширина, мм</label>
-                    <input type="number" v-model="form.width" placeholder="1250" class="form-control" />
+                    <input type="number" v-model="Form.Width" placeholder="1250" class="form-control" />
                 </div>
 
                 <div class="form-group">
                     <label>Длина</label>
-                    <input type="number" v-model="form.length" placeholder="1250" class="form-control" />
+                    <input type="number" v-model="Form.Length" placeholder="1250" class="form-control" />
                 </div>
 
                 <!-- <v-selectthickness></v-selectthickness> -->
                 <div>
                     <label>Толщина</label>
-                    <select v-model="form.metal_thickness_id">
-                        <option size="sm" class="mt-3" v-for="thicknesse in thicknessesArray" v-bind:key="thicknesse.id" v-bind:value="thicknesse.id">{{thicknesse.thicknesses}} </option>
+                    <select v-model="Form.MetalThicknessId">
+                        <option size="sm" class="mt-3" v-for="thicknesse in ThicknessesArray" v-bind:key="thicknesse.id" v-bind:value="thicknesse.id">{{thicknesse.thicknesses}} </option>
                     </select>
                 </div>
 
                 <!-- <v-inputweight></v-inputweight> -->
                 <div class="form-group">
                     <label>Вес, т</label>
-                    <input type="number" v-model="form.weight" placeholder="0.00" class="form-control" />
+                    <input type="number" v-model="Form.Weight" placeholder="0.00" class="form-control" />
                 </div>
 
                 <!-- <v-inputprice></v-inputprice> -->
                 <div class="form-group">
                     <label>Цена покупки, руб. за тн.</label>
-                    <input type="number" v-model="form.price" placeholder="" class="form-control" />
+                    <input type="number" v-model="Form.Price" placeholder="" class="form-control" />
                 </div>
 
-                <!-- <v-checkbox></v-checkbox> -->
-                <input type="radio" id="one" value="1" v-model="form.available">
+                <input type="radio" id="one" value="1" v-model="Form.Available">
                 <label for="one">Бухта в пути</label>
                 <br>
-                <input type="radio" id="two" value="2" v-model="form.available">
+                <input type="radio" id="two" value="2" v-model="Form.Available">
                 <label for="two">Бухта на складе</label>
 
 
                 <div slot="modal-footer">
-                    <button v-on:click="send" size="sm" class="btn btn-primary input-group-addon">Сохранить</button>
+                    <button v-on:click="Send" size="sm" class="btn btn-primary input-group-addon">Сохранить</button>
                 </div>
             </b-modal>
 
@@ -83,72 +83,81 @@
 </template>
 
 <script>
-
+import multiselect from 'vue-multiselect'
+Vue.component('multiselect', multiselect)
 export default {
-
+    components: { multiselect },
     data: () => ({
-        warehouseArray: [],
+
+        CounterpartiesArray: [],
+        Value: [],
+
+        WarehouseArray: [],
         options: [
-            { warehouseArray: '', value: '' },
+            { WarehouseArray: '', Value: '' },
         ],
-        thicknessesArray: [],
+
+        ThicknessesArray: [],
         options: [
-            { thicknessesArray: '', value: '' },
+            { thicknessesArray: '', Value: '' },
         ],
-        selecttype: [],
+
+        SelectType: [],
         options: [
-            {selecttype: '', value: ''},
+            {SelectType: '', Value: ''},
         ],
-        counterpartiesArray: [],
-        options: [
-        { counterpartiesArray: '', value: '' },
-        ],
-        form:{
-            "receipt_date": "",
-            "warehouse_id": "",
-            "type_metal_id": "",
-            "width": "",
-            "weight": "",
-            "metal_thickness_id": "",
-            "length": "",
-            "price": "",
-            "available": "",
-            "counterparty_id": ""
+
+        Form:{
+            "ReceiptDate": "",
+            "WarehouseId": "",
+            "TypeMetalId": "",
+            "Width": "",
+            "Weight": "",
+            "MetalThicknessId": "",
+            "Length": "",
+            "Price": "",
+            "Available": "",
+            "CounterpartyId": ""
         }
     }),
     mounted() {
-        this.loadwarehouse();
-        this.loadtypes();
-        this.loadcounterparties();
-        this.loadthicknesse();
+        this.LoadWarehouse();
+        this.LoadTypes();
+        this.LoadCounterparties();
+        this.LoadThicknesse();
     },
     methods: {
-
-        loadwarehouse() {
+        CounterpartiesSearch () {
+            axios.get('/api/counterparties').then(response => {
+            this.CounterpartiesArray = response;
+            })
+        },
+        LoadWarehouse() {
             axios.get('/api/warehouse')
             .then(res => {
                 this.warehouseArray = res.data;
             })
         },
-        loadtypes() {
+        LoadTypes() {
             axios.get('/api/types')
             .then(res => {
-                this.selecttype = res.data;
+                this.SelectType = res.data;
             })
         },
-        loadcounterparties() {
+        LoadCounterparties() {
             axios.get('/api/counterparties')
             .then(res => {
-                this.counterpartiesArray = res.data;
+                this.CounterpartiesArray = res.data;
+                console.log(res.data)
             })
         },
-        loadthicknesse() {
+        LoadThicknesse() {
             axios.get('/api/thicknesse')
             .then(res => {
-                this.thicknessesArray = res.data;
+                this.ThicknessesArray = res.data;
             })
         },
-        send: function () {
+        Send: function () {
             axios.post('/api/buhtas',this.form, {
                 header: ("Content-type: application/json")
             })
@@ -163,3 +172,5 @@ export default {
     }
 }
 </script>
+
+

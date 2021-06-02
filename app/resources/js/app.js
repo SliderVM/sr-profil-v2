@@ -21,7 +21,6 @@ Vue.component('v-inputweight', require('./components/addbuht/input/inputweight.v
 Vue.component('v-inputwidth', require('./components/addbuht/input/inputwidth.vue').default);
 Vue.component('v-selectcounterparties', require('./components/addbuht/selectcounterparties.vue').default);
 Vue.component('v-selectwarehouse', require('./components/addbuht/selectwarehouse.vue').default);
-Vue.component('v-checkbox', require('./components/addbuht/checkbox.vue').default);
 
 import router from "./router";
 

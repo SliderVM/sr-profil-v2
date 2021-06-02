@@ -43,7 +43,7 @@
 <script>
     import axios from 'axios';
     import buhta from '../components/buhta.vue';
-    import modalbuht from '../components/modalbuht.vue';
+    import modalbuht from '../components/modalbuht'
 
     export default {
         components: {buhta, modalbuht},
