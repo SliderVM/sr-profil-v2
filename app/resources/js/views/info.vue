@@ -55,6 +55,10 @@
                 {
                      title: "Толщина металла",
                      href:"/info5"
+                },
+                {
+                    title: "Управление складами",
+                    href:"/warehouseinfo"
                 }
             ]
         }),

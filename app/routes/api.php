@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\ThicknesseController;
 use App\Http\Controllers\Api\CounterpartiesController;
 use App\Http\Controllers\Api\WarehouseController;
+use App\Http\Controllers\Api\WarehouseTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,4 @@ Route::resource('types', TypeController::class);
 Route::resource('thicknesse', ThicknesseController::class);
 Route::resource('counterparties', CounterpartiesController::class);
 Route::resource('warehouse', WarehouseController::class);
+Route::resource('warehousetype', WarehouseTypeController::class);

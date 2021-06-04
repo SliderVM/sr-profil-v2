@@ -61,6 +61,10 @@
                             {
                                 title: "Толщина бухт",
                                 href:"/info5"
+                            },
+                            {
+                                title: "Управление складами",
+                                href:"/warehouseinfo"
                             }
                         ]
                 }

@@ -54,6 +54,10 @@ import thicknesse from '../components/thicknesse.vue';
                 {
                     title: "Толщина металла",
                     href:"/info5"
+                },
+                {
+                    title: "Управление складами",
+                    href:"/warehouseinfo"
                 }
             ]
         }),
