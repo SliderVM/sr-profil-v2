@@ -39,13 +39,18 @@ class WarehouseTypeController extends Controller
      */
     public function store(Request $request)
     {
+
+        $func = function($value) {
+            return $value['id'];
+        };
+        
         $warehouse = warehouse::create([
             'name'=> $request->name, // имя склада
         ]);
 
-        //$warehouse->WarehouseType()->sync($WarehouseType->id);
-
-
+        $warehouse->WarehouseTypes()->sync(array_map($func, $request->TypeWarehouse));
+        
+        return $warehouse;
     }
 
     /**

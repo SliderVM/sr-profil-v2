@@ -54,7 +54,6 @@ export default {
     },
     methods: {
         LoadWarehouseType() {
-            
         },
         Search() {
             axios.get('/api/warehousetype')
@@ -66,13 +65,12 @@ export default {
 
         },
         send: function () {
-            console.log(this.Form.TypeWarehouse);            
+            console.log(this.Form.TypeWarehouse);
             axios.post('/api/warehousetype', this.Form, {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
                 console.log(response.data);
-                this.Form = response.data;
             })
             .catch((error) => {
                 console.log(error);
