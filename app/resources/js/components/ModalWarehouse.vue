@@ -9,15 +9,14 @@
             <div>
                 <label>Тип склада</label>
                 <multiselect
-                v-model="Value"
+                v-model="Form.TypeWarehouse"
                 :options="WarehouseTypeArray"
                 track-by="id"
                 label="name"
                 :options-limit="3"
                 open-direction="bottom"
                 :hide-selected="true"
-                :multiple="true"
-                @select="Search">
+                :multiple="true">
                 </multiselect>
             </div>
             <div slot="modal-footer">
@@ -35,7 +34,6 @@ export default {
     components: {multiselect},
     data: () => ({
         WarehouseTypeArray: [],
-        Value: [],
         trackBy: 'id',
 
         Form: {
@@ -51,14 +49,6 @@ export default {
             })
     },
     methods: {
-        Search() {
-            axios.get('/api/warehousetype')
-            .then(res => {
-                this.WarehouseTypeArray = res.data;
-                this.Form.TypeWarehouse = this.Value;
-                console.log(this.Value);
-            })
-        },
         send: function () {
             console.log(this.Form.TypeWarehouse);
             axios.post('/api/warehousetype', this.Form, {
