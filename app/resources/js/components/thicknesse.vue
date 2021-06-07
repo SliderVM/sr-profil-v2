@@ -10,7 +10,6 @@ export default {
     props: {
         test: {
             type: Number,
-            // default: "0"
         }
     }
 }

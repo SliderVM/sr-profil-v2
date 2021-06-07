@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\metal_thicknesse;
+use App\Models\metalThicknesse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -17,7 +17,7 @@ class thicknessecontroller extends Controller
      */
     public function index()
     {
-        return metal_thicknesse::all();
+        return metalThicknesse::all();
     }
 
     /**
@@ -49,7 +49,7 @@ class thicknessecontroller extends Controller
                 $errors = $validator->errors()
             ];
         };
-        $thicknesses = metal_thicknesse::create([
+        $thicknesses = metalThicknesse::create([
             "thicknesses" => $request->thicknesses,
         ]);
 

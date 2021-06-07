@@ -12,7 +12,7 @@ Vue.component('v-buhta', require('./components/buhta.vue').default);
 Vue.component('v-types', require('./components/types.vue').default);
 Vue.component('v-thicknesse', require('./components/thicknesse.vue').default);
 Vue.component('v-counterparties', require('./components/counterparties.vue').default);
-Vue.component('v-modalbuht', require('./components/modalbuht.vue').default);
+Vue.component('v-modalbuht', require('./components/ModalBuht.vue').default);
 Vue.component('v-ModalWarehouse', require('./components/ModalWarehouse.vue').default);
 Vue.component('v-selecttype', require('./components/addbuht/selecttype.vue').default);
 Vue.component('v-selectthickness', require('./components/addbuht/selectthickness.vue').default);

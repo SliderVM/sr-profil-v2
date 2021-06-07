@@ -10,7 +10,6 @@ export default {
     props: {
         name: {
             type: String
-            // default: "NULL"
         }
     }
 }

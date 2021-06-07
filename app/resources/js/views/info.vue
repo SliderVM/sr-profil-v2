@@ -1,8 +1,6 @@
 <template>
     <div class="container-fluid">
-
         <h5 class="mb-3">Справочники</h5>
-
             <div class="row">
                 <div class="col-3">
                     <div class="list-group small">
@@ -15,7 +13,6 @@
                         <input v-model="form.name" placeholder="тип" class="form-control">
                         <button v-on:click="send" class="btn btn-primary input-group-addon">Добавить</button>
                     </div>
-
                     <table class="table mt-3">
                         <thead>
                             <th>Тип</th>
@@ -77,7 +74,6 @@
                    headers: {"Content-type": "application/json"}
             })
             .then((response) => {
-
                this.form = response.data;
             })
             .catch((error) => {
@@ -85,5 +81,5 @@
             });
             }
         }
-        }
+    }
 </script>

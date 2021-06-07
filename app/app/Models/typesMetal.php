@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class types_metal extends Model
+class typesMetal extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];

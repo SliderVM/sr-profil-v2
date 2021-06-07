@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\types_metal;
+use App\Models\TypesMetal;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +19,7 @@ class typecontroller extends Controller
      */
     public function index()
     {
-        return types_metal::all();
+        return TypesMetal::all();
     }
 
     /**
@@ -52,7 +52,7 @@ class typecontroller extends Controller
                 $errors = $validator->errors()
             ];
         };
-        $types = types_metal::create([
+        $types = TypesMetal::create([
             "name" => $request->name
         ]);
 

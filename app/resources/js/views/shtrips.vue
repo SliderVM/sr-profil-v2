@@ -1,21 +1,11 @@
 <template>
     <div class="container-fluid">
-
         <h5>Штрипс</h5>
-
         <div class="d-flex mt-3 d-print-none">
             <div class="mr-auto">
                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supply2Modal"><i class="fa fa-plus"></i> Добавить штрипс</button>
             </div>
-            <!-- <div>
-                <select name="" class="form-control form-control-sm">
-                    <option value="">Металл</option>
-                    <option value="">Штрипс</option>
-                    <option value="">Обрезь</option>
-                </select>
-            </div> -->
         </div>
-
         <table class="table table-sm table-hover small mt-4" id="warehouse">
             <thead>
                 <tr>
@@ -81,7 +71,7 @@
                 </tr>
             </tfoot>
         </table>
-        <p><a href="#"onclick="window.print(); return false;" class="d-print-none"><i class="fa fa-print"></i> Печатная форма</a></p>
+        <!-- <p><a href="#"onclick="window.print(); return false;" class="d-print-none"><i class="fa fa-print"></i> Печатная форма</a></p> -->
     </div>
 </template>
 <script>

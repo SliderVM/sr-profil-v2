@@ -1,12 +1,7 @@
 <template>
     <div class="container-fluid">
-
         <h5>Труба</h5>
-
         <div class="d-flex mt-3">
-            <!-- <div class="mr-auto">
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-plus"></i> Приход металла</button>
-            </div> -->
             <div>
                 <select name="" class="form-control form-control-sm">
                     <option value="" selected="">Склад 1: с. Кушнаренково</option>
@@ -14,7 +9,6 @@
                 </select>
             </div>
         </div>
-
         <table class="table table-sm table-hover small mt-4" id="warehouse_tubes">
             <thead>
                 <tr>
@@ -103,7 +97,7 @@
                 </tr>
             </tfoot>
         </table>
-        <p><a href="#"onclick="window.print(); return false;" class="d-print-none"><i class="fa fa-print"></i> Печатная форма</a></p>
+        <!-- <p><a href="#"onclick="window.print(); return false;" class="d-print-none"><i class="fa fa-print"></i> Печатная форма</a></p> -->
     </div>
 </template>
 

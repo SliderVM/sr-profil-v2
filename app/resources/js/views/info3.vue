@@ -1,6 +1,5 @@
 <template>
     <div class="container-fluid">
-
         <h5 class="mb-3">Контрагенты</h5>
             <div class="input-group my-4">
                 <input v-model="form.name" placeholder="добавить" class="form-control">
@@ -26,36 +25,35 @@
     import axios from 'axios';
     import counterparties from '../components/counterparties.vue';
 
-        export default {
-            components: {counterparties},
-            data: () => ({
-                counterpartiesArray: [],
-                form:{
-                    name: ""
-                },
-            }),
-            mounted() {
-            this.loadcounterparties();
+    export default {
+        components: {counterparties},
+        data: () => ({
+            counterpartiesArray: [],
+            form:{
+                name: ""
             },
-            methods: {
-                loadcounterparties() {
-                    axios.get('/api/counterparties')
-                    .then(res => {
-                        this.counterpartiesArray = res.data;
-                    })
-                },
-                send: function () {
-                    axios.post('/api/counterparties',this.form, {
-                    headers: {"Content-type": "application/json"}
+        }),
+        mounted() {
+            this.loadcounterparties();
+        },
+        methods: {
+            loadcounterparties() {
+                axios.get('/api/counterparties')
+                .then(res => {
+                    this.counterpartiesArray = res.data;
                 })
-                .then((response) => {
-
-                this.form = response.data;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-                }
-    }
+            },
+            send: function () {
+                axios.post('/api/counterparties',this.form, {
+                headers: {"Content-type": "application/json"}
+            })
+            .then((response) => {
+            this.form = response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
             }
+        }
+    }
 </script>

@@ -12,19 +12,6 @@
                         >{{ link.title }}</router-link
                     >
                 </nav>
-
-                <!-- <nav class="nav-main">
-                    <a href="index.html">Бухта</a>
-                    <a href="shtrips.html">Штрипс</a>
-                    <a href="truba.html">Труба</a>
-                    <a href="demands.html">Заявки <span class="badge badge-pill badge-danger">5</span></a> -->
-                <!-- <a href="#"><Обрезь</a>
-                    <a href="#"><Теплица</a> -->
-                <!-- <a href="info.html">Справочники</a>
-                    <a href="info3.html">Производители</a>
-                    <a href="info4.html">Клиенты</a>
-                </nav>
-                -->
                 <nav class="nav-extra ml-auto">
                     <a href="#"><i class="fa fa-sign-out"></i> Выход</a>
                 </nav>

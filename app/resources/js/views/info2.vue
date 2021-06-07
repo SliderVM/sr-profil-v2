@@ -1,8 +1,6 @@
 <template>
     <div class="container-fluid">
-
         <h5 class="mb-3">Справочники</h5>
-
         <div class="row">
             <div class="col-3">
                 <div class="list-group small">
@@ -12,7 +10,6 @@
             <div class="col-9">
                 <h6 class="mb-3">Размеры труб</h6>
                 <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#info2Modal"><i class="fa fa-plus"></i> Добавить</button>
-
                 <table class="table table-sm mt-3">
                     <thead>
                         <tr>
@@ -39,7 +36,6 @@
                         </tr>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
@@ -47,8 +43,7 @@
 
     <script>
        export default {
-            data(){
-                return {
+            data: () => ({
                     links: [
                             {
                                 title: "Тип бухт",
@@ -67,8 +62,6 @@
                                 href:"/warehouseinfo"
                             }
                         ]
-                }
-            }
-                        }
-
+            })
+       }
     </script>

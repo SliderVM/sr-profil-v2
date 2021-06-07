@@ -1,15 +1,11 @@
 <template>
-
     <div class="container-fluid">
-
         <h5>Бухта</h5>
-
         <div class="d-flex mt-3">
             <div class="mr-auto">
                 <v-modalbuht></v-modalbuht>
             </div>
         </div>
-
         <table class="table table-sm table-hover small mt-4" id="warehouse">
             <thead>
                 <tr>
@@ -23,13 +19,10 @@
                     <th width="110"></th>
                 </tr>
             </thead>
-
             <tbody>
-                <buhta v-for="buhta in buhtas" :key="buhta.id"
-                :buhta="buhta" />
+                <buhta v-for="buhta in buhtas" :key="buhta.id" :buhta="buhta" />
                 <v-buhta></v-buhta>
             </tbody>
-
             <tfoot>
                 <tr class="font-weight-bold">
                     <td colspan="7">Итого: </td>
@@ -43,10 +36,10 @@
 <script>
     import axios from 'axios';
     import buhta from '../components/buhta.vue';
-    import modalbuht from '../components/modalbuht.vue';
+    import ModalBuht from '../components/ModalBuht';
 
     export default {
-        components: {buhta, modalbuht},
+        components: {buhta, ModalBuht},
         data: () => ({
             buhtas: [],
         }),
@@ -61,5 +54,5 @@
                 })
             }
         }
-        }
+    }
 </script>

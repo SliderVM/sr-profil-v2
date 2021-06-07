@@ -1,21 +1,11 @@
 <template>
     <div class="container-fluid">
-
         <h5>Заявки</h5>
-
         <div class="d-flex mt-3">
             <div class="mr-auto">
                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#demandModal"><i class="fa fa-plus"></i> Подать заявку</button>
             </div>
-            <!-- <div>
-                <select name="" class="form-control form-control-sm">
-                    <option value="">Металл</option>
-                    <option value="">Штрипс</option>
-                    <option value="">Обрезь</option>
-                </select>
-            </div> -->
         </div>
-
         <table class="table table-sm table-hover small mt-4">
             <thead>
                 <tr>
@@ -40,7 +30,6 @@
                 </tr>
             </tbody>
         </table>
-
     </div>
 </template>
 

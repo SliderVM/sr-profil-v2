@@ -1,8 +1,6 @@
 <template>
     <div class="container-fluid">
-
         <h5 class="mb-3">Справочники</h5>
-
         <div class="row">
             <div class="col-3">
                 <div class="list-group small">
@@ -21,7 +19,6 @@
                             <th>Размер, мм</th>
                         </tr>
                     </thead>
-
                     <tbody>
                             <thicknesse v-for="thicknesse in thicknessesArray" :key="thicknesse.id" :test="thicknesse.thicknesses" />
                             <v-thicknesse></v-thicknesse>

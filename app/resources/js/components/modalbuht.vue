@@ -115,10 +115,10 @@ components: { multiselect },
         form:{
             "receipt_date": "",
             "warehouse_id": "",
-            "type_metal_id": "",
+            "typeMetalId": "",
             "width": "",
             "weight": "",
-            "metal_thickness_id": "",
+            "metalThicknessId": "",
             "length": "",
             "price": "",
             "available": "",
@@ -132,7 +132,6 @@ components: { multiselect },
         this.loadthicknesse();
     },
     methods: {
-
         CounterpartiesOpen () {
             axios.get('/api/counterparties')
             .then(res => {

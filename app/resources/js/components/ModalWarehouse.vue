@@ -1,7 +1,6 @@
 <template>
   <div>
       <b-button v-b-modal.modal-1 class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-plus"></i> Приход металла</b-button>
-
         <b-modal id="modal-1" title="Приход металла">
             <div class="form-group">
                 <label>Наименование</label>
@@ -18,7 +17,6 @@
                 open-direction="bottom"
                 :hide-selected="true"
                 :multiple="true"
-                @open="LoadWarehouseType"
                 @select="Search">
                 </multiselect>
             </div>
@@ -34,7 +32,7 @@ import multiselect from 'vue-multiselect'
 Vue.component('multiselect', multiselect)
 
 export default {
-    components: { multiselect },
+    components: {multiselect},
     data: () => ({
         WarehouseTypeArray: [],
         Value: [],
@@ -46,15 +44,13 @@ export default {
         }
 
     }),
-    created: function(){
+    created: function() {
         axios.get('/api/warehousetype')
             .then(res => {
                 this.WarehouseTypeArray = res.data;
             })
     },
     methods: {
-        LoadWarehouseType() {
-        },
         Search() {
             axios.get('/api/warehousetype')
             .then(res => {
@@ -62,7 +58,6 @@ export default {
                 this.Form.TypeWarehouse = this.Value;
                 console.log(this.Value);
             })
-
         },
         send: function () {
             console.log(this.Form.TypeWarehouse);
