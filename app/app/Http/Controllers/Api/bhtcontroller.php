@@ -41,16 +41,16 @@ class bhtcontroller extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                "warehouse_id" => ["required"],
-                "receipt_date" => ["required"],
-                "type_metal_id" => ["required"],
+                "warehouseId" => ["required"],
+                "receiptDate" => ["required"],
+                "typeMetalId" => ["required"],
                 "width" => ["required"],
                 "weight" => ["required"],
-                "metal_thickness_id" => ["required"],
+                "metalThicknessId" => ["required"],
                 "length" => ["required"],
                 "price" => ["required"],
                 "available" => ["required"],
-                "counterparty_id" => ["required"]
+                "counterpartyId" => ["required"]
             ]
         );
         if ($validator->fails()) {
@@ -60,17 +60,17 @@ class bhtcontroller extends Controller
             ];
         };
         $buhta = buhta::create([
-            "receipt_date" =>$request->receipt_date,
-            "warehouse_id" => $request->warehouse_id,
-            "name" => (buhta::max('id') +1).' / '.$request->warehouse_id,
-            "type_metal_id" => $request->type_metal_id,
+            "receipt_date" => $request->receiptDate,
+            "warehouse_id" => $request->warehouseId,
+            "name" => (buhta::max('id') +1).' / '.$request->warehouseId,
+            "type_metal_id" => $request->typeMetalId,
             "width" => $request->width,
             "weight" => $request->weight,
-            "metal_thickness_id" => $request->metal_thickness_id,
+            "metal_thickness_id" => $request->metalThicknessId,
             "length" => $request->length,
             "price" => $request->price,
             "available" => $request->available,
-            "counterparty_id" => $request->counterparty_id
+            "counterparty_id" => $request->counterpartyId
         ]);
 
         return [

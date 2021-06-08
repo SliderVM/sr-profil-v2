@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\warehouse;
+use App\Models\WarehouseType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -17,7 +18,16 @@ class warehousecontroller extends Controller
      */
     public function index()
     {
-        return warehouse::all();
+        $warehouse = warehouse::with('WarehouseType')->get();
+
+
+        // $warehouseType = WarehouseType::find($warehouse->warehouse_type_id);
+        // $warehouseType = WarehouseType::where('id','$warehouse->warehouse_type_id');
+        // return [
+        //     'name' => $warehouse->name,
+        //     'type' => $warehouse->type,
+        //     // 'type' => $warehouseType,
+        // ];
     }
 
     /**
@@ -49,7 +59,7 @@ class warehousecontroller extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

@@ -15,6 +15,7 @@ class WarehouseType extends Model
     {
         return $this->belongsToMany(warehouse::class);
     }
+
 }
 
 
