@@ -8,7 +8,7 @@
                 <!-- <v-inputdata></v-inputdata> -->
                 <div class="form-group">
                     <label>Дата поступления</label>
-                    <input type="date" v-model="form.receiptDate" placeholder="Введите дату" class="form-control" />
+                    <input type="date" v-model="form.receipt_date" placeholder="Введите дату" class="form-control" />
                 </div>
 
                 <!-- <v-selectcounterparties></v-selectcounterparties> -->
@@ -30,14 +30,14 @@
                 <!-- <v-selectwarehouse></v-selectwarehouse> -->
                 <div>
                     <label>Склад</label>
-                    <select v-model="form.warehouseId">
+                    <select v-model="form.warehouse_id">
                         <option size="sm" class="mt-3"  v-for="warehouse in warehouseArray" v-bind:key="warehouse.message" v-bind:value="warehouse.id">{{warehouse.name}} </option>
                     </select>
                 </div>
                 <!-- <v-selecttype></v-selecttype> -->
                 <div>
                     <label>Тип металла</label>
-                    <select v-model="form.typeMetalId">
+                    <select v-model="form.type_metal_id">
                         <option v-for="types in selecttype" v-bind:key="types.id" v-bind:value="types.id">{{types.name}} </option>
                     </select>
                 </div>
@@ -56,7 +56,7 @@
                 <!-- <v-selectthickness></v-selectthickness> -->
                 <div>
                     <label>Толщина</label>
-                    <select v-model="form.metalThicknessId">
+                    <select v-model="form.metal_thickness_id">
                         <option size="sm" class="mt-3" v-for="thicknesse in thicknessesArray" v-bind:key="thicknesse.id" v-bind:value="thicknesse.id">{{thicknesse.thicknesses}} </option>
                     </select>
                 </div>
@@ -79,6 +79,8 @@
                 <br>
                 <input type="radio" id="two" value="2" v-model="form.available">
                 <label for="two">Бухта на складе</label>
+
+
                 <div slot="modal-footer">
                     <button v-on:click="send" size="sm" class="btn btn-primary input-group-addon">Сохранить</button>
                 </div>
@@ -111,8 +113,8 @@ components: { multiselect },
             {selecttype: '', value: ''},
         ],
         form:{
-            "receiptDate": "",
-            "warehouseId": "",
+            "receipt_date": "",
+            "warehouse_id": "",
             "typeMetalId": "",
             "width": "",
             "weight": "",
@@ -120,7 +122,7 @@ components: { multiselect },
             "length": "",
             "price": "",
             "available": "",
-            "counterpartyId": ""
+            "counterparty_id": ""
         }
     }),
 
@@ -140,7 +142,8 @@ components: { multiselect },
             axios.get('/api/counterparties')
             .then(res => {
                 this.CounterpartiesArray = res.data;
-                this.form.counterpartyId = this.Value.id;
+                this.form.counterparty_id = this.Value.id;
+                console.log(this.Value.name);
             });
         },
         loadwarehouse() {

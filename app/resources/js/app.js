@@ -10,7 +10,6 @@ Vue.use(BootstrapVue)
 Vue.component('v-header', require('./components/header.vue').default);
 Vue.component('v-buhta', require('./components/buhta.vue').default);
 Vue.component('v-types', require('./components/types.vue').default);
-Vue.component('v-Warehouse', require('./components/Warehouse.vue').default);
 Vue.component('v-thicknesse', require('./components/thicknesse.vue').default);
 Vue.component('v-counterparties', require('./components/counterparties.vue').default);
 Vue.component('v-modalbuht', require('./components/ModalBuht.vue').default);
