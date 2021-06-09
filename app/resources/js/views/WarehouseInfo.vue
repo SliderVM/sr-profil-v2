@@ -9,15 +9,33 @@
                     </div>
                     <div class="col-9">
                         <h2 class="mb-3">Склады</h2>
-                        <v-ModalWarehouse></v-ModalWarehouse>
+                            <v-ModalWarehouse></v-ModalWarehouse>
+                        <table class="table mt-9">
+                            <thead>
+                                <tr>
+                                    <th>Наименование склада</th>
+                                    <th>Тип склада</th>
+                                    <th>Операции</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <warehouse v-for="Warehouse in Warehouses" :key="Warehouse.id" :Warehouse="Warehouse"/>
+                                    <v-Warehouse></v-Warehouse>
+                            </tbody>
+
+                        </table>
                     </div>
                 </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+import  Warehouse from '../components/Warehouse.vue'
 export default {
+    components: {Warehouse},
     data: () => ({
+        Warehouses: [],
         links: [
                     {
                         title: "Тип металла",
@@ -37,9 +55,16 @@ export default {
                     },
         ]
     }),
+    mounted() {
+        this.loadWarehouse();
+    },
+    methods: {
+        loadWarehouse() {
+            axios.get('/api/warehouse/create')
+            .then(res => {
+                this.Warehouses = res.data;
+            })
+        },
+    }
 }
 </script>
-
-<style>
-
-</style>

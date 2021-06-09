@@ -1,14 +1,14 @@
 <template>
     <div>
 
-        <b-button v-b-modal.modal-1 class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-plus"></i> Приход металла</b-button>
+        <b-button v-b-modal.modal-1 class="btn btn-sm btn-primary" data-toggle="modal" data-target="#demandModal"><i class="fa fa-plus"></i>Приход металла</b-button>
 
             <b-modal id="modal-1" title="Приход металла">
 
                 <!-- <v-inputdata></v-inputdata> -->
                 <div class="form-group">
                     <label>Дата поступления</label>
-                    <input type="date" v-model="form.receipt_date" placeholder="Введите дату" class="form-control" />
+                   <input type="date" v-model="form.receiptDate" placeholder="Введите дату" class="form-control" />
                 </div>
 
                 <!-- <v-selectcounterparties></v-selectcounterparties> -->
@@ -22,6 +22,7 @@
                     :options-limit="3"
                     open-direction="bottom"
                     :hide-selected="true"
+                    placeholder="Начните вводить"
                     @open="CounterpartiesOpen"
                     @select="CounterpartiesSearch">
                     </multiselect>
@@ -30,14 +31,14 @@
                 <!-- <v-selectwarehouse></v-selectwarehouse> -->
                 <div>
                     <label>Склад</label>
-                    <select v-model="form.warehouse_id">
+                    <select v-model="form.warehouseId">
                         <option size="sm" class="mt-3"  v-for="warehouse in warehouseArray" v-bind:key="warehouse.message" v-bind:value="warehouse.id">{{warehouse.name}} </option>
                     </select>
                 </div>
                 <!-- <v-selecttype></v-selecttype> -->
                 <div>
                     <label>Тип металла</label>
-                    <select v-model="form.type_metal_id">
+                    <select v-model="form.typeMetalId">
                         <option v-for="types in selecttype" v-bind:key="types.id" v-bind:value="types.id">{{types.name}} </option>
                     </select>
                 </div>
@@ -56,7 +57,7 @@
                 <!-- <v-selectthickness></v-selectthickness> -->
                 <div>
                     <label>Толщина</label>
-                    <select v-model="form.metal_thickness_id">
+                    <select v-model="form.metalThicknessId">
                         <option size="sm" class="mt-3" v-for="thicknesse in thicknessesArray" v-bind:key="thicknesse.id" v-bind:value="thicknesse.id">{{thicknesse.thicknesses}} </option>
                     </select>
                 </div>
@@ -113,8 +114,8 @@ components: { multiselect },
             {selecttype: '', value: ''},
         ],
         form:{
-            "receipt_date": "",
-            "warehouse_id": "",
+            "receiptDate": "",
+            "warehouseId": "",
             "typeMetalId": "",
             "width": "",
             "weight": "",
@@ -122,7 +123,7 @@ components: { multiselect },
             "length": "",
             "price": "",
             "available": "",
-            "counterparty_id": ""
+            "counterpartyId": ""
         }
     }),
 
@@ -142,8 +143,7 @@ components: { multiselect },
             axios.get('/api/counterparties')
             .then(res => {
                 this.CounterpartiesArray = res.data;
-                this.form.counterparty_id = this.Value.id;
-                console.log(this.Value.name);
+                this.form.counterpartyId = this.Value.id;
             });
         },
         loadwarehouse() {

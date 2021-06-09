@@ -11,18 +11,16 @@
                     <h2 class="mb-3">Тип металла</h2>
                     <div class="input-group my-4">
                         <input v-model="form.name" placeholder="тип" class="form-control">
-                        <button v-on:click="send" class="btn btn-primary input-group-addon">Добавить</button>
+                        <button v-on:click="send" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#info3Modal"><i class="fa fa-plus"></i>Добавить</button>
                     </div>
                     <table class="table mt-3">
                         <thead>
                             <th>Тип</th>
                         </thead>
-                        <tr>
-                            <tbody>
-                                <types v-for="type in types" :key="type.id" :name="type.name" />
-                                    <v-types></v-types>
-                            </tbody>
-                        </tr>
+                        <tbody>
+                            <types v-for="type in types" :key="type.id" :name="type.name" />
+                                <v-types></v-types>
+                        </tbody>
                     </table>
                 </div>
             </div>

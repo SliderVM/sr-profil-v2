@@ -1,7 +1,7 @@
 <template>
   <div>
-      <b-button v-b-modal.modal-1 class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-plus"></i> Приход металла</b-button>
-        <b-modal id="modal-1" title="Приход металла">
+      <b-button v-b-modal.modal-1 class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-plus"></i>Добавление</b-button>
+        <b-modal id="modal-1" title="Добавление склада">
             <div class="form-group">
                 <label>Наименование</label>
                 <input type="text" v-model="Form.name" class="form-control" />

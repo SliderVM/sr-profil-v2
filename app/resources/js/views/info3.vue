@@ -5,20 +5,20 @@
                 <input v-model="form.name" placeholder="добавить" class="form-control">
                 <button v-on:click="send" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#info3Modal"><i class="fa fa-plus"></i> Добавить</button>
             </div>
-        <table class="table table-sm mt-3">
-            <thead>
-                <tr>
-                    <th>Контрагенты</th>
-                    <th width="40"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                        <counterparties v-for="counterparties in counterpartiesArray" :key="counterparties.id" :name="counterparties.name" />
-                        <v-counterparties></v-counterparties>
-                </tr>
-            </tbody>
-        </table>
+                <table class="table table-sm mt-3">
+                    <thead>
+                        <tr>
+                            <th>Контрагенты</th>
+                            <th width="40"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                                <counterparties v-for="counterparties in counterpartiesArray" :key="counterparties.id" :name="counterparties.name" />
+                                <v-counterparties></v-counterparties>
+                        </tr>
+                    </tbody>
+                </table>
     </div>
 </template>
 <script>

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
-class warehousecontroller extends Controller
+class warehouseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,8 @@ class warehousecontroller extends Controller
      */
     public function create()
     {
-        //
+        $warehouse = warehouse::with('WarehouseTypes')->get();
+        return $warehouse;
     }
 
     /**
