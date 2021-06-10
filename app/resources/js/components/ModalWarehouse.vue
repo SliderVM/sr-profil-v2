@@ -1,6 +1,6 @@
 <template>
   <div>
-      <b-button v-b-modal.modal-1 class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-plus"></i>Добавление</b-button>
+      <b-button v-b-modal.modal-1 class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-plus"></i>Добавление склада</b-button>
         <b-modal id="modal-1" title="Добавление склада">
             <div class="form-group">
                 <label>Наименование</label>

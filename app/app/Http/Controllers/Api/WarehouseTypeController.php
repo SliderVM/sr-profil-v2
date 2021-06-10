@@ -43,13 +43,13 @@ class WarehouseTypeController extends Controller
         $func = function($value) {
             return $value['id'];
         };
-        
+
         $warehouse = warehouse::create([
-            'name'=> $request->name, // имя склада
+            'name'=> $request->name,
         ]);
 
         $warehouse->WarehouseTypes()->sync(array_map($func, $request->TypeWarehouse));
-        
+
         return $warehouse;
     }
 
@@ -82,9 +82,15 @@ class WarehouseTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Warehouse $warehouse)
     {
-        //
+
+
+        $warehouse->update($request->all());
+
+         $warehouse->WarehouseTypes()->sync($request->input($warehouse, $request->TypeWarehouse));
+
+        return $warehouse;
     }
 
     /**

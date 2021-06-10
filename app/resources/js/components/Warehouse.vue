@@ -1,16 +1,18 @@
 <template>
     <tr>
-        <td>{{Warehouse.name}} </td>
-        <td ><span v-for="warehouse_type in Warehouse.warehouse_types" :key="warehouse_type.id"> {{warehouse_type.name}} </span></td>
-        <v-ModalEditorWarehouse></v-ModalEditorWarehouse>
+        <td>{{Warehouse.name}}</td>
+        <td><span v-for="warehouse_type in Warehouse.warehouse_types" :key="warehouse_type.id"> {{warehouse_type.name}} </span></td>
+        <v-ModalEditorWarehouse :Warehouse="Warehouse"></v-ModalEditorWarehouse>
     </tr>
 </template>
 
 <script>
 export default {
+
     data: () => ({
-    warehouse_types: []
+        warehouse_types: []
     }),
+
     name: "Warehouse",
     props: ["Warehouse"]
 }
