@@ -31,6 +31,13 @@ class warehouseController extends Controller
         return $warehouse;
     }
 
+
+    public function up(Request $id)
+    {
+        $warehouse = warehouse::find($id)::with('WarehouseTypes')->where($id)->get();
+        return $warehouse;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

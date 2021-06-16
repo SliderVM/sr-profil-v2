@@ -12,6 +12,7 @@ import info3 from "./views/info3.vue"
 import info2 from "./views/info2.vue"
 import info5 from "./views/info5.vue"
 import WarehouseInfo from "./views/WarehouseInfo.vue"
+import ModalEditorWarehouse from "./components/ModalEditorWarehouse.vue"
 
 
 const routes = [
@@ -50,11 +51,15 @@ const routes = [
     {
         path: "/warehouseinfo",
         component: WarehouseInfo
+    },
+    {
+        path: "/warehousetype/:id",
+        component: ModalEditorWarehouse
     }
 
 ];
 
 export default new vueRouter ({
-    routes:routes,
+    routes: routes,
     mode: 'history'
 });

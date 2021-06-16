@@ -30,3 +30,6 @@ Route::resource('thicknesse', ThicknesseController::class);
 Route::resource('counterparties', CounterpartiesController::class);
 Route::resource('warehouse', WarehouseController::class);
 Route::resource('warehousetype', WarehouseTypeController::class);
+Route::get('/api/warehouse/up', 'WarehouseController@up');
+
+Route::delete('warehousetype/{id}', 'WarehouseTypeController@destroy');

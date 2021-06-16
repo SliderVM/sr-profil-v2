@@ -79,17 +79,20 @@ class WarehouseTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Warehouse $warehouse
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Warehouse $warehouse)
     {
 
+        $func = function($value) {
+            return $value['id'];
+        };
+        // dd( $warehouse->WarehouseTypes()->sync(array_map($func, $request->TypeWarehouse)));
 
         $warehouse->update($request->all());
 
-         $warehouse->WarehouseTypes()->sync($request->input($warehouse, $request->TypeWarehouse));
-
+        $warehouse->WarehouseTypes()->sync(array_map($func, $request->TypeWarehouse));
         return $warehouse;
     }
 
@@ -99,8 +102,9 @@ class WarehouseTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($warehouse, $id)
     {
-        //
+        $warehouse= Warehouse::find($id)->delete();
+        // $warehouse = $warehouse->warehouseType()->detach();
     }
 }
