@@ -56,7 +56,6 @@ const routes = [
         path: "/warehousetype/:id",
         component: ModalEditorWarehouse
     }
-
 ];
 
 export default new vueRouter ({

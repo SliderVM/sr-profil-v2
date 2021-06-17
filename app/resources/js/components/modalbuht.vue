@@ -5,11 +5,7 @@
 
             <b-modal id="modal-1" title="Приход металла">
 
-                <!-- <v-inputdata></v-inputdata> -->
-                <div class="form-group">
-                    <label>Дата поступления</label>
-                   <input type="date" v-model="form.receiptDate" placeholder="Введите дату" class="form-control" />
-                </div>
+                <v-InputData @Vibe='Ran'></v-InputData>
 
                 <!-- <v-selectcounterparties></v-selectcounterparties> -->
                 <div>
@@ -43,7 +39,7 @@
                     </select>
                 </div>
 
-                <!-- <v-inputwidth></v-inputwidth> -->
+
                 <div class="form-group">
                     <label>Ширина, мм</label>
                     <input type="number" v-model="form.width" placeholder="1250" class="form-control" />
@@ -62,16 +58,11 @@
                     </select>
                 </div>
 
-                <!-- <v-inputweight></v-inputweight> -->
-                <div class="form-group">
-                    <label>Вес, т</label>
-                    <input type="number" v-model="form.weight" placeholder="0.00" class="form-control" />
-                </div>
+                <v-InputWeight @Ves='VesTonna'></v-InputWeight>
 
-                <!-- <v-inputprice></v-inputprice> -->
-                <div class="form-group">
+                 <div class="form-group">
                     <label>Цена покупки, руб. за тн.</label>
-                    <input type="number" v-model="form.price" placeholder="" class="form-control" />
+                    <input type="number" v-model="form.price" class="form-control" />
                 </div>
 
                 <!-- <v-checkbox></v-checkbox> -->
@@ -92,40 +83,46 @@
 </template>
 
 <script>
+import InputData from './addbuht/Input/InputData.vue';
+import InputWeight from './addbuht/Input/InputWeight.vue';
 import multiselect from 'vue-multiselect'
 Vue.component('multiselect', multiselect)
 export default {
-components: { multiselect },
-    data: () => ({
-        CounterpartiesArray: [],
-        Value: '',
-        trackBy: 'id',
+components: {
+    multiselect,
+    InputData,
+    InputWeight,
+},
+data: () => ({
+    CounterpartiesArray: [],
+    Value: '',
+    trackBy: 'id',
 
-        warehouseArray: [],
-        options: [
-            { warehouseArray: '', value: '' },
-        ],
-        thicknessesArray: [],
-        options: [
-            { thicknessesArray: '', value: '' },
-        ],
-        selecttype: [],
-        options: [
-            {selecttype: '', value: ''},
-        ],
-        form:{
-            "receiptDate": "",
-            "warehouseId": "",
-            "typeMetalId": "",
-            "width": "",
-            "weight": "",
-            "metalThicknessId": "",
-            "length": "",
-            "price": "",
-            "available": "",
-            "counterpartyId": ""
-        }
-    }),
+    warehouseArray: [],
+    options: [
+        { warehouseArray: '', value: '' },
+    ],
+    thicknessesArray: [],
+    options: [
+        { thicknessesArray: '', value: '' },
+    ],
+    selecttype: [],
+    options: [
+        {selecttype: '', value: ''},
+    ],
+    form:{
+        "receiptDate": "",
+        "warehouseId": "",
+        "typeMetalId": "",
+        "width": "",
+        "weight": "",
+        "metalThicknessId": "",
+        "length": "",
+        "price": "",
+        "available": "",
+        "counterpartyId": ""
+    }
+}),
 
     mounted() {
         this.loadwarehouse();
@@ -133,6 +130,12 @@ components: { multiselect },
         this.loadthicknesse();
     },
     methods: {
+        Ran(data) {
+            this.form.receiptDate = data.receiptDate;
+        },
+        VesTonna(data) {
+            this.form.weight = data.weight;
+        },
         CounterpartiesOpen () {
             axios.get('/api/counterparties')
             .then(res => {

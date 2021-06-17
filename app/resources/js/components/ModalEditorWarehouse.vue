@@ -2,17 +2,17 @@
 <div>
     <div class="btn-group" role="group" aria-label="Basic example">
          <b-button @click="modalShow=!modalShow" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-pen"></i></b-button>
-         <b-button @click="del" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-times"></i></b-button>
+         <b-button @click="del" :value="Warehouse.id" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-times"></i></b-button>
     </div>
         <b-modal v-model="modalShow" title="Редактирование склада">
             <div>
-                <label>Наименование {{Warehouse.name}} </label>
+                <label>Наименование</label>
                 <input type="text" v-model="Form.name" class="form-control"  />
             </div>
             <div class="form-group">
                 <label>Тип склада</label>
                 <multiselect
-                v-model="Form.warehouseType"
+                v-model="value"
                 :options="WarehouseTypeArray"
                 track-by="id"
                 label="name"
@@ -23,7 +23,7 @@
                 </multiselect>
             </div>
             <div slot="modal-footer">
-                <button size="sm" class="btn btn-primary input-group-addon">Сохранить</button>
+                <button size="sm" @click="send" class="btn btn-primary input-group-addon">Сохранить</button>
             </div>
         </b-modal>
 </div>
@@ -32,14 +32,18 @@
 <script>
 import multiselect from 'vue-multiselect'
 Vue.component('multiselect', multiselect)
-
 export default {
     props: ["Warehouse"],
     components: {multiselect},
     data: () => ({
         WarehouseTypeArray: [],
-        Form: [],
+        Form:{
+            id: "",
+            name: "",
+            WarehouseTypes: []
+        },
         modalShow: false,
+        value:[]
     }),
     created: function() {
         axios.get('/api/warehousetype')
@@ -51,18 +55,13 @@ export default {
         this.loadForm();
     },
     methods: {
-        loadForm(id) {
-                axios.get('/api/warehouse/up' + this.Warehouse.id)
-                .then(res => {
-                    this.Form = res.data;
-                    console.log(this.Form);
-                })
-                .catch((error) => {
-                console.log(error);
-                });
+        loadForm() {
+            this.Form = this.Warehouse;
+            this.value = this.Warehouse.warehouse_types;
         },
         send: function () {
-            axios.patch('api/warehousetype/' + this.Warehouse.id, this.Form, {
+            this.Form.WarehouseTypes = this.value;
+            axios.patch('api/warehousetype/' + this.Form.id,  this.Form,  {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
@@ -72,19 +71,10 @@ export default {
                 console.log(error);
             });
         },
-        del: function (id) {
-            axios.post('api/warehousetype/', {
-                    params:{
-                        id
-                    },
-            })
-                .then((response) => {
-                 console.log(response)
-                })
-                .catch((error) => {
-                console.log(error);
-            });
-    }
+        del: function() {
+            this.$emit('remove', this.Warehouse.id);
+            console.log( this.Warehouse.id);
+        }
     }
 }
 </script>

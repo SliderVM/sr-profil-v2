@@ -82,17 +82,21 @@ class WarehouseTypeController extends Controller
      * @param  Warehouse $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Warehouse $warehouse)
+    public function update(Request $request)
     {
 
         $func = function($value) {
             return $value['id'];
         };
-        // dd( $warehouse->WarehouseTypes()->sync(array_map($func, $request->TypeWarehouse)));
 
-        $warehouse->update($request->all());
+        warehouse::find($request->id)->update([
+            'name'=> $request->name,
+        ]);
 
-        $warehouse->WarehouseTypes()->sync(array_map($func, $request->TypeWarehouse));
+        $warehouse = warehouse::find($request->id);
+
+        $warehouse->WarehouseTypes()->sync(array_map($func,$request->WarehouseTypes));
+
         return $warehouse;
     }
 
@@ -102,9 +106,11 @@ class WarehouseTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($warehouse, $id)
+    public function destroy($id)
     {
-        $warehouse= Warehouse::find($id)->delete();
-        // $warehouse = $warehouse->warehouseType()->detach();
+        $warehouse= warehouse::find($id);
+
+        $warehouse->WarehouseTypes()->detach();
+        $warehouse->delete();
     }
 }

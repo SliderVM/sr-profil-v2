@@ -1,9 +1,18 @@
 <template>
-    <div>
+   <div>
         <label>Контрагенты</label>
-        <select v-model="selected">
-            <option v-for="counterparties in counterpartiesArray" v-bind:key="counterparties.id" v-bind:value="counterparties.name">{{counterparties.name}} </option>
-        </select>
+        <multiselect
+        v-model="Value"
+        :options="CounterpartiesArray"
+        track-by="id"
+        label="name"
+        :options-limit="3"
+        open-direction="bottom"
+        :hide-selected="true"
+        placeholder="Начните вводить"
+        @open="CounterpartiesOpen"
+        @select="CounterpartiesSearch">
+        </multiselect>
     </div>
 </template>
 
@@ -11,22 +20,24 @@
 import axios from 'axios';
 export default {
     data: () => ({
-        selected: '',
-        counterpartiesArray: [],
-        options: [
-        { counterpartiesArray: '', value: '' },
-        ]
+        CounterpartiesArray: [],
+        Value: '',
+        trackBy: 'id',
     }),
-    mounted() {
-        this.loadcounterparties();
-    },
     methods: {
-        loadcounterparties() {
+        CounterpartiesOpen () {
             axios.get('/api/counterparties')
             .then(res => {
-                this.counterpartiesArray = res.data;
-            })
-        }
+                this.CounterpartiesArray = res.data;
+            });
+        },
+        CounterpartiesSearch () {
+            axios.get('/api/counterparties')
+            .then(res => {
+                this.CounterpartiesArray = res.data;
+                this.form.counterpartyId = this.Value.id;
+            });
+        },
     }
 }
 </script>
