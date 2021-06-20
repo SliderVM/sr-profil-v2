@@ -3,9 +3,10 @@ require('./bootstrap');
 window.Vue = require('vue').default;
 
 import Vue from 'vue'
-import {BootstrapVue} from 'bootstrap-vue'
+import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 
 Vue.component('v-header', require('./components/header.vue').default);
 
@@ -17,6 +18,7 @@ Vue.component('v-counterparties', require('./components/counterparties.vue').def
 Vue.component('v-modalbuht', require('./components/ModalBuht.vue').default);
 Vue.component('v-ModalWarehouse', require('./components/ModalWarehouse.vue').default);
 Vue.component('v-ModalEditorWarehouse', require('./components/ModalEditorWarehouse.vue').default);
+Vue.component('v-ModalBuhtaEditor', require('./components/ModalBuhtaEditor.vue').default);
 
 
 Vue.component('v-selecttype', require('./components/addbuht/selecttype.vue').default);

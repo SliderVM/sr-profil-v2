@@ -9,7 +9,7 @@
             </div>
             <div class="col-9">
                 <h6 class="mb-3">Размеры труб</h6>
-                <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#info2Modal"><i class="fa fa-plus"></i> Добавить</button>
+                <button type="button" variant="secondary"><b-icon icon="plus-square"></b-icon> Добавить</button>
                 <table class="table table-sm mt-3">
                     <thead>
                         <tr>

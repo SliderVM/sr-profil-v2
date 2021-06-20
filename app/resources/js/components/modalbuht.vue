@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <b-button v-b-modal.modal-1 class="btn btn-sm btn-primary" data-toggle="modal" data-target="#demandModal"><i class="fa fa-plus"></i>Приход металла</b-button>
+        <b-button v-b-modal.modal-1 size="sm"><b-icon icon="plus-square"></b-icon> Приход металла</b-button>
 
             <b-modal id="modal-1" title="Приход металла">
 
@@ -146,6 +146,7 @@ data: () => ({
             axios.get('/api/counterparties')
             .then(res => {
                 this.CounterpartiesArray = res.data;
+                console.log(this.Value);
                 this.form.counterpartyId = this.Value.id;
             });
         },

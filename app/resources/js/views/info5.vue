@@ -11,7 +11,7 @@
                 <h6 class="mb-3">Толщина металла</h6>
                 <div class="input-group my-4">
                         <input type="number" v-model="form.thicknesses" placeholder="толщина" class="form-control">
-                        <button v-on:click="send" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#info3Modal"><i class="fa fa-plus"></i>Добавить</button>
+                        <button v-on:click="send" variant="light" data-toggle="modal" data-target="#info3Modal"><b-icon icon="plus-square"></b-icon> Добавить</button>
                     </div>
                 <table class="table table-sm mt-3 table-metal-weight">
                     <thead>

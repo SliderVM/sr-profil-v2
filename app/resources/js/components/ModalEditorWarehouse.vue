@@ -1,8 +1,8 @@
 <template>
 <div>
     <div class="btn-group" role="group" aria-label="Basic example">
-         <b-button @click="modalShow=!modalShow" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-pen"></i></b-button>
-         <b-button @click="del" :value="Warehouse.id" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supplyModal"><i class="fa fa-times"></i></b-button>
+         <b-button @click="modalShow=!modalShow" size="sm"><b-icon icon="pencil"></b-icon></b-button>
+         <b-button @click="del" :value="Warehouse.id" size="sm"><b-icon icon="x"></b-icon></b-button>
     </div>
         <b-modal v-model="modalShow" title="Редактирование склада">
             <div>

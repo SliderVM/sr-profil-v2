@@ -10,13 +10,14 @@
             <thead>
                 <tr>
                     <th>Наименование</th>
+                    <th>Контрагент</th>
                     <th>Тип металла</th>
                     <th>Ширина, мм</th>
                     <th>Толщина, мм</th>
                     <th>Длина, м</th>
                     <th>Вес, т</th>
                     <th>Стоимость, руб</th>
-                    <th width="110"></th>
+                    <th class="col-2">Операции</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,8 +26,7 @@
             </tbody>
             <tfoot>
                 <tr class="font-weight-bold">
-                    <td colspan="7">Итого: </td>
-                    <td></td>
+                    <td colspan="9">Итого: </td>
                 </tr>
             </tfoot>
         </table>

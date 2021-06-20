@@ -17,7 +17,7 @@ class bhtcontroller extends Controller
      */
     public function index()
     {
-        return Buhta::all();
+        return Buhta::with('TypesMetals', 'counterparties')->get();
     }
 
     /**
@@ -117,7 +117,7 @@ class bhtcontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        buhta::find($request->id)->update(['available'=> 2,'receipt_date' =>date("d.m.Y")]);
     }
 
     /**
