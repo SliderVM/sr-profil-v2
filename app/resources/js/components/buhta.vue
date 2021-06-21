@@ -8,12 +8,18 @@
         <td>{{buhta.length}}</td>
         <td>{{buhta.weight}}</td>
         <td>{{buhta.price}}</td>
-        <td><v-ModalBuhtaEditor :buhta="buhta"></v-ModalBuhtaEditor></td>
+        <td><v-ModalBuhtaEditor :buhta="buhta" v-on:remove="removeBuhta"></v-ModalBuhtaEditor></td>
     </tr>
 </template>
 
 <script>
 export default {
+
+    methods: {
+        removeBuhta(id) {
+            axios.delete('api/buhtas/' + id);
+        }
+    },
     name: "buhta",
     props: ["buhta"]
 }

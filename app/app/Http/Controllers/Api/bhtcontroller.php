@@ -87,14 +87,7 @@ class bhtcontroller extends Controller
      */
     public function show($id)
     {
-        // $buhta = buhta::find($id);
-        // if(!$buhta) {
-        //     return response()->json([
-        //         "status" => false,
-        //         "message" => "Not found"
-        //     ]);
-        // };
-        // return $buhta;
+       //
     }
 
     /**
@@ -112,10 +105,9 @@ class bhtcontroller extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         buhta::find($request->id)->update(['available'=> 2,'receipt_date' =>date("d.m.Y")]);
     }
@@ -128,6 +120,7 @@ class bhtcontroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $buhta= buhta::find($id);
+        $buhta->delete();
     }
 }

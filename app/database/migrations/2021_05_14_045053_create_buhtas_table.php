@@ -27,6 +27,7 @@ class CreateBuhtasTable extends Migration
             $table->date('receipt_date');
             $table->tinyInteger('available');
             $table->timestamps($precision = 0);
+            $table->softDeletes();
 
             $table->foreign('type_metal_id')->references('id')->on('types_metals');
             $table->foreign('metal_thickness_id')->references('id')->on('metal_thicknesses');
