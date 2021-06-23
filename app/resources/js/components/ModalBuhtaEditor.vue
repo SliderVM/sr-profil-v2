@@ -11,7 +11,7 @@
                 <label>Бухта №{{buhta.id}}, тип {{buhta.types_metals.name}}, толщина {{buhta.metal_thickness_id}} мм, {{buhta.weight}}тн. </label>
                  <br>Ширина: {{buhta.width}} мм
             </div>
-            <v-aprModal :buhta="buhta" @send='receive'></v-aprModal>
+            <v-aprModal :buhta="buhta" @send='receive' v-for="complect in complects"></v-aprModal>
             <br>
              <span class='btn btn-success' @click='addNewComplect'>Добавить</span>
             <div slot="modal-footer">
@@ -48,6 +48,7 @@ export default {
     },
     methods: {
         addNewComplect() {
+            console.log(this.complects);
 			this.complects.push({type: 'text', placeholder: 'Textbox ' + (++this.count)});
 		},
         countofComplect() {
