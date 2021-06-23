@@ -14,7 +14,7 @@ class Buhta extends Model
 
     public function TypesMetals()
     {
-      return $this->hasOne(typesMetal::class, 'id', 'type_metal_id');
+      return $this->hasOne(TypesMetal::class, 'id', 'type_metal_id');
     }
 
     public function counterparties()

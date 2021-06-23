@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
-class bhtcontroller extends Controller
+class BhtController extends Controller
 {
     /**
      * Display a listing of the resource.

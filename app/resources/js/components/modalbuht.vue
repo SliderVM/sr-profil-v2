@@ -42,12 +42,12 @@
 
                 <div class="form-group">
                     <label>Ширина, мм</label>
-                    <input type="number" v-model="form.width" placeholder="1250" class="form-control" />
+                    <input type="number" v-model="form.width" placeholder="Укажиите ширину бухты" class="form-control" />
                 </div>
 
                 <div class="form-group">
                     <label>Длина</label>
-                    <input type="number" v-model="form.length" placeholder="1250" class="form-control" />
+                    <input type="number" v-model="form.length" placeholder="Укажиите длину бухты" class="form-control" />
                 </div>
 
                 <!-- <v-selectthickness></v-selectthickness> -->
@@ -83,15 +83,10 @@
 </template>
 
 <script>
-import InputData from './addbuht/Input/InputData.vue';
-import InputWeight from './addbuht/Input/InputWeight.vue';
 import multiselect from 'vue-multiselect'
-Vue.component('multiselect', multiselect)
 export default {
 components: {
     multiselect,
-    InputData,
-    InputWeight,
 },
 data: () => ({
     CounterpartiesArray: [],

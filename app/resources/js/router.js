@@ -17,6 +17,10 @@ import ModalEditorWarehouse from "./components/ModalEditorWarehouse.vue"
 
 const routes = [
     {
+        path: "/",
+        component: buhtas
+    },
+    {
         path: "/buhtas",
         component: buhtas
     },

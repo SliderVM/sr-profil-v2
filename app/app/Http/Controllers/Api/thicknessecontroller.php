@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
-class thicknessecontroller extends Controller
+class ThicknesseController extends Controller
 {
     /**
      * Display a listing of the resource.
