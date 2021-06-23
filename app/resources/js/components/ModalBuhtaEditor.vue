@@ -1,50 +1,34 @@
 <template>
-    <div class="btn-group" role="group" aria-label="Basic example">
+    <div class="btn-group">
         <b-button @click="modalShow=!modalShow" size="sm" variant="outline-primary"><b-icon icon="calculator"></b-icon> АПР</b-button>
+
         <b-button type="button" v-if="visible && buhta.available == 1" @click="prihod" :value="buhta.id" variant="outline-primary">Оприходовать</b-button>
+
         <b-button @click="del" :value="buhta.id" size="sm" variant="outline-primary"><b-icon icon="x"></b-icon></b-button>
 
         <b-modal v-model="modalShow" size="lg" >
             <div slot="modal-title">
-                <label>Бухта №{{buhta.id}}, {{buhta.types_metals.name}}, {{buhta.metal_thickness_id}} мм, {{buhta.weight}}тн.</label>
+                <label>Бухта №{{buhta.id}}, тип {{buhta.types_metals.name}}, толщина {{buhta.metal_thickness_id}} мм, {{buhta.weight}}тн. </label>
+                 <br>Ширина: {{buhta.width}} мм
             </div>
-
-            <label>Ширина: {{buhta.width}} мм</label>
-
-            <div>
-                <label>Тип резки</label>
-                <div class="row">
-                    <div class="col">
-                        <b-input-group append="мм">
-                            <input type="number" v-model="Form.width"placeholder="100" />
-                        </b-input-group>
-                    </div>
-                    <div class="col">
-                        <b-input-group append="тн">
-                            <input type="number" @change="calculation" v-model="Form.tonage"placeholder="Количество тонн" />
-                        </b-input-group>
-                    </div>
-
-                    <div class="col">
-                        <b-input-group append="шт">
-                            <input type="number" @change="calculation" v-model="Form.amount" placeholder="0" />
-                        </b-input-group>
-                    </div>
-                </div>
-            </div>
+            <v-aprModal :buhta="buhta" @send='receive'></v-aprModal>
             <br>
-            <b-button block type="button" size="sm" class="col-lg-12" variant="outline-primary"><b-icon icon="plus-square"></b-icon> Добавить тип резки</b-button>
-
+             <span class='btn btn-success' @click='addNewComplect'>Добавить</span>
             <div slot="modal-footer">
-                <span class="float-left">Обрезь: мм</span>
                 <b-button size="sm" @click="savve" variant="outline-primary">Сохранить </b-button>
             </div>
         </b-modal>
     </div>
+
 </template>
 
 <script>
+Vue.component('form-input', {
+  template: '#form-input'
+});
+import aprModal from './aprModal.vue'
 export default {
+    components: {aprModal},
     props: ["buhta"],
     data: () => ({
         modalShow: false,
@@ -52,19 +36,31 @@ export default {
         Form:{
             id: "",
             width: "",
+            width1: "",
             amount: "",
-            tonage: ""
-        }
+            tonage: "",
+        },
+        complects: [],
+        count: 0
     }),
     mounted() {
         this.loadForm();
     },
     methods: {
-        calculation(){
-
+        addNewComplect() {
+			this.complects.push({type: 'text', placeholder: 'Textbox ' + (++this.count)});
+		},
+        countofComplect() {
+            this.complectCount = this.complects.length - 1;
+            this.fieldsCount = this.complects.length;
         },
         loadForm() {
             this.Form = this.buhta;
+        },
+        receive(data) {
+            this.Form.amount = data.amount;
+            this.Form.tonage = data.tonage;
+            this.Form.width1 = data.width;
         },
         prihod: function () {
             axios.put('api/buhtas/' + this.buhta.id, this.Form, {
@@ -78,7 +74,7 @@ export default {
                 console.log(error);
             });
         },
-          savve: function () {
+        savve: function () {
             axios.post('api/apr/',this.Form, {
                 header: ("Content-type: application/json")
             })
@@ -95,5 +91,11 @@ export default {
             console.log(this.buhta.id);
         }
     }
-    }
+}
+</script>
+<script type="x-template" id="form-input">
+  <div>
+    <label>Text</label>
+    <input type="text" />
+  </div>
 </script>

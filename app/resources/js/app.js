@@ -11,6 +11,7 @@ Vue.use(BootstrapVueIcons)
 Vue.component('v-header', require('./components/header.vue').default);
 
 Vue.component('v-buhta', require('./components/buhta.vue').default);
+Vue.component('v-aprModal', require('./components/aprModal.vue').default);
 Vue.component('v-types', require('./components/types.vue').default);
 Vue.component('v-Warehouse', require('./components/Warehouse.vue').default);
 Vue.component('v-thicknesse', require('./components/thicknesse.vue').default);
