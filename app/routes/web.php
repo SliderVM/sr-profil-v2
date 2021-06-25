@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any}', function() {
-    return view('index');
-})->where('any','.*');
+// Route::get('/{any}', function() {
+//     return view('index');
+// })->where('any','.*');
 // Auth::routes();
 
 // Route::get('/welcome'. function(){
 //     return view('welcome');
 // });
-//  Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/login', 'LoginController@index')->name('login');

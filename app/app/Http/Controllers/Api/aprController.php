@@ -15,7 +15,7 @@ class aprController extends Controller
      */
     public function index()
     {
-        //
+        apr::all();
     }
 
     /**
@@ -86,6 +86,6 @@ class aprController extends Controller
      */
     public function destroy($id)
     {
-        //
+        apr::find($id)->delete();
     }
 }

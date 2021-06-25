@@ -6,7 +6,7 @@
                 <v-modalbuht></v-modalbuht>
             </div>
         </div>
-        <table class="table table-sm table-hover small mt-4" id="warehouse">
+        <table class="table table-sm table-hover small mt-4" id="buhta">
             <thead>
                 <tr>
                     <th>Наименование</th>
@@ -15,13 +15,13 @@
                     <th>Ширина, мм</th>
                     <th>Толщина, мм</th>
                     <th>Длина, м</th>
-                    <th>Вес, т</th>
+                    <th>Вес, тн</th>
                     <th>Стоимость, руб</th>
                     <th class="col-2">Операции</th>
                 </tr>
             </thead>
             <tbody>
-                <buhta v-for="buhta in buhtas" :key="buhta.id" :buhta="buhta" />
+                <buhta v-for="buhta in buhtas" :key="buhta.id" :buhta="buhta"/>
                 <v-buhta></v-buhta>
             </tbody>
             <tfoot>

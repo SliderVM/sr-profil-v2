@@ -2,9 +2,8 @@
     <div class="top">
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
-                <a href="/welcome" class="top-brand">СР-Профиль</a>
+                <a href="/info" class="top-brand">СР-Профиль</a>
                 <nav class="nav-main">
-                    <!-- <li class="active" ><a href="#" class="top-brand">СР-Профиль</a></li> -->
                     <router-link
                         :to="link.href"
                         v-for="link in links"
@@ -12,7 +11,7 @@
                         >{{ link.title }}</router-link>
                 </nav>
                 <nav class="nav-extra ml-auto">
-                    <a href="logout"><i class="fa fa-sign-out"></i> Выход</a>
+                    <a href="/logout"><b-icon icon="box-arrow-right"></b-icon> Выход </a>
                 </nav>
             </div>
         </div>

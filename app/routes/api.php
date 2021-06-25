@@ -19,6 +19,6 @@ Route::resource('warehouse', WarehouseController::class);
 Route::resource('warehousetype', warehouseTypeController::class);
 Route::resource('apr', aprController::class);
 
-
-// Route::get('view/11', warehouseController::class, 'view');
-
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});

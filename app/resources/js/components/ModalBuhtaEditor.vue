@@ -11,7 +11,7 @@
                 <label>Бухта №{{buhta.id}}, тип {{buhta.types_metals.name}}, толщина {{buhta.metal_thickness_id}} мм, {{buhta.weight}}тн. </label>
                  <br>Ширина: {{buhta.width}} мм
             </div>
-            <v-aprModal :buhta="buhta" @send='receive' v-for="complect in complects"></v-aprModal>
+            <v-aprModal :buhta="buhta" @send='receive' v-for="(complect, index) in complects" :key="index" v-on:remove="removeApr"></v-aprModal>
             <br>
              <span class='btn btn-success' @click='addNewComplect'>Добавить</span>
             <div slot="modal-footer">
@@ -23,9 +23,6 @@
 </template>
 
 <script>
-Vue.component('form-input', {
-  template: '#form-input'
-});
 import aprModal from './aprModal.vue'
 export default {
     components: {aprModal},
@@ -49,7 +46,7 @@ export default {
     methods: {
         addNewComplect() {
             console.log(this.complects);
-			this.complects.push({type: 'text', placeholder: 'Textbox ' + (++this.count)});
+			this.complects.push({placeholder: 'Textbox ' + (++this.count)});
 		},
         countofComplect() {
             this.complectCount = this.complects.length - 1;
@@ -90,6 +87,15 @@ export default {
         del: function() {
             this.$emit('remove', this.buhta.id);
             console.log(this.buhta.id);
+        },
+        removeApr(id) {
+            axios.delete('api/apr/' + id);
+        },
+        loadApr() {
+            axios.get('/api/apr')
+            .then(res => {
+                this.apr = res.data;
+            })
         }
     }
 }
