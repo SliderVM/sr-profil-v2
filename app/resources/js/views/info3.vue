@@ -43,7 +43,7 @@
                     this.counterpartiesArray = res.data;
                 })
             },
-            send: function () {
+            send() {
                 axios.post('/api/counterparties',this.form, {
                 headers: {"Content-type": "application/json"}
             })

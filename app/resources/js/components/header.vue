@@ -2,7 +2,7 @@
     <div class="top">
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
-                <a href="/info" class="top-brand">СР-Профиль</a>
+                <a href="/welcome" class="top-brand">СР-Профиль</a>
                 <nav class="nav-main">
                     <router-link
                         :to="link.href"

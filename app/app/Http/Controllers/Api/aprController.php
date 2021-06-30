@@ -15,7 +15,7 @@ class aprController extends Controller
      */
     public function index()
     {
-        apr::all();
+        //
     }
 
     /**
@@ -36,12 +36,15 @@ class aprController extends Controller
      */
     public function store(Request $request)
     {
-        apr::create([
+        $apr = apr::create([
             "buhta_id" => $request->id,
             "width" => $request->width1,
             "amount" => $request->amount,
-            "tonage" => $request->tonage,
+            "tonage" => $request->tonage
         ]);
+        return [
+        "apr" => $apr
+        ];
     }
 
     /**
@@ -86,6 +89,6 @@ class aprController extends Controller
      */
     public function destroy($id)
     {
-        apr::find($id)->delete();
+        //
     }
 }

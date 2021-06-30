@@ -163,7 +163,7 @@ data: () => ({
                 this.thicknessesArray = res.data;
             })
         },
-        send: function () {
+        send() {
             axios.post('/api/buhtas',this.form, {
                 header: ("Content-type: application/json")
             })

@@ -1,21 +1,33 @@
 <template>
-    <div class="btn-group">
-        <b-button @click="modalShow=!modalShow" size="sm" variant="outline-primary"><b-icon icon="calculator"></b-icon> АПР</b-button>
+    <div class='btn-group'>
+        <b-button @click='modalShow=!modalShow' size='sm' variant='outline-primary'><b-icon icon='calculator'></b-icon> АПР</b-button>
 
-        <b-button type="button" v-if="visible && buhta.available == 1" @click="prihod" :value="buhta.id" variant="outline-primary">Оприходовать</b-button>
+        <b-button type='button' v-if='visible && buhta.available == 1' @click='prihod' :value='buhta.id' variant='outline-primary'>Оприходовать</b-button>
 
-        <b-button @click="del" :value="buhta.id" size="sm" variant="outline-primary"><b-icon icon="x"></b-icon></b-button>
+        <b-button @click='del' :value='buhta.id' size='sm' variant='outline-primary'><b-icon icon='x'></b-icon></b-button>
 
-        <b-modal v-model="modalShow" size="lg" >
-            <div slot="modal-title">
+        <b-modal v-model='modalShow' size='lg'>
+
+            <div slot='modal-title'>
                 <label>Бухта №{{buhta.id}}, тип {{buhta.types_metals.name}}, толщина {{buhta.metal_thickness_id}} мм, {{buhta.weight}}тн. </label>
                  <br>Ширина: {{buhta.width}} мм
             </div>
-            <v-aprModal :buhta="buhta" @send='receive' v-for="(complect, index) in complects" :key="index" v-on:remove="removeApr"></v-aprModal>
+
+            <v-aprModal :buhta='buhta'
+            @send='receive' :complect="complect"
+            v-for='complect in complects'
+            :key='complect.id'
+            v-on:remove='removeApr'
+            >
+            </v-aprModal>
+
             <br>
-             <span class='btn btn-success' @click='addNewComplect'>Добавить</span>
-            <div slot="modal-footer">
-                <b-button size="sm" @click="savve" variant="outline-primary">Сохранить </b-button>
+
+            <span class='btn btn-outline-primary' @click='addNewComplect'>Добавить тип резки</span>
+            {{this.Form.remainder}}
+
+            <div slot='modal-footer'>
+                <b-button size='sm' @click='savve' variant='outline-primary'>Сохранить </b-button>
             </div>
         </b-modal>
     </div>
@@ -30,37 +42,37 @@ export default {
     data: () => ({
         modalShow: false,
         visible: true,
-        Form:{
+        Form: {
             id: "",
-            width: "",
             width1: "",
             amount: "",
             tonage: "",
+            remainder: ""
         },
         complects: [],
-        count: 0
+        count: 1
     }),
     mounted() {
         this.loadForm();
     },
     methods: {
-        addNewComplect() {
-            console.log(this.complects);
-			this.complects.push({placeholder: 'Textbox ' + (++this.count)});
-		},
-        countofComplect() {
-            this.complectCount = this.complects.length - 1;
-            this.fieldsCount = this.complects.length;
-        },
         loadForm() {
             this.Form = this.buhta;
         },
+
+        addNewComplect() {
+            console.log('1');
+			this.complects.push({form: this.Form,
+             id: this.count++});
+             console.log(this.Form);
+		},
         receive(data) {
+            console.log('3');
             this.Form.amount = data.amount;
             this.Form.tonage = data.tonage;
             this.Form.width1 = data.width;
         },
-        prihod: function () {
+        prihod() {
             axios.put('api/buhtas/' + this.buhta.id, this.Form, {
                 header: ("Content-type: application/json")
             })
@@ -72,7 +84,7 @@ export default {
                 console.log(error);
             });
         },
-        savve: function () {
+        savve() {
             axios.post('api/apr/',this.Form, {
                 header: ("Content-type: application/json")
             })
@@ -84,19 +96,20 @@ export default {
                 console.log(error);
             });
         },
-        del: function() {
+        del() {
             this.$emit('remove', this.buhta.id);
-            console.log(this.buhta.id);
         },
         removeApr(id) {
-            axios.delete('api/apr/' + id);
-        },
-        loadApr() {
-            axios.get('/api/apr')
-            .then(res => {
-                this.apr = res.data;
-            })
+            console.log('removing form element', id)
+            const index = this.complects.findIndex(f => f.id === id)
+            this.complects.splice(index,1)
         }
-    }
+    },
+    // watch: {
+    //     remainder: (Newremainder, oldRemainder) => {
+    //         console.log(oldRemainder+ "to" + Newremainder)
+    //     }
+    // }
+
 }
 </script>

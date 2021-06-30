@@ -67,7 +67,7 @@
                     this.types = res.data;
                 })
             },
-            send: function () {
+            send() {
                 axios.post('/api/types',this.form, {
                    headers: {"Content-type": "application/json"}
             })

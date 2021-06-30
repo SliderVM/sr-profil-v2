@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/{any}', function() {
-//     return view('index');
-// })->where('any','.*');
+Route::get('/{any}', function() {
+    return view('index');
+})->where('any','.*');
 // Auth::routes();
 
 // Route::get('/welcome'. function(){
@@ -25,11 +25,10 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/login', 'LoginController@index')->name('login');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/login', 'LoginController@index')->name('login');

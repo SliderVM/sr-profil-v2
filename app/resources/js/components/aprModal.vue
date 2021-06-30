@@ -1,74 +1,61 @@
 <template>
     <div>
-
         <div class="border">
-            <label>Тип резки</label>
-                <div class="row">
-
-                    <div class="col">
-                        <b-input-group append="мм">
-                            <input type="number" v-model="Form.width1" placeholder="100" />
-                        </b-input-group>
-                    </div>
-                    <div class="col">
-                        <b-input-group append="тн">
-                            <input type="number" @input="amount" v-model="Form.tonage" placeholder="Количество тонн" />
-                        </b-input-group>
-                    </div>
-
-                    <div class="col">
-                        <b-input-group append="шт">
-                        <input type="number" @input="tonage" v-model="Form.amount" placeholder="0" />
-                        </b-input-group>
-                    </div>
-                        <b-input-group>
-                            <b-button class="d-flex " variant="outline-secondary" @click="del" size="sm"><b-icon icon="x"></b-icon></b-button>
-                        </b-input-group>
+            <div class="row">
+                <label class="col-11">Тип резки {{this.complect.id}} {{this.complect.form}}</label>
+                    <b-input-group class="col-1">
+                        <b-button variant="outline-secondary" @click="del" size="sm"><b-icon icon="x"></b-icon></b-button>
+                    </b-input-group>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <b-input-group append="мм">
+                        <input type="number" v-model="complect.form.width1" placeholder="100" />
+                    </b-input-group>
                 </div>
-                <span class="float-left">Обрезь: {{Form.remainder}} мм</span>
-        </div>
+                <div class="col-4">
+                    <b-input-group append="тн">
+                        <input type="number" @input="amount" v-model="complect.form.tonage" placeholder="Количество тонн" />
+                    </b-input-group>
+                </div>
+                <div class="col-4">
+                    <b-input-group append="шт">
+                    <input  type="number" @input="tonage" v-model="complect.form.amount" placeholder="Количество штук" />
+                    </b-input-group>
+                </div>
 
+            </div>
+        </div>
+        <span class="float-left">Обрезь: {{complect.form.remainder}} мм</span>
     </div>
 </template>
 
 <script>
 export default {
-    props: ["buhta", "apr"],
+    props: ["buhta", "complect", "aprData"],
     data: () => ({
-        Form:{
-            id: "",
-            width1: "",
-            amount: "",
-            tonage: "",
-            remainder: ""
-        }
+
     }),
-    mounted() {
-        this.loadForm();
-    },
     methods: {
-        loadForm() {
-            this.Form = this.buhta;
-        },
-        amount: function () {
-            this.Form.amount = Math.floor(this.Form.tonage / (this.Form.width1 * this.buhta.weight / this.buhta.width)); // количество: вес бухты / ширина  * 1 мм бухты вес / ширина
-            this.Form.remainder = this.buhta.width - (this.Form.width1 * this.Form.amount);
+        amount() {
+            this.complect.form.amount = Math.floor(this.complect.form.tonage / (this.complect.form.width1 * this.buhta.weight / this.buhta.width)); // количество: вес бухты / ширина  * 1 мм бухты вес / ширина
+            this.complect.form.remainder = this.buhta.width - (this.complect.form.width1 * this.complect.form.amount);
             this.send();
         },
-        tonage: function() {
-            this.Form.tonage = this.Form.width1 * this.Form.amount * this.buhta.weight / this.buhta.width; // Вес: ширина * количество * вес 1 мм бухты
-            this.Form.remainder = this.buhta.width - (this.Form.width1 * this.Form.amount);
-            console.log(this.Form.remainder);
+        tonage() {
+            this.complect.form.tonage = this.complect.form.width1 * this.complect.form.amount * this.buhta.weight / this.buhta.width; // Вес: ширина * количество * вес 1 мм бухты
+            this.complect.form.remainder = this.buhta.width - (this.complect.form.width1 * this.complect.form.amount);
+            console.log(this.complect.form.remainder);
             this.send();
         },
-        send: function() {
-            console.log('1');
-            this.$emit('send', {tonage: this.Form.tonage, amount: this.Form.amount, remainder: this.Form.remainder, width: this.Form.width1});
-            console.log(this.Form.remainder);
+        send() {
+            console.log('2');
+            this.$emit('send', {tonage: this.complect.form.tonage, amount: this.complect.form.amount, remainder: this.complect.form.remainder, width: this.complect.form.width1, remainder: this.complect.form.remainder});
+            console.log(this.complect.form.remainder);
+
         },
-        del: function() {
-            this.$emit('remove', this.apr.id);
-            console.log(this.apr.id);
+        del() {
+            this.$emit('remove', this.complect.id);
         }
     }
 }

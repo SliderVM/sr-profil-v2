@@ -68,7 +68,7 @@ import thicknesse from '../components/thicknesse.vue';
                     this.thicknessesArray = res.data;
                 })
             },
-            send: function () {
+            send() {
                 axios.post('/api/thicknesse',this.form, {
                 headers: {"Content-type": "application/json"}
                 })

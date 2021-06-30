@@ -49,7 +49,7 @@ export default {
             })
     },
     methods: {
-        send: function () {
+        send () {
             console.log(this.Form.TypeWarehouse);
             axios.post('/api/warehousetype', this.Form, {
                 header: ("Content-type: application/json")

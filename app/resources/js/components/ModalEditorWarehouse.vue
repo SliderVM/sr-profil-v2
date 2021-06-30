@@ -59,7 +59,7 @@ export default {
             this.Form = this.Warehouse;
             this.value = this.Warehouse.warehouse_types;
         },
-        send: function () {
+        send() {
             this.Form.WarehouseTypes = this.value;
             axios.patch('api/warehousetype/' + this.Form.id,  this.Form,  {
                 header: ("Content-type: application/json")
@@ -71,7 +71,7 @@ export default {
                 console.log(error);
             });
         },
-        del: function() {
+        del() {
             this.$emit('remove', this.Warehouse.id);
             console.log( this.Warehouse.id);
         }
