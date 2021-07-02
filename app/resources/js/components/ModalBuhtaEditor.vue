@@ -13,19 +13,18 @@
                  <br>Ширина: {{buhta.width}} мм
             </div>
 
-            <v-aprModal 
+            <v-aprModal
             :buhta='buhta'
-            @send='receive' 
             :complect="complect"
             v-for='complect in complects'
             :key='complect.id'
-            v-on:remove='removeApr'
-            >
+            v-on:remove='removeApr'>
             </v-aprModal>
 
             <br>
-            <span class="float-left">Обрезь: {{remainder}} мм</span>
+
             <span class='btn btn-outline-primary' @click='addNewComplect'>Добавить тип резки</span>
+            <span class="float-left">Обрезь: {{remainder}} мм</span>
             <div slot='modal-footer'>
                 <b-button size='sm' @click='savve' variant='outline-primary'>Сохранить </b-button>
             </div>
@@ -49,11 +48,12 @@ export default {
             tonage: "",
             remainder: ""
         },
-        complects: [{form:{
+        complects: [{form: {
             id: 1,
             width1: 0,
             amount: "",
             tonage: "",
+
         }}],
         count: 2,
     }),
@@ -64,7 +64,7 @@ export default {
         remainder: function(){
             let sumwidth = this.complects
                 .reduce(function(sum, current) {
-                    return sum -  current.form.width1;
+                    return sum -  current.form.width1 * current.form.amount;
                 }, this.buhta.width);
             return sumwidth;
         }
@@ -75,21 +75,14 @@ export default {
             this.remainder = this.buhta.width;
         },
         addNewComplect() {
-            console.log('1');
 			this.complects.push({form: {
                 id: this.count++,
                 width1: 0,
                 amount: "",
-                tonage: ""
+                tonage: "",
+
             }});
-             console.log(this.Form);
 		},
-        receive(data) {
-            console.log('3');
-            this.Form.amount = data.amount;
-            this.Form.tonage = data.tonage;
-            this.Form.width1 = data.width;
-        },
         prihod() {
             axios.put('api/buhtas/' + this.buhta.id, this.Form, {
                 header: ("Content-type: application/json")
@@ -103,7 +96,7 @@ export default {
             });
         },
         savve() {
-            axios.post('api/apr/',this.Form, {
+            axios.post('api/apr/',[this.buhta.id, this.complects] , {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
@@ -122,12 +115,6 @@ export default {
             const index = this.complects.findIndex(f => f.id === id)
             this.complects.splice(index,1)
         }
-    },
-    // watch: {
-    //     remainder: (Newremainder, oldRemainder) => {
-    //         console.log(oldRemainder+ "to" + Newremainder)
-    //     }
-    // }
-
+    }
 }
 </script>

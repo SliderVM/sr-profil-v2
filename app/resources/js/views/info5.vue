@@ -10,17 +10,19 @@
             <div class="col-9">
                 <h6 class="mb-3">Толщина металла</h6>
                 <div class="input-group my-4">
-                        <input type="number" v-model="form.thicknesses" placeholder="толщина" class="form-control">
-                        <button v-on:click="send" variant="light" data-toggle="modal" data-target="#info3Modal"><b-icon icon="plus-square"></b-icon> Добавить</button>
+                        <input type="number" v-model="form.thicknesses" placeholder="Доавьте толщину в мм" class="form-control">
+                        <button @click="send" size="sm" class="btn btn-sm btn-outline-primary"><b-icon icon="plus-square"></b-icon> Добавить</button>
                     </div>
                 <table class="table table-sm mt-3 table-metal-weight">
                     <thead>
                         <tr>
-                            <th>Размер, мм</th>
+                            <th>Толщина, мм</th>
                         </tr>
                     </thead>
                     <tbody>
-                            <thicknesse v-for="thicknesse in thicknessesArray" :key="thicknesse.id" :test="thicknesse.thicknesses" />
+                            <thicknesse v-for="thicknesse in thicknessesArray"
+                            :key="thicknesse.id"
+                            :test="thicknesse.thicknesses" />
                             <v-thicknesse></v-thicknesse>
                     </tbody>
                 </table>

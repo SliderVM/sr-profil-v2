@@ -3,7 +3,7 @@
         <h5>Бухта</h5>
         <div class="d-flex mt-3">
             <div class="mr-auto">
-                <v-modalbuht></v-modalbuht>
+                <v-modalbuht @send="buhtaNew"></v-modalbuht>
             </div>
         </div>
         <table class="table table-sm table-hover small mt-4" id="buhta">
@@ -22,7 +22,6 @@
             </thead>
             <tbody>
                 <buhta v-for="buhta in buhtas" :key="buhta.id" :buhta="buhta"/>
-                <v-buhta></v-buhta>
             </tbody>
             <tfoot>
                 <tr class="font-weight-bold">
@@ -39,9 +38,11 @@
     import ModalBuht from '../components/ModalBuht';
 
     export default {
+
         components: {buhta, ModalBuht},
         data: () => ({
             buhtas: [],
+            form: {}
         }),
         mounted() {
             this.loadBuhts();
@@ -52,7 +53,13 @@
                 .then(res => {
                     this.buhtas = res.data;
                 })
+            },
+            buhtaNew(data) {
+                console.log(data);
+                this.form = data.form
+                this.buhtas.push(this.form);
             }
         }
     }
+
 </script>

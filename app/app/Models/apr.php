@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class apr extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','buhta_id', 'width', 'amount', 'tonage'];
+    protected $fillable = ['buhta_id', 'width', 'amount', 'tonage'];
 }

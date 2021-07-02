@@ -1,8 +1,8 @@
 <template>
 <div>
     <div class="btn-group" role="group" aria-label="Basic example">
-         <b-button @click="modalShow=!modalShow" size="sm"><b-icon icon="pencil"></b-icon></b-button>
-         <b-button @click="del" :value="Warehouse.id" size="sm"><b-icon icon="x"></b-icon></b-button>
+         <b-button @click="modalShow=!modalShow" size="sm" variant='outline-primary' ><b-icon icon="pencil"></b-icon></b-button>
+         <b-button @click="del" :value="Warehouse.id" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon></b-button>
     </div>
         <b-modal v-model="modalShow" title="Редактирование склада">
             <div>
@@ -23,7 +23,7 @@
                 </multiselect>
             </div>
             <div slot="modal-footer">
-                <button size="sm" @click="send" class="btn btn-primary input-group-addon">Сохранить</button>
+                <button size="sm" @click="send" class="btn btn-primary">Сохранить</button>
             </div>
         </b-modal>
 </div>
@@ -31,7 +31,6 @@
 
 <script>
 import multiselect from 'vue-multiselect'
-Vue.component('multiselect', multiselect)
 export default {
     props: ["Warehouse"],
     components: {multiselect},

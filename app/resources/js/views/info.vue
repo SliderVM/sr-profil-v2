@@ -11,7 +11,7 @@
                     <h2 class="mb-3">Тип металла</h2>
                     <div class="input-group my-4">
                         <input v-model="form.name" placeholder="тип" class="form-control">
-                        <button v-on:click="send" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#info3Modal"><i class="fa fa-plus"></i>Добавить</button>
+                        <button @click="send" class="btn btn-sm btn-outline-primary"><b-icon icon="plus-square"></b-icon> Добавить</button>
                     </div>
                     <table class="table mt-3">
                         <thead>

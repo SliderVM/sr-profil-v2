@@ -36,15 +36,18 @@ class aprController extends Controller
      */
     public function store(Request $request)
     {
-        $apr = apr::create([
-            "buhta_id" => $request->id,
-            "width" => $request->width1,
-            "amount" => $request->amount,
-            "tonage" => $request->tonage
+        $i=0;
+        while($i < count($request[1])){
+         apr::create([
+            "buhta_id" => $request[0],
+            "width" => $request[1][$i]['form']['width1'],
+            "amount" => $request[1][$i]['form']['amount'],
+            "tonage" => $request[1][$i]['form']['tonage']
         ]);
-        return [
-        "apr" => $apr
-        ];
+        $i=$i+1;
+        }
+
+
     }
 
     /**

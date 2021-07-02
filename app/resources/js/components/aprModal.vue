@@ -31,27 +31,13 @@
 
 <script>
 export default {
-    props: ["buhta", "complect", "aprData"],
-    data: () => ({
-
-    }),
+    props: ["buhta", "complect"],
     methods: {
         amount() {
             this.complect.form.amount = Math.floor(this.complect.form.tonage / (this.complect.form.width1 * this.buhta.weight / this.buhta.width)); // количество: вес бухты / ширина  * 1 мм бухты вес / ширина
-            //this.complect.form.remainder = this.buhta.width - (this.complect.form.width1 * this.complect.form.amount);
-            this.send();
         },
         tonage() {
             this.complect.form.tonage = this.complect.form.width1 * this.complect.form.amount * this.buhta.weight / this.buhta.width; // Вес: ширина * количество * вес 1 мм бухты
-            //this.complect.form.remainder = this.buhta.width - (this.complect.form.width1 * this.complect.form.amount);
-            console.log(this.complect.form.remainder);
-            this.send();
-        },
-        send() {
-            console.log('2');
-            //this.$emit('send', {tonage: this.complect.form.tonage, amount: this.complect.form.amount, remainder: this.complect.form.remainder, width: this.complect.form.width1, remainder: this.complect.form.remainder});
-            //console.log(this.complect.form.remainder);
-
         },
         del() {
             this.$emit('remove', this.complect.id);

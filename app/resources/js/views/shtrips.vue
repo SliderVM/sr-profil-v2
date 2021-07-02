@@ -3,7 +3,7 @@
         <h5>Штрипс</h5>
         <div class="d-flex mt-3 d-print-none">
             <div class="mr-auto">
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supply2Modal"><i class="fa fa-plus"></i> Добавить штрипс</button>
+                <button type="button" size="sm" class="btn btn-sm btn-outline-primary"><b-icon icon="plus-square"></b-icon> Добавить штрипс</button>
             </div>
         </div>
         <table class="table table-sm table-hover small mt-4" id="warehouse">

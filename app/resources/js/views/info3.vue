@@ -2,8 +2,8 @@
     <div class="container-fluid">
         <h5 class="mb-3">Контрагенты</h5>
             <div class="input-group my-4">
-                <input v-model="form.name" placeholder="добавить" class="form-control">
-                <button v-on:click="send" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#info3Modal"><i class="fa fa-plus"></i> Добавить</button>
+                <input v-model="form.name" placeholder="Добавить" class="form-control">
+                <button @click="send" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#info3Modal"><b-icon icon="plus-square"></b-icon> Добавить</button>
             </div>
                 <table class="table table-sm mt-3">
                     <thead>
@@ -14,8 +14,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                                <counterparties v-for="counterparties in counterpartiesArray" :key="counterparties.id" :name="counterparties.name" />
-                                <v-counterparties></v-counterparties>
+                            <counterparties v-for="counterparties in counterpartiesArray"
+                            :key="counterparties.id"
+                            :name="counterparties.name" />
+                            <v-counterparties></v-counterparties>
                         </tr>
                     </tbody>
                 </table>
@@ -46,13 +48,13 @@
             send() {
                 axios.post('/api/counterparties',this.form, {
                 headers: {"Content-type": "application/json"}
-            })
-            .then((response) => {
-            this.form = response.data;
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+                })
+                .then((response) => {
+                this.form = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
             }
         }
     }

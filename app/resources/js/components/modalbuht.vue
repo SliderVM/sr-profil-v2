@@ -1,9 +1,9 @@
 <template>
     <div>
 
-        <b-button v-b-modal.modal-1 size="sm" variant="outline-primary"><b-icon icon="plus-square"></b-icon> Приход металла</b-button>
+        <b-button v-b-modal.bv-modal-example size="sm" variant="outline-primary"><b-icon icon="plus-square"></b-icon> Приход металла</b-button>
 
-            <b-modal id="modal-1" title="Приход металла">
+            <b-modal id="bv-modal-example" title="Приход металла">
 
                 <v-InputData @Vibe='Ran'></v-InputData>
 
@@ -28,17 +28,25 @@
                 <div>
                     <label>Склад</label>
                     <select class="form-control" v-model="form.warehouseId">
-                        <option size="sm" class="mt-3"  v-for="warehouse in warehouseArray" v-bind:key="warehouse.message" v-bind:value="warehouse.id">{{warehouse.name}} </option>
+                        <option size="sm" class="mt-3"
+                        v-for="warehouse in warehouseArray"
+                        :key="warehouse.message"
+                        :value="warehouse.id">
+                        {{warehouse.name}}
+                        </option>
                     </select>
                 </div>
                 <!-- <v-selecttype></v-selecttype> -->
                 <div>
                     <label>Тип металла</label>
                     <select class="form-control" v-model="form.typeMetalId">
-                        <option v-for="types in selecttype" v-bind:key="types.id" v-bind:value="types.id">{{types.name}} </option>
+                        <option v-for="types in selecttype"
+                        :key="types.id"
+                        :value="types.id">
+                        {{types.name}}
+                        </option>
                     </select>
                 </div>
-
 
                 <div class="form-group">
                     <label>Ширина, мм</label>
@@ -54,7 +62,12 @@
                 <div>
                     <label>Толщина</label>
                     <select class="form-control" v-model="form.metalThicknessId">
-                        <option size="sm" class="mt-3" v-for="thicknesse in thicknessesArray" v-bind:key="thicknesse.id" v-bind:value="thicknesse.id">{{thicknesse.thicknesses}} </option>
+                        <option size="sm" class="mt-3"
+                        v-for="thicknesse in thicknessesArray"
+                        :key="thicknesse.id"
+                        :value="thicknesse.id">
+                        {{thicknesse.thicknesses}}
+                        </option>
                     </select>
                 </div>
 
@@ -72,12 +85,10 @@
                 <input type="radio" id="two" value="2" v-model="form.available">
                 <label for="two">Бухта на складе</label>
 
-
                 <div slot="modal-footer">
-                    <button v-on:click="send" size="sm" class="btn btn-primary input-group-addon">Сохранить</button>
+                    <button @click="send" size="sm" class="btn btn-outline-primary">Сохранить</button>
                 </div>
             </b-modal>
-
     </div>
 
 </template>
@@ -85,14 +96,11 @@
 <script>
 import multiselect from 'vue-multiselect'
 export default {
-components: {
-    multiselect,
-},
+components: {multiselect},
 data: () => ({
     CounterpartiesArray: [],
     Value: '',
     trackBy: 'id',
-
     warehouseArray: [],
     options: [
         { warehouseArray: '', value: '' },
@@ -118,7 +126,6 @@ data: () => ({
         "counterpartyId": ""
     }
 }),
-
     mounted() {
         this.loadwarehouse();
         this.loadtypes();
@@ -170,11 +177,18 @@ data: () => ({
             .then((response) => {
                 this.form = response.data;
                 console.log(response.data);
+
             })
             .catch((error) => {
                 console.log(error);
+
             });
-        }
+            {
+                this.$emit('send', {form: this.form})
+                console.log(this.form);
+            };
+        },
+
     }
 }
 </script>

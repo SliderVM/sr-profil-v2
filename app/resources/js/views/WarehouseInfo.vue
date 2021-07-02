@@ -19,8 +19,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <warehouse v-for="Warehouse in Warehouses" :key="Warehouse.id" :Warehouse="Warehouse"/>
-                                    <v-Warehouse></v-Warehouse>
+                                <warehouse v-for="Warehouse in Warehouses"
+                                :key="Warehouse.id"
+                                :Warehouse="Warehouse"/>
+
+                                <v-Warehouse></v-Warehouse>
                             </tbody>
 
                         </table>

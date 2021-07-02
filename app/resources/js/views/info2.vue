@@ -8,8 +8,10 @@
                 </div>
             </div>
             <div class="col-9">
-                <h6 class="mb-3">Размеры труб</h6>
-                <button type="button" variant="secondary"><b-icon icon="plus-square"></b-icon> Добавить</button>
+                <div class="input-group my-4">
+                    <input placeholder="Добавьте размер в мм" class="form-control">
+                    <button class="btn btn-sm btn-outline-primary"><b-icon icon="plus-square"></b-icon> Добавить</button>
+                </div>
                 <table class="table table-sm mt-3">
                     <thead>
                         <tr>

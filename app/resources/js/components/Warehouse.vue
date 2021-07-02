@@ -8,7 +8,6 @@
 
 <script>
 export default {
-
     data: () => ({
         warehouse_types: []
     }),
@@ -17,7 +16,6 @@ export default {
             axios.delete('api/warehousetype/' + id);
         }
     },
-
     name: "Warehouse",
     props: ["Warehouse"]
 }
