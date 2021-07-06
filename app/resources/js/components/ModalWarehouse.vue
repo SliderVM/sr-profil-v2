@@ -28,8 +28,6 @@
 
 <script>
 import multiselect from 'vue-multiselect'
-Vue.component('multiselect', multiselect)
-
 export default {
     components: {multiselect},
     data: () => ({
@@ -56,10 +54,14 @@ export default {
             })
             .then((response) => {
                 console.log(response.data);
+                 this.$bvModal.hide('modal-1')
             })
             .catch((error) => {
                 console.log(error);
-            });
+            })
+            {
+                this.$emit('send', {form: this.Form})
+            }
         }
     }
 }

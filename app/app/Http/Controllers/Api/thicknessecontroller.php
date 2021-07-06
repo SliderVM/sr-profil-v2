@@ -38,25 +38,11 @@ class ThicknesseController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            ["thicknesses" => 'required|numeric']
-        );
-
-        if ($validator->fails()) {
-            return [
-                "status" => false,
-                $errors = $validator->errors()
-            ];
-        };
         $thicknesses = metalThicknesse::create([
-            "thicknesses" => $request->thicknesses,
+            "thicknesses" => $request->tolsch
         ]);
 
-        return [
-            "status" => true,
-            "thicknesses" => $thicknesses
-        ];
+        return  $thicknesses;
     }
 
     /**

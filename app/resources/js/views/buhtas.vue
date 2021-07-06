@@ -33,40 +33,32 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    import buhta from '../components/buhta.vue';
-    import ModalBuht from '../components/ModalBuht';
-
-    export default {
-
-        components: {buhta, ModalBuht},
-        data: () => ({
-            buhtas: [],
-            form: {}
-        }),
-        mounted() {
-            this.loadBuhts();
+import axios from 'axios';
+import buhta from '../components/buhta.vue';
+export default {
+    components: {buhta},
+    data: () => ({
+        buhtas: [],
+        form: {}
+    }),
+    mounted() {
+        this.loadBuhts();
+    },
+    methods: {
+        loadBuhts() {
+            axios.get('/api/buhtas')
+            .then(res => {
+                this.buhtas = res.data;
+            })
         },
-        methods: {
-            loadBuhts() {
-                axios.get('/api/buhtas')
-                .then(res => {
-                    this.buhtas = res.data;
-                })
-            },
-            buhtaNew(data) {
-                console.log(data);
-                this.form = data.form
-                this.buhtas.push(this.form);
-            },
-            rem(data) {
-                console.log(data.id);
-                this.buhta.id = data.id
-                const index = this.buhtas.findIndex(buhtas => buhta.id === id)
-                this.buhtas.splice(index,1)
-            }
-
+        buhtaNew(data) {
+            this.form = data.form
+            this.buhtas.push(this.form);
+        },
+        rem(id) {
+            const index = this.buhtas.findIndex(b => b.id === id)
+            this.buhtas.splice(index,1)
         }
     }
-
+}
 </script>

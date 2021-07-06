@@ -4,8 +4,6 @@
 
         <b-button type='button' v-if='visible && buhta.available == 1' @click='prihod' :value='buhta.id' variant='outline-primary'>Оприходовать</b-button>
 
-        <b-button @click='del' :value='buhta.id' size='sm' variant='outline-primary'><b-icon icon='x'></b-icon></b-button>
-
         <b-modal v-model='modalShow' size='lg'>
 
             <div slot='modal-title'>
@@ -53,7 +51,6 @@ export default {
             width1: 0,
             amount: "",
             tonage: "",
-
         }}],
         count: 2,
     }),
@@ -61,7 +58,7 @@ export default {
         this.loadForm();
     },
     computed:{
-        remainder: function(){
+        remainder: function() {
             let sumwidth = this.complects
                 .reduce(function(sum, current) {
                     return sum -  current.form.width1 * current.form.amount;
@@ -80,7 +77,6 @@ export default {
                 width1: 0,
                 amount: "",
                 tonage: "",
-
             }});
 		},
         prihod() {
@@ -106,9 +102,6 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
-        },
-        del() {
-            this.$emit('removee', this.buhta.id);
         },
         removeApr(id) {
             console.log('removing form element', id)

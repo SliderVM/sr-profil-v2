@@ -39,25 +39,10 @@ class CounterpartiesController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            "name" => 'required'
-        ]
-    );
-
-    if ($validator->fails()) {
-        return [
-            "status" => false,
-            $errors = $validator->errors()
-        ];
-    };
-    $counterparties = counterparties::create([
-        "name" => $request->name
-    ]);
-
-    return [
-        "status" => true,
-        "counterparties" => $counterparties
-    ];
+        $counterparties = counterparties::create([
+            "name" => $request->imya
+        ]);
+        return $counterparties;
     }
 
     /**

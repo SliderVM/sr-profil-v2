@@ -109,7 +109,6 @@ class WarehouseTypeController extends Controller
     public function destroy($id)
     {
         $warehouse= warehouse::find($id);
-
         $warehouse->WarehouseTypes()->detach();
         $warehouse->delete();
     }

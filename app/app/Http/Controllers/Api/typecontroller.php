@@ -40,27 +40,12 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-                "name" => 'required'
-            ]
-        );
-
-        if ($validator->fails()) {
-            return [
-                "status" => false,
-                $errors = $validator->errors()
-            ];
-        };
         $types = TypesMetal::create([
-            "name" => $request->name
+            "name" => $request->imya
         ]);
 
-        return [
-            "status" => true,
-            "types" => $types
-        ];
-        }
+        return $types;
+    }
 
     /**
      * Display the specified resource.

@@ -1,10 +1,9 @@
 <template>
 <div>
-    <div class="btn-group" role="group" aria-label="Basic example">
+    <div class='btn-group'>
          <b-button @click="modalShow=!modalShow" size="sm" variant='outline-primary' ><b-icon icon="pencil"></b-icon></b-button>
-         <b-button @click="del" :value="Warehouse.id" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon></b-button>
     </div>
-        <b-modal v-model="modalShow" title="Редактирование склада">
+        <b-modal id="modal-1" v-model="modalShow" title="Редактирование склада">
             <div>
                 <label>Наименование</label>
                 <input type="text" v-model="Form.name" class="form-control"  />
@@ -64,15 +63,16 @@ export default {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
-                console.log(response.data);
+                console.log(this.Form)
+                console.log('1',response.data);
+                this.$bvModal.hide('modal-1')
             })
             .catch((error) => {
                 console.log(error);
-            });
-        },
-        del() {
-            this.$emit('remove', this.Warehouse.id);
-            console.log( this.Warehouse.id);
+            })
+            {
+                this.$emit('send', {form: this.Form})
+            }
         }
     }
 }

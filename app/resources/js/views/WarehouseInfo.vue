@@ -9,21 +9,19 @@
                     </div>
                     <div class="col-9">
                         <h2 class="mb-3">Склады</h2>
-                            <v-ModalWarehouse></v-ModalWarehouse>
+                            <v-ModalWarehouse @send="WarehouseNew" ></v-ModalWarehouse>
                         <table class="table mt-9">
                             <thead>
                                 <tr>
                                     <th>Наименование склада</th>
                                     <th>Тип склада</th>
-                                    <th>Операции</th>
+                                    <th class="col-4">Операции</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <warehouse v-for="Warehouse in Warehouses"
                                 :key="Warehouse.id"
-                                :Warehouse="Warehouse"/>
-
-                                <v-Warehouse></v-Warehouse>
+                                :Warehouse="Warehouse" @removeWarehouse="removing" @editWarehouse="editor"/>
                             </tbody>
 
                         </table>
@@ -39,6 +37,7 @@ export default {
     components: {Warehouse},
     data: () => ({
         Warehouses: [],
+        Form: {},
         links: [
                     {
                         title: "Тип металла",
@@ -68,6 +67,18 @@ export default {
                 this.Warehouses = res.data;
             })
         },
+        WarehouseNew(data) {
+                this.form = data.Form
+                this.Warehouses.push(this.Form);
+        },
+        editor() {
+            this.Warehouses.splice(0, this.Form);
+        },
+        removing(id) {
+            const index = this.Warehouses.findIndex(W => W.id === id)
+            this.Warehouses.splice(index,1)
+        },
+
     }
 }
 </script>
