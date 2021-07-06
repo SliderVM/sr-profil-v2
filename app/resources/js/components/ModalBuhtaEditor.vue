@@ -108,7 +108,7 @@ export default {
             });
         },
         del() {
-            this.$emit('remove', this.buhta.id);
+            this.$emit('removee', this.buhta.id);
         },
         removeApr(id) {
             console.log('removing form element', id)

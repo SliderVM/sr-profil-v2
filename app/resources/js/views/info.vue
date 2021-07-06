@@ -10,7 +10,7 @@
                 <div class="col-9">
                     <h2 class="mb-3">Тип металла</h2>
                     <div class="input-group my-4">
-                        <input v-model="form.name" placeholder="тип" class="form-control">
+                        <input v-model="form.name" placeholder="Начните вводить тип" class="form-control">
                         <button @click="send" class="btn btn-sm btn-outline-primary"><b-icon icon="plus-square"></b-icon> Добавить</button>
                     </div>
                     <table class="table mt-3">
@@ -19,7 +19,6 @@
                         </thead>
                         <tbody>
                             <types v-for="type in types" :key="type.id" :name="type.name" />
-                                <v-types></v-types>
                         </tbody>
                     </table>
                 </div>
@@ -58,7 +57,7 @@
             ]
         }),
         mounted() {
-        this.loadtypes();
+            this.loadtypes();
         },
         methods: {
             loadtypes() {
@@ -72,7 +71,9 @@
                    headers: {"Content-type": "application/json"}
             })
             .then((response) => {
-               this.form = response.data;
+                this.form = response.data;
+                this.types.push(this.form);
+                console.log(this.form);
             })
             .catch((error) => {
                 console.log(error);

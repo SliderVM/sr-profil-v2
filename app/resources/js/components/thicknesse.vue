@@ -1,15 +1,15 @@
 <template>
     <tr>
-        <td>{{test}}</td>
+        <td>{{thicknesse.thicknesses}}</td>
     </tr>
 </template>
 
 <script>
 export default {
-    name: "thicknesses",
+    name: "thicknesse",
     props: {
-        test: {
-            type: Number,
+        thicknesse: {
+            type: Object,
         }
     }
 }

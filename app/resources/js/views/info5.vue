@@ -10,7 +10,7 @@
             <div class="col-9">
                 <h6 class="mb-3">Толщина металла</h6>
                 <div class="input-group my-4">
-                        <input type="number" v-model="form.thicknesses" placeholder="Доавьте толщину в мм" class="form-control">
+                        <input type="number" v-model="form.thicknesses" placeholder="Добавьте толщину в мм" class="form-control">
                         <button @click="send" size="sm" class="btn btn-sm btn-outline-primary"><b-icon icon="plus-square"></b-icon> Добавить</button>
                     </div>
                 <table class="table table-sm mt-3 table-metal-weight">
@@ -22,8 +22,7 @@
                     <tbody>
                             <thicknesse v-for="thicknesse in thicknessesArray"
                             :key="thicknesse.id"
-                            :test="thicknesse.thicknesses" />
-                            <v-thicknesse></v-thicknesse>
+                            :thicknesse="thicknesse" />
                     </tbody>
                 </table>
             </div>
@@ -71,16 +70,17 @@ import thicknesse from '../components/thicknesse.vue';
                 })
             },
             send() {
-                axios.post('/api/thicknesse',this.form, {
+                axios.post('/api/thicknesse', this.form, {
                 headers: {"Content-type": "application/json"}
                 })
-            .then((response) => {
-                this.form = response.data;
-            })
+                .then((response) => {
+                    this.form = response.data;
+                    this.thicknessesArray.push(this.form);
+                })
 
-            .catch((error) => {
-                console.log(error);
-            });
+                .catch((error) => {
+                    console.log(error);
+                });
             }
         }
     }

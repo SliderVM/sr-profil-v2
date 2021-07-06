@@ -21,7 +21,7 @@
                 </tr>
             </thead>
             <tbody>
-                <buhta v-for="buhta in buhtas" :key="buhta.id" :buhta="buhta"/>
+                <buhta v-for="buhta in buhtas" :key="buhta.id" :buhta="buhta" @removeBuhta="rem" />
             </tbody>
             <tfoot>
                 <tr class="font-weight-bold">
@@ -58,7 +58,14 @@
                 console.log(data);
                 this.form = data.form
                 this.buhtas.push(this.form);
+            },
+            rem(data) {
+                console.log(data.id);
+                this.buhta.id = data.id
+                const index = this.buhtas.findIndex(buhtas => buhta.id === id)
+                this.buhtas.splice(index,1)
             }
+
         }
     }
 

@@ -101,6 +101,7 @@ data: () => ({
     CounterpartiesArray: [],
     Value: '',
     trackBy: 'id',
+
     warehouseArray: [],
     options: [
         { warehouseArray: '', value: '' },
@@ -177,19 +178,18 @@ data: () => ({
             .then((response) => {
                 this.form = response.data;
                 console.log(response.data);
-
+                this.$bvModal.hide('bv-modal-example')
             })
             .catch((error) => {
                 console.log(error);
-
-            });
+            })
             {
                 this.$emit('send', {form: this.form})
                 console.log(this.form);
             };
         },
-
+        }
     }
-}
+
 </script>
 

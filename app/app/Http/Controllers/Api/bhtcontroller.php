@@ -122,5 +122,6 @@ class BhtController extends Controller
     {
         $buhta= buhta::find($id);
         $buhta->delete();
+        return $buhta;
     }
 }
