@@ -69,9 +69,8 @@ export default {
             })
         },
         brigadeNew(data) {
-            this.form = data.form
-            this.brigadeArray.push(this.form);
-            console.log(this.form);
+            this.brigadeArray.push(data);
+            console.log("brigadeNew", data);
         },
         removingSmena(rst) {
             this.brigadeArray.splice(this.brigadeArray.indexOf(rst.id),1)
