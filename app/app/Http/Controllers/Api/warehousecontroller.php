@@ -17,7 +17,7 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        return warehouse::all();
+        return warehouse::with('brigade')->get();
     }
 
     /**

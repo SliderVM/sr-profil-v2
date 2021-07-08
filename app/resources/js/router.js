@@ -12,6 +12,7 @@ import info5 from "./views/info5.vue"
 import WarehouseInfo from "./views/WarehouseInfo.vue"
 import ModalEditorWarehouse from "./components/ModalEditorWarehouse.vue"
 import Production from "./views/ProductionManagement/Production.vue"
+import Brigade from "./views/Brigade.vue"
 
 
 const routes = [
@@ -54,6 +55,10 @@ const routes = [
     {
         path: "/warehousetype/:id",
         component: ModalEditorWarehouse
+    },
+    {
+        path: "/brigade",
+        component: Brigade
     }
 ];
 

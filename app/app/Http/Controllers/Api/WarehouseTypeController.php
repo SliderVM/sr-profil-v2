@@ -39,7 +39,6 @@ class WarehouseTypeController extends Controller
      */
     public function store(Request $request)
     {
-
         $func = function($value) {
             return $value['id'];
         };

@@ -8,6 +8,7 @@
                 </div>
             </div>
             <div class="col-9">
+                <h2 class="mb-3">Размер</h2>
                 <div class="input-group my-4">
                     <input placeholder="Добавьте размер в мм" class="form-control">
                     <button class="btn btn-sm btn-outline-primary"><b-icon icon="plus-square"></b-icon> Добавить</button>
@@ -48,7 +49,7 @@
             data: () => ({
                     links: [
                             {
-                                title: "Тип бухт",
+                                title: "Тип металла",
                                 href:"/info"
                             },
                             {
@@ -56,12 +57,16 @@
                                 href:"/info2"
                             },
                             {
-                                title: "Толщина бухт",
+                                title: "Толщина металла",
                                 href:"/info5"
                             },
                             {
                                 title: "Управление складами",
                                 href:"/warehouseinfo"
+                            },
+                            {
+                                title: "Смены",
+                                href:"/brigade"
                             }
                         ]
             })

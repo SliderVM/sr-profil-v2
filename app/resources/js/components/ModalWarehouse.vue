@@ -1,7 +1,7 @@
 <template>
   <div>
-      <b-button v-b-modal.modal-1 size="sm" variant="outline-primary" ><b-icon icon="plus-square"></b-icon> Добавление склада</b-button>
-        <b-modal id="modal-1" title="Добавление склада">
+      <b-button v-b-modal.modal-10 @click="modalShow=!modalShow" size="sm" variant="outline-primary" ><b-icon icon="plus-square"></b-icon> Добавление склада</b-button>
+        <b-modal id="modal-10" title="Добавление склада">
             <div class="form-group">
                 <label>Наименование</label>
                 <input type="text" v-model="Form.name" class="form-control" />
@@ -33,7 +33,7 @@ export default {
     data: () => ({
         WarehouseTypeArray: [],
         trackBy: 'id',
-
+        modalShow: false,
         Form: {
             name: "",
             TypeWarehouse: []

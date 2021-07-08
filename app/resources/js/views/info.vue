@@ -54,6 +54,10 @@
                 {
                     title: "Управление складами",
                     href:"/warehouseinfo"
+                },
+                {
+                    title: "Смены",
+                    href:"/brigade"
                 }
             ]
         }),

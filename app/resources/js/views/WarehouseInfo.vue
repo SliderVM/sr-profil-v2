@@ -55,6 +55,10 @@ export default {
                         title: "Управление складами",
                         href:"/warehouseinfo"
                     },
+                    {
+                        title: "Смены",
+                        href:"/brigade"
+                    }
         ]
     }),
     mounted() {

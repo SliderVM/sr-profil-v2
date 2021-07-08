@@ -15,4 +15,8 @@ class warehouse extends Model
     {
         return $this->belongsToMany(WarehouseType::class)->wherePivot('warehouse_type_id', 1);
     }
+    public function Brigade()
+    {
+        return $this->belongsToMany(brigade::class);
+    }
 }
