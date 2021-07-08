@@ -17,12 +17,13 @@
                     <thead>
                         <tr>
                             <th>Толщина, мм</th>
+                            <th class="col-2">Операции</th>
                         </tr>
                     </thead>
                     <tbody>
                             <thicknesse v-for="thicknesse in thicknessesArray"
                             :key="thicknesse.id"
-                            :thicknesse="thicknesse" />
+                            :thicknesse="thicknesse" @removing="rem" />
                     </tbody>
                 </table>
             </div>
@@ -81,6 +82,10 @@ import thicknesse from '../components/thicknesse.vue';
                 .catch((error) => {
                     console.log(error);
                 });
+            },
+            rem(id) {
+                const index = this.thicknessesArray.findIndex(thicknessesArray => thicknesse.id === id)
+                this.thicknessesArray.splice(index,1)
             }
         }
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class warehouse extends Model
 {
@@ -12,10 +13,6 @@ class warehouse extends Model
 
     public function WarehouseTypes()
     {
-        return $this->belongsToMany(WarehouseType::class);
+        return $this->belongsToMany(WarehouseType::class)->wherePivot('warehouse_type_id', 1);
     }
 }
-
-
-
-

@@ -87,6 +87,8 @@ class ThicknesseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $metal= metalThicknesse::find($id);
+        $metal->delete();
+        return $metal;
     }
 }

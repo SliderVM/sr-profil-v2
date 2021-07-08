@@ -28,12 +28,8 @@ export default {
                     href: "/buhtas"
                 },
                 {
-                    title: "Штрипс",
-                    href: "/shtrips"
-                },
-                {
-                    title: "Труба",
-                    href: "/truba"
+                    title: "Управление производством",
+                    href: "/productionmanagement"
                 },
                 {
                     title: "Заявки",

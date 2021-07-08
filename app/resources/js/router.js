@@ -5,14 +5,13 @@ Vue.use(vueRouter);
 
 import buhtas from "./views/buhtas.vue"
 import demands from "./views/demands.vue"
-import truba from "./views/truba.vue"
-import shtrips from "./views/shtrips.vue"
 import info from "./views/info.vue"
 import info3 from "./views/info3.vue"
 import info2 from "./views/info2.vue"
 import info5 from "./views/info5.vue"
 import WarehouseInfo from "./views/WarehouseInfo.vue"
 import ModalEditorWarehouse from "./components/ModalEditorWarehouse.vue"
+import Production from "./views/ProductionManagement/Production.vue"
 
 
 const routes = [
@@ -29,12 +28,8 @@ const routes = [
         component: demands
     },
     {
-        path: "/truba",
-        component: truba
-    },
-    {
-        path: "/shtrips",
-        component: shtrips
+        path: "/productionmanagement",
+        component: Production
     },
     {
         path: "/info",

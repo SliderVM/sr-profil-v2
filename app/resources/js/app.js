@@ -34,6 +34,7 @@ Vue.component('v-InputWeight', require('./components/addbuht/input/InputWeight.v
 Vue.component('v-InputWidth', require('./components/addbuht/input/InputWidth.vue').default);
 
 
+
 import router from "./router";
 
 const app = new Vue({

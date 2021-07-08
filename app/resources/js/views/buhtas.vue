@@ -56,7 +56,7 @@ export default {
             this.buhtas.push(this.form);
         },
         rem(id) {
-            const index = this.buhtas.findIndex(b => b.id === id)
+            const index = this.buhtas.findIndex(buhtas => buhta.id === id)
             this.buhtas.splice(index,1)
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\TypesMetal;
+use App\Models\Buhta;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +20,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return TypesMetal::all();
+        return TypesMetal::all('id', 'name');
     }
 
     /**
@@ -89,6 +90,15 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(buhta::where('type_metal_id',$id)->first())
+        {
+          return 'Невозможно удалить тип металла, так как он привязан к бухте';
+        }
+        else
+        {
+            $Types= TypesMetal::find($id);
+            $Types->delete();
+            return $Types;
+        };
     }
 }
