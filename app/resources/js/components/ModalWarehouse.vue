@@ -38,7 +38,6 @@ export default {
             name: "",
             TypeWarehouse: []
         }
-
     }),
     created: function() {
         axios.get('/api/warehousetype')
@@ -54,7 +53,7 @@ export default {
             })
             .then((response) => {
                 console.log(response.data);
-                 this.$bvModal.hide('modal-1')
+                 this.$bvModal.hide('modal-10')
             })
             .catch((error) => {
                 console.log(error);

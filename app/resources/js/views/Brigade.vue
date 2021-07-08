@@ -33,6 +33,7 @@ export default {
     components: {brigadeTable},
     data: () => ({
         brigadeArray: [],
+        form: {},
         links: [
             {
                 title: "Тип металла",
@@ -64,15 +65,16 @@ export default {
             axios.get('/api/brigade')
             .then(res => {
                 this.brigadeArray = res.data;
+                console.log(this.brigadeArray)
             })
         },
         brigadeNew(data) {
             this.form = data.form
             this.brigadeArray.push(this.form);
+            console.log(this.form);
         },
-        removingSmena(id) {
-            const index = this.brigadeArray.findIndex(brigadeArray => this.brigade.id === id)
-            this.brigadeArray.splice(index,1)
+        removingSmena(rst) {
+            this.brigadeArray.splice(this.brigadeArray.indexOf(rst.id),1)
         }
     }
 }

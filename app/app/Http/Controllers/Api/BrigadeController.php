@@ -41,7 +41,7 @@ class BrigadeController extends Controller
         };
 
         $warehouse = brigade::create([
-            'name'=> $request->name,
+            'name'=> $request->imya,
         ]);
 
         $warehouse->Warehouse()->sync(array_map($func, $request->Warehouse));

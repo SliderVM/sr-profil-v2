@@ -4,7 +4,7 @@
         <b-modal id="modal-13" title="Добавление бригады">
             <div class="form-group">
                 <label>Наименование бригады</label>
-                <input type="text" v-model="Form.name" class="form-control" />
+                <input type="text" v-model="Form.imya" class="form-control" />
             </div>
             <div>
                 <label>Доступные заводы</label>
@@ -35,7 +35,7 @@ export default {
         trackBy: 'id',
         modalShow: false,
         Form: {
-            name: "",
+            imya: "",
             Warehouse: []
         }
     }),
@@ -53,7 +53,7 @@ export default {
             })
             .then((response) => {
                 console.log(response.data);
-                 this.$bvModal.hide('modal-1')
+                 this.$bvModal.hide('modal-13')
             })
             .catch((error) => {
                 console.log(error);

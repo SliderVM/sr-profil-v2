@@ -26,8 +26,7 @@ export default {
             this.warehouse.push(this.form);
         },
         removeBrigade() {
-            console.log(this.brigade.id)
-            // axios.delete('api/brigade/' + this.brigade.id);
+            axios.delete('api/brigade/' + this.brigade.id);
             this.$emit('removeBrigade', {id: this.brigade.id})
         }
     },
