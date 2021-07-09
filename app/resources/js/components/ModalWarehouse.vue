@@ -54,13 +54,12 @@ export default {
             .then((response) => {
                 console.log(response.data);
                  this.$bvModal.hide('modal-10')
+                response.data.TypeWarehouse = this.Form.TypeWarehouse
+                this.$emit('send', response.data)
             })
             .catch((error) => {
                 console.log(error);
             })
-            {
-                this.$emit('send', {form: this.Form})
-            }
         }
     }
 }

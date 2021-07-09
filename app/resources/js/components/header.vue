@@ -24,7 +24,7 @@ export default {
         return {
             links: [
                 {
-                    title: "Бухта",
+                    title: "Склады",
                     href: "/buhtas"
                 },
                 {

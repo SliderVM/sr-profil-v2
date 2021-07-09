@@ -9,8 +9,8 @@
             <div>
                 <label>Доступные заводы</label>
                 <multiselect
-                v-model="Form.Warehouse"
-                :options="WarehouseArray"
+                v-model="Form.warehouses"
+                :options="warehouseArray"
                 track-by="id"
                 label="name"
                 placeholder="Выберите завод"
@@ -31,30 +31,29 @@ import multiselect from 'vue-multiselect'
 export default {
     components: {multiselect},
     data: () => ({
-        WarehouseArray: [], // с маленькой буквы
+        warehouseArray: [],
         trackBy: 'id',
         modalShow: false,
         Form: {
             imya: "", // сделать name
-            Warehouse: [] // c мелнькой буквы + если у тебя массив то warehouses!
+            warehouses: []
         }
     }),
     created: function() {
         axios.get('/api/warehouse')
             .then(res => {
-                this.WarehouseArray = res.data;
+                this.warehouseArray = res.data;
             })
     },
     methods: {
         send () {
-            console.log(this.Form.Warehouse);
+            console.log(this.Form.warehouses);
             axios.post('/api/brigade', this.Form, {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
                 this.$bvModal.hide('modal-13')
-                // response должен возвращать и массив Warehouses
-                response.data.warehouse = this.Form.Warehouse
+                response.data.warehouse = this.Form.warehouses
                 this.$emit('send', response.data)
             })
             .catch((error) => {

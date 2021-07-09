@@ -1,6 +1,5 @@
 <template>
     <div class="container-fluid">
-        <h5>Бухта</h5>
         <div class="d-flex mt-3">
             <div class="mr-auto">
                 <v-modalbuht @send="buhtaNew"></v-modalbuht>

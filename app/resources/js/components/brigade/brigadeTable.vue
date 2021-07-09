@@ -20,12 +20,12 @@ export default {
     props:  ["brigade"],
     name: "brigadeTable",
     data: () => ({
-        warehouse: []
+        warehouses: []
     }),
     methods: {
         warehouseNew(data) {
-            this.warehouse = data.form
-            this.warehouse.push(this.form);
+            this.warehouses = data.form
+            this.warehouses.push(this.form);
         },
         removeBrigade() {
             axios.delete('api/brigade/' + this.brigade.id);
