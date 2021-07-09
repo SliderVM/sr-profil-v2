@@ -17,6 +17,8 @@
 
 <script>
 export default {
+    props:  ["brigade"],
+    name: "brigadeTable",
     data: () => ({
         warehouse: []
     }),
@@ -30,7 +32,5 @@ export default {
             this.$emit('removeBrigade', {id: this.brigade.id})
         }
     },
-    name: "brigadeTable",
-    props:  ["brigade"]
 }
 </script>

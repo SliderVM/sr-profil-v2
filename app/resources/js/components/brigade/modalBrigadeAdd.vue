@@ -31,12 +31,12 @@ import multiselect from 'vue-multiselect'
 export default {
     components: {multiselect},
     data: () => ({
-        WarehouseArray: [],
+        WarehouseArray: [], // с маленькой буквы
         trackBy: 'id',
         modalShow: false,
         Form: {
-            imya: "",
-            Warehouse: []
+            imya: "", // сделать name
+            Warehouse: [] // c мелнькой буквы + если у тебя массив то warehouses!
         }
     }),
     created: function() {
@@ -52,15 +52,14 @@ export default {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
-                console.log(response.data);
-                 this.$bvModal.hide('modal-13')
+                this.$bvModal.hide('modal-13')
+                // response должен возвращать и массив Warehouses
+                response.data.warehouse = this.Form.Warehouse
+                this.$emit('send', response.data)
             })
             .catch((error) => {
                 console.log(error);
             })
-            {
-                this.$emit('send', {form: this.Form})
-            }
         }
     }
 }
