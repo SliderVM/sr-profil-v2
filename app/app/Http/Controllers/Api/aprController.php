@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\apr;
+use App\Models\Buhta;
 
 class aprController extends Controller
 {
@@ -15,7 +16,7 @@ class aprController extends Controller
      */
     public function index()
     {
-        //
+        return buhta::join('aprs','buhtas.id', 'aprs.buhta_id')->get();
     }
 
     /**

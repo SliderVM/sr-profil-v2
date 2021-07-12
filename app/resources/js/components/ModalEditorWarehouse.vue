@@ -63,16 +63,13 @@ export default {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
-                console.log(this.Form)
                 console.log('1',response.data);
                 this.$bvModal.hide('modal-1')
+                this.$emit('send', {form: this.Form})
             })
             .catch((error) => {
                 console.log(error);
             })
-            {
-                this.$emit('send', {form: this.Form})
-            }
         }
     }
 }

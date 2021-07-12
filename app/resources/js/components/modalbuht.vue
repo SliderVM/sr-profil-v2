@@ -6,7 +6,7 @@
             <b-modal id="bv-modal-example" title="Приход металла">
 
                 <v-InputData @Vibe='Ran'></v-InputData>
-
+                <v-inputname @SmenaName='NewName'></v-inputname>
                 <!-- <v-selectcounterparties></v-selectcounterparties> -->
                 <div>
                     <label>Контрагенты</label>
@@ -115,6 +115,7 @@ data: () => ({
         {selecttype: '', value: ''},
     ],
     form:{
+        "name": "",
         "receiptDate": "",
         "warehouseId": "",
         "typeMetalId": "",
@@ -138,6 +139,9 @@ data: () => ({
         },
         VesTonna(data) {
             this.form.weight = data.weight;
+        },
+        NewName(data) {
+            this.form.name = data.name;
         },
         CounterpartiesOpen () {
             axios.get('/api/counterparties')

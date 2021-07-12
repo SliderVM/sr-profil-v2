@@ -65,6 +65,8 @@ export default {
             .then((response) => {
                 console.log(response.data);
                 this.$bvModal.hide('modal-1')
+                response.data.warehouse = this.Form.warehouse
+                this.$emit('send', response.data)
             })
             .catch((error) => {
                 console.log(error);

@@ -9,7 +9,7 @@
                     </div>
                     <div class="col-9">
                         <h2 class="mb-3">Склады</h2>
-                            <v-ModalWarehouse @send="WarehouseNew" ></v-ModalWarehouse>
+                            <v-ModalWarehouse @send2="WarehouseNew" ></v-ModalWarehouse>
                         <table class="table mt-9">
                             <thead>
                                 <tr>
@@ -72,17 +72,18 @@ export default {
             })
         },
         WarehouseNew(data) {
-                this.form = data.Form
-                this.Warehouses.push(this.Form);
+            this.Form = data.Form
+            this.Warehouses.push(this.Form);
+            console.log(this.Form);
         },
         editor() {
-            this.Warehouses.splice(0, this.Form);
+            this.form = data.Form
+            this.Warehouses.push(this.Form);
         },
         removing(id) {
             const index = this.Warehouses.findIndex(W => W.id === id)
             this.Warehouses.splice(index,1)
-        },
-
+        }
     }
 }
 </script>

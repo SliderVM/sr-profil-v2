@@ -9,4 +9,9 @@ class apr extends Model
 {
     use HasFactory;
     protected $fillable = ['buhta_id', 'width', 'amount', 'tonage'];
+
+    public function buhtas()
+    {
+        return $this->hasOne(buhta::class);
+    }
 }

@@ -29,8 +29,7 @@ Vue.component('v-selecttype', require('./components/addbuht/selecttype.vue').def
 Vue.component('v-selectthickness', require('./components/addbuht/selectthickness.vue').default);
 Vue.component('v-SelectCounterparties', require('./components/addbuht/SelectCounterparties.vue').default);
 Vue.component('v-selectwarehouse', require('./components/addbuht/selectwarehouse.vue').default);
-
-
+Vue.component('v-inputname', require('./components/addbuht/input/inputName.vue').default);
 Vue.component('v-InputData', require('./components/addbuht/input/InputData.vue').default);
 Vue.component('v-InputPrice', require('./components/addbuht/input/InputPrice.vue').default);
 Vue.component('v-InputWeight', require('./components/addbuht/input/InputWeight.vue').default);

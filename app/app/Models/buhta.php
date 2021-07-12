@@ -21,4 +21,8 @@ class Buhta extends Model
     {
         return $this->hasOne(counterparties::class, 'id', 'counterparty_id');
     }
+    public function aprs()
+    {
+        return $this->hasOne(apr::class);
+    }
 }

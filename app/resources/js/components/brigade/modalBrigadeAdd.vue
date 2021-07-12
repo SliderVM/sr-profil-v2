@@ -9,8 +9,8 @@
             <div>
                 <label>Доступные заводы</label>
                 <multiselect
-                v-model="Form.warehouses"
-                :options="warehouseArray"
+                v-model="Form.warehouse"
+                :options=" warehouseArray"
                 track-by="id"
                 label="name"
                 placeholder="Выберите завод"
@@ -35,8 +35,8 @@ export default {
         trackBy: 'id',
         modalShow: false,
         Form: {
-            imya: "", // сделать name
-            warehouses: []
+            imya: "",
+            warehouse: []
         }
     }),
     created: function() {
@@ -47,13 +47,13 @@ export default {
     },
     methods: {
         send () {
-            console.log(this.Form.warehouses);
+            console.log(this.Form.warehouse);
             axios.post('/api/brigade', this.Form, {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
                 this.$bvModal.hide('modal-13')
-                response.data.warehouse = this.Form.warehouses
+                response.data.warehouse = this.Form.warehouse
                 this.$emit('send', response.data)
             })
             .catch((error) => {

@@ -20,7 +20,7 @@
                 </multiselect>
             </div>
             <div slot="modal-footer">
-                <button @click="send" size="sm" class="btn btn-primary input-group-addon">Сохранить</button>
+                <button @click="send2" size="sm" class="btn btn-primary input-group-addon">Сохранить</button>
             </div>
         </b-modal>
   </div>
@@ -46,14 +46,12 @@ export default {
             })
     },
     methods: {
-        send () {
-            console.log(this.Form.TypeWarehouse);
+        send2 () {
             axios.post('/api/warehousetype', this.Form, {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
-                console.log(response.data);
-                 this.$bvModal.hide('modal-10')
+                this.$bvModal.hide('modal-10')
                 response.data.TypeWarehouse = this.Form.TypeWarehouse
                 this.$emit('send', response.data)
             })

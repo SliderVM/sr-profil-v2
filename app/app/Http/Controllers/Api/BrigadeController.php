@@ -44,7 +44,7 @@ class BrigadeController extends Controller
             'name'=> $request->imya,
         ]);
 
-        $warehouse->Warehouse()->sync(array_map($func, $request->Warehouse));
+        $warehouse->Warehouse()->sync(array_map($func, $request->warehouse));
 
         return $warehouse;
     }

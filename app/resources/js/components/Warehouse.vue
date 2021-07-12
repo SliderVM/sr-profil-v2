@@ -20,8 +20,7 @@ export default {
     props: ["Warehouse"],
     data: () => ({
         warehouse_types: [],
-        form: {},
-        Form: {}
+        form: {}
     }),
     methods: {
         removeWarehouse() {
@@ -29,13 +28,10 @@ export default {
             this.$emit('removeWarehouse', {id: this.Warehouse.id})
         },
         editWarehouse(data) {
-            console.log(data.form)
-            this.form = data.Form
-            const index = this.warehouse_types.findIndex(this.warehouse_types);
-            this.warehouse_types.splice(index, 1, this.form)
-            this.$emit('editWarehouse', {Form: this.form})
+            console.log(data)
+            this.warehouse_types = data.form
+            this.$emit('editWarehouse', {form: this.form})
         }
-    },
-
+    }
 }
 </script>
