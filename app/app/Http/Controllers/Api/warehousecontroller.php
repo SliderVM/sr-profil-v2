@@ -27,15 +27,9 @@ class WarehouseController extends Controller
      */
     public function create()
     {
-        $warehouse = warehouse::with('WarehouseTypes')->get();
-        return $warehouse;
-    }
+        // return warehouse::with('WarehouseTypes')->where('warehouse_type_id', '2')->get();
+        return warehouse::with('WarehouseTypes')->get();
 
-
-    public function up(Request $id)
-    {
-        $warehouse = warehouse::find($id)::with('WarehouseTypes')->where($id)->get();
-        return $warehouse;
     }
 
     /**
@@ -57,7 +51,9 @@ class WarehouseController extends Controller
      */
     public function show($id)
     {
-        //
+        $warehouse = warehouse::find($id);
+        $warehouse = warehouse::with('WarehouseTypes')->get();
+        return $warehouse;
     }
 
     /**

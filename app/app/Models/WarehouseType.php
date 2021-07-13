@@ -13,7 +13,7 @@ class WarehouseType extends Model
 
     public function warehouses()
     {
-        return $this->belongsToMany(warehouse::class)->wherePivot('warehouse_type_id', 1);
+        return $this->belongsToMany(warehouse::class);
     }
 }
 

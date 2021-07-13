@@ -70,7 +70,6 @@ export default {
         },
         brigadeNew(data) {
             this.brigadeArray.push(data);
-            console.log("brigadeNew", data);
         },
         removingSmena(rst) {
             this.brigadeArray.splice(this.brigadeArray.indexOf(rst.id),1)

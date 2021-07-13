@@ -1,10 +1,8 @@
 <template>
     <div>
-
         <b-button v-b-modal.bv-modal-example size="sm" variant="outline-primary"><b-icon icon="plus-square"></b-icon> Приход металла</b-button>
 
             <b-modal id="bv-modal-example" title="Приход металла">
-
                 <v-InputData @Vibe='Ran'></v-InputData>
                 <v-inputname @SmenaName='NewName'></v-inputname>
                 <!-- <v-selectcounterparties></v-selectcounterparties> -->
@@ -27,25 +25,20 @@
                 <!-- <v-selectwarehouse></v-selectwarehouse> -->
                 <div>
                     <label>Склад</label>
-                    <select class="form-control" v-model="form.warehouseId">
-                        <option size="sm" class="mt-3"
-                        v-for="warehouse in warehouseArray"
-                        :key="warehouse.message"
-                        :value="warehouse.id">
-                        {{warehouse.name}}
-                        </option>
-                    </select>
+                    <b-form-select v-model="form.warehouseId" size="sm" class="mt-3" v-for="warehouse in warehouseArray" :key="warehouse.id" :value="warehouse.id">
+                    {{warehouse.name}}
+                    </b-form-select>
                 </div>
                 <!-- <v-selecttype></v-selecttype> -->
                 <div>
                     <label>Тип металла</label>
-                    <select class="form-control" v-model="form.typeMetalId">
-                        <option v-for="types in selecttype"
+                    <b-form-select width=100 v-model="form.typeMetalId">
+                        <b-form-select-option v-for="types in selecttype"
                         :key="types.id"
                         :value="types.id">
                         {{types.name}}
-                        </option>
-                    </select>
+                        </b-form-select-option>
+                    </b-form-select>
                 </div>
 
                 <div class="form-group">
@@ -61,14 +54,14 @@
                 <!-- <v-selectthickness></v-selectthickness> -->
                 <div>
                     <label>Толщина</label>
-                    <select class="form-control" v-model="form.metalThicknessId">
-                        <option size="sm" class="mt-3"
+                    <b-form-select v-model="form.metalThicknessId">
+                        <b-form-select-option size="sm" class="mt-3"
                         v-for="thicknesse in thicknessesArray"
                         :key="thicknesse.id"
                         :value="thicknesse.id">
                         {{thicknesse.thicknesses}}
-                        </option>
-                    </select>
+                        </b-form-select-option>
+                    </b-form-select>
                 </div>
 
                 <v-InputWeight @Ves='VesTonna'></v-InputWeight>
@@ -103,7 +96,7 @@ data: () => ({
     trackBy: 'id',
 
     warehouseArray: [],
-    options: [
+    optionsW: [
         { warehouseArray: '', value: '' },
     ],
     thicknessesArray: [],

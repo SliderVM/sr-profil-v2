@@ -1,10 +1,7 @@
 <template>
     <div class="row">
         <div class="col-3">
-            <b-form-select v-model="selected" class="form-control col-3" name="sklad" @change="smena($event)">
-                <template #first>
-                    <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option>
-                </template>
+            <b-form-select :options="options" class="form-control col-3" name="sklad" @change="smena">
                 <b-form-select-option size="sm" class="mt-3"
                 v-for="warehouse in warehouseArray"
                 :key="warehouse.id"
@@ -19,7 +16,7 @@
                 v-for="warehouse_type in  warehouse_types"
                 :key="warehouse_type.id"
                 :value="warehouse_types.id">
-                {{warehouse_types}}
+                {{warehouse_type}}
                 </b-form-select-option>
             </b-form-select>
         </div>
@@ -30,7 +27,6 @@
 <script>
 export default {
     data: () => ({
-        selected: null,
         warehouseArray: [],
         options: [
             { warehouseArray: '', value: '' },
@@ -48,13 +44,14 @@ export default {
             axios.get('/api/warehouse/create')
             .then(res => {
                 this.warehouseArray = res.data;
-                this.warehouse_types = res.data;
-                console.log(res.data)
-                console.log(this.warehouse_types)
             })
         },
-        smena(event) {
-            console.log(event.target.value)
+        smena() {
+            axios.get('/api/warehouse/' + this.id)
+            .then(res => {
+                this.warehouse_types = res.data;
+            });
+            console.log(this.warehouse_types);
         }
     }
 }

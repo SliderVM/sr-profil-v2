@@ -47,7 +47,6 @@ export default {
     },
     methods: {
         send () {
-            console.log(this.Form.warehouse);
             axios.post('/api/brigade', this.Form, {
                 header: ("Content-type: application/json")
             })

@@ -5,6 +5,7 @@
             <div class="mr-auto">
                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#demandModal"><i class="fa fa-plus"></i> Подать заявку</button>
             </div>
+
         </div>
         <table class="table table-sm table-hover small mt-4">
             <thead>
