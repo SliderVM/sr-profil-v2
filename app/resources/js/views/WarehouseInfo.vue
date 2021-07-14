@@ -73,7 +73,6 @@ export default {
         },
         WarehouseNew(data) {
             this.Warehouses.push(data);
-            this.data.task=""
         },
         editor() {
             this.form = data.Form

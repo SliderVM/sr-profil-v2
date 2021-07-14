@@ -51,9 +51,8 @@ class WarehouseController extends Controller
      */
     public function show($id)
     {
-        $warehouse = warehouse::find($id);
-        $warehouse = warehouse::with('WarehouseTypes')->get();
-        return $warehouse;
+        return warehouse::with('WarehouseTypes')->where('warehouses.id',$id)->first();
+
     }
 
     /**

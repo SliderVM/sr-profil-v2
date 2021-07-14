@@ -54,6 +54,7 @@ export default {
                 this.$bvModal.hide('modal-10')
                 response.data.TypeWarehouse = this.Form.TypeWarehouse
                 this.$emit('happy', response.data)
+                this.Form = '';
             })
             .catch((error) => {
                 console.log(error);

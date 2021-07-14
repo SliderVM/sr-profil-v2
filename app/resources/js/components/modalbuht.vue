@@ -25,9 +25,9 @@
                 <!-- <v-selectwarehouse></v-selectwarehouse> -->
                 <div>
                     <label>Склад</label>
-                    <b-form-select v-model="form.warehouseId" size="sm" class="mt-3" v-for="warehouse in warehouseArray" :key="warehouse.id" :value="warehouse.id">
-                    {{warehouse.name}}
-                    </b-form-select>
+                    <select v-model="form.warehouseId">
+                        <option size="sm" class="mt-3"  v-for="warehouse in warehouseArray" :key="warehouse.id" :value="warehouse.id">{{warehouse.name}} </option>
+                    </select>
                 </div>
                 <!-- <v-selecttype></v-selecttype> -->
                 <div>
@@ -146,7 +146,6 @@ data: () => ({
             axios.get('/api/counterparties')
             .then(res => {
                 this.CounterpartiesArray = res.data;
-                console.log(this.Value);
                 this.form.counterpartyId = this.Value.id;
             });
         },
@@ -174,18 +173,15 @@ data: () => ({
             })
             .then((response) => {
                 this.form = response.data;
-                console.log(response.data);
                 this.$bvModal.hide('bv-modal-example')
+                this.$emit('send', {form: this.form})
+                this.form = '';
             })
             .catch((error) => {
                 console.log(error);
             })
-            {
-                this.$emit('send', {form: this.form})
-                console.log(this.form);
-            };
         },
-        }
+    }
     }
 
 </script>
