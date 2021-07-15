@@ -12,16 +12,19 @@
             </select>
         </div>
         <div class="col-3">
-             <select class="form-control col-3" name="type" @change="loadPage">
+            <select class="form-control col-3" name="type" @change="loadPage">
                 <option disabled value="" selected>Выберите тип склад</option>
                 <option size="sm" class="mt-3" v-for="warehouset in warehouseT.warehouse_types"
                 :key="warehouset.id"
-               :value="warehouset.table_name">
-               {{warehouset.name}}
-                 </option>
-             </select>
+                :value="warehouset.table_name">
+                {{warehouset.name}}
+                </option>
+            </select>
         </div>
     <h5> Управление производством </h5>
+    <div>
+        <buhta></buhta>
+    </div>
   </div>
 </template>
 
@@ -49,7 +52,6 @@ export default {
             .then((response) => {
                 this.warehouseT = response.data
             });
-
         },
         loadwarehouse() {
             axios.get('/api/warehouse/create')
@@ -57,15 +59,14 @@ export default {
                 this.warehouseArray = res.data;
             })
         },
-          loadPage(event) {
-             axios.get('/api/apr/')
-             .then(res => {
+        loadPage(event) {
+            axios.get('/api/apr/')
+            .then(res => {
                 this.aprArray = res.data
                 this.show=true
             })
             console.log(event.target.value);
         },
-
     }
 }
 </script>
