@@ -22,13 +22,16 @@
             </select>
         </div>
     <h5> Управление производством </h5>
-    <buhta v-model="show" :apr="apr" />
+    <div>
+        <buhta></buhta>
+    </div>
   </div>
 </template>
 
 <script>
-import buhta from './buhtaApr.vue'
+import buhta from './aprBuhta.vue';
 export default {
+
     components: {buhta},
     data: () => ({
         aprArray: [],
@@ -47,9 +50,8 @@ export default {
         smena(event) {
             axios.get('/api/warehouse/' + event.target.value)
             .then((response) => {
-                this.warehouseT = response.data   
+                this.warehouseT = response.data
             });
-
         },
         loadwarehouse() {
             axios.get('/api/warehouse/create')
@@ -58,8 +60,8 @@ export default {
             })
         },
         loadPage(event) {
-             axios.get('/api/apr/')
-             .then(res => {
+            axios.get('/api/apr/')
+            .then(res => {
                 this.aprArray = res.data
                 this.show=true
             })
