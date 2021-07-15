@@ -25,4 +25,8 @@ class Buhta extends Model
     {
         return $this->hasOne(apr::class);
     }
+    public function warehouses()
+    {
+      return $this->hasOne(warehouse::class, 'id', 'warehouse_id');
+    }
 }

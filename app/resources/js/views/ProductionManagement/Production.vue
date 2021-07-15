@@ -16,12 +16,13 @@
                 <option disabled value="" selected>Выберите тип склад</option>
                 <option size="sm" class="mt-3" v-for="warehouset in warehouseT.warehouse_types"
                 :key="warehouset.id"
-                :value="warehouset.table_name">
+                :value="warehouset.id">
                 {{warehouset.name}}
                 </option>
             </select>
         </div>
-    <h5> Управление производством </h5>
+        <br>
+        <h5> Управление производством </h5>
         <div class="hidden" v-show="visible">
             <buhta></buhta>
         </div>
@@ -58,10 +59,16 @@ export default {
             })
         },
         loadPage(event) {
-            this.visible=true
-
             console.log(event.target.value);
-        },
+            if(event.target.value == 1) {
+            this.visible=true
+            console.log(event.target.value);
+            }
+            else {
+                alert('Нет бухт с АПР');
+                this.visible=false
+            }
+        }
     }
 }
 </script>
