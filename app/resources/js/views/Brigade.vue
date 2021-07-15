@@ -53,7 +53,7 @@ export default {
             },
             {
                 title: "Смены",
-                href:"/brigade"
+                href:"/brigade",
             }
         ]
     }),
