@@ -18,7 +18,7 @@
                 :hide-selected="true"
                 :multiple="true">
                 </multiselect>
-            </div>
+            </div> 
             <div slot="modal-footer">
                 <button @click="send" size="sm" class="btn btn-primary input-group-addon">Сохранить</button>
             </div>
