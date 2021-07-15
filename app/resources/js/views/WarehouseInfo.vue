@@ -62,7 +62,7 @@ export default {
     }),
     mounted() {
         this.loadWarehouse();
-    },
+    }, 
     methods: {
         loadWarehouse() {
             axios.get('/api/warehouse/create')
@@ -72,7 +72,9 @@ export default {
             })
         },
         WarehouseNew(data) {
+
             this.Warehouses.push(data);
+            console.log(this.Warehouses);
         },
         editor() {
             this.form = data.Form
