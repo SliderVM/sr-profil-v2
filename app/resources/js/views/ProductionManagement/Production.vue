@@ -22,26 +22,24 @@
             </select>
         </div>
     <h5> Управление производством </h5>
-    <div>
-        <buhta></buhta>
-    </div>
+        <div class="hidden" v-show="visible">
+            <buhta></buhta>
+        </div>
   </div>
 </template>
 
 <script>
 import buhta from './aprBuhta.vue';
 export default {
-
     components: {buhta},
     data: () => ({
-        aprArray: [],
         warehouseArray: [],
         options: [
             { warehouseArray: '', value: '' },
         ],
         warehouseT: {},
         selected: '',
-        show: false
+        visible: false
     }),
     mounted() {
         this.loadwarehouse();
@@ -60,11 +58,8 @@ export default {
             })
         },
         loadPage(event) {
-            axios.get('/api/apr/')
-            .then(res => {
-                this.aprArray = res.data
-                this.show=true
-            })
+            this.visible=true
+
             console.log(event.target.value);
         },
     }

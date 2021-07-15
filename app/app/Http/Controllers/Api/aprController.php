@@ -16,7 +16,7 @@ class aprController extends Controller
      */
     public function index()
     {
-        return buhta::join('aprs','buhtas.id', 'aprs.buhta_id')->get();
+        return buhta::with('TypesMetals', 'counterparties')->join('aprs','buhtas.id', 'aprs.buhta_id')->get();
     }
 
     /**
@@ -39,7 +39,7 @@ class aprController extends Controller
     {
         $i=0;
         while($i < count($request[1])){
-         apr::create([
+         $apr = apr::create([
             "buhta_id" => $request[0],
             "width" => $request[1][$i]['form']['width1'],
             "amount" => $request[1][$i]['form']['amount'],
@@ -47,8 +47,7 @@ class aprController extends Controller
         ]);
         $i=$i+1;
         }
-
-
+        return $apr;
     }
 
     /**

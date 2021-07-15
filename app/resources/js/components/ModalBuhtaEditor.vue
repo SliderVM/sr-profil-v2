@@ -92,7 +92,7 @@ export default {
             });
         },
         savve() {
-            axios.post('api/apr/',[this.buhta.id, this.complects] , {
+            axios.post('api/apr',[this.buhta.id, this.complects] , {
                 header: ("Content-type: application/json")
             })
             .then((response) => {

@@ -34,6 +34,7 @@ Vue.component('v-InputData', require('./components/addbuht/input/InputData.vue')
 Vue.component('v-InputPrice', require('./components/addbuht/input/InputPrice.vue').default);
 Vue.component('v-InputWeight', require('./components/addbuht/input/InputWeight.vue').default);
 Vue.component('v-InputWidth', require('./components/addbuht/input/InputWidth.vue').default);
+Vue.component('v-buhtaApr', require('./views/ProductionManagement/buhtaOutput.vue').default);
 
 
 

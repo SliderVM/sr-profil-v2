@@ -32,13 +32,13 @@
                 <!-- <v-selecttype></v-selecttype> -->
                 <div>
                     <label>Тип металла</label>
-                    <b-form-select width=100 v-model="form.typeMetalId">
-                        <b-form-select-option v-for="types in selecttype"
+                    <select width=100 v-model="form.typeMetalId">
+                        <option v-for="types in selecttype"
                         :key="types.id"
                         :value="types.id">
                         {{types.name}}
-                        </b-form-select-option>
-                    </b-form-select>
+                        </option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -54,14 +54,14 @@
                 <!-- <v-selectthickness></v-selectthickness> -->
                 <div>
                     <label>Толщина</label>
-                    <b-form-select v-model="form.metalThicknessId">
-                        <b-form-select-option size="sm" class="mt-3"
+                    <select v-model="form.metalThicknessId">
+                        <option size="sm" class="mt-3"
                         v-for="thicknesse in thicknessesArray"
                         :key="thicknesse.id"
                         :value="thicknesse.id">
                         {{thicknesse.thicknesses}}
-                        </b-form-select-option>
-                    </b-form-select>
+                        </option>
+                    </select>
                 </div>
 
                 <v-InputWeight @Ves='VesTonna'></v-InputWeight>
