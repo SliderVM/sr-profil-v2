@@ -1,13 +1,13 @@
 <template>
     <tr>
-        <td>{{buhta}}</td>
-        <!-- <td>{{buhta.counterparties.name}}</td>
+        <td>{{buhta.name}}</td>
+        <td>{{buhta.counterparties.name}}</td>
         <td>{{buhta.types_metals.name}}</td>
         <td>{{buhta.width}}</td>
         <td>{{buhta.metal_thickness_id}}</td>
         <td>{{buhta.length}}</td>
         <td>{{buhta.weight}}</td>
-        <td>{{buhta.price}}</td> -->
+        <td>{{buhta.price}}</td>
         <td>
             <div class='btn-group'>
             <v-ModalBuhtaEditor :buhta="buhta"></v-ModalBuhtaEditor>
