@@ -16,7 +16,7 @@ class aprController extends Controller
      */
     public function index()
     {
-        return buhta::with('TypesMetals', 'counterparties', 'warehouses')->join('aprs','buhtas.id', 'aprs.buhta_id')->get();
+        return buhta::with('TypesMetals', 'counterparties', 'warehouses')->get();
     }
 
     /**
@@ -58,7 +58,8 @@ class aprController extends Controller
      */
     public function show($id)
     {
-        //
+        $apr = apr::join('buhtas','buhtas.id', 'aprs.buhta_id')->where('buhtas.id',$id)->get(['aprs.width','aprs.amount', 'aprs.tonage']);
+        return $apr;
     }
 
     /**

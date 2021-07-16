@@ -1,7 +1,7 @@
 <template>
-  <div>
-      <b-table-simple bordered>
-            <b-thead >
+    <div>
+         <b-table-simple bordered>
+            <b-thead>
                 <b-tr>
                     <b-th>Наименование</b-th>
                     <b-th>Контрагент</b-th>
@@ -14,8 +14,8 @@
                 </b-tr>
             </b-thead>
             <b-tbody>
-                <b-tr v-for='apr in aprArray' :key='apr.id' >
-                <td @click="load1(apr.buhta_id)">{{apr.name}}</td>
+                <b-tr v-for='apr in aprArray' :key='apr.id'>
+                <td @click="loadA(apr.id)">{{apr.name}}</td>
                 <td>{{apr.counterparties.name}}</td>
                 <td>{{apr.types_metals.name}}</td>
                 <td>{{apr.width}}</td>
@@ -23,39 +23,21 @@
                 <td>{{apr.length}}</td>
                 <td>{{apr.weight}}</td>
                 <td>{{apr.price}}</td>
-                </b-tr>
-                <b-tr>
-                    <div class="hidden" v-show="visible">
-                        <b-table-simple>
-                            <b-thead>
-                                <b-tr>
-                                    <b-th>Ширина, мм</b-th>
-                                    <b-th>Тоннаж, тн</b-th>
-                                    <b-th>Количество, шт</b-th>
-                                </b-tr>
-                            </b-thead>
-                            <b-tbody>
-                                <b-tr v-for='apr in aprArray' :key='apr.id' >
-                                <td>{{apr.width}}</td>
-                                <td>{{apr.tonage}}</td>
-                                <td>{{apr.amount}}</td>
-                                </b-tr>
-                            </b-tbody>
-                        </b-table-simple>
-                    </div>
+                <aprLoad :apr="veryApr" v-if="visible"></aprLoad>
                 </b-tr>
             </b-tbody>
-
-      </b-table-simple>
-
-  </div>
+        </b-table-simple>
+    </div>
 </template>
 
 <script>
+import aprLoad from './aprLoad.vue'
 export default {
+    components: {aprLoad},
     data:() => ({
         aprArray: [],
-        visible:false
+        veryApr: [],
+        visible: false,
     }),
     mounted() {
         this.loadApr();
@@ -65,17 +47,18 @@ export default {
             axios.get('/api/apr')
             .then(res => {
                 this.aprArray = res.data
-                console.log('1', res.data)
             })
         },
-        load1(id) {
-            console.log(id)
-            console.log()
-            this.visible = true;
+        loadA(id) {
+             axios.get('/api/apr/' + id)
+            .then(res => {
+                console.log(res.data)
+                this.veryApr = res.data;
+                this.visible = true;
+            })
         }
     }
 }
-
 </script>
 
 <style>

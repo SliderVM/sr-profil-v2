@@ -1,4 +1,5 @@
 <template>
+<div class="container-fluid">
     <div class="row">
         <div class="col-3">
             <select v-model="selected" class="form-control col-3" name="sklad" @change="smena">
@@ -27,6 +28,7 @@
             <buhta></buhta>
         </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -59,10 +61,8 @@ export default {
             })
         },
         loadPage(event) {
-            console.log(event.target.value);
             if(event.target.value == 1) {
             this.visible=true
-            console.log(event.target.value);
             }
             else {
                 alert('Нет бухт с АПР');
