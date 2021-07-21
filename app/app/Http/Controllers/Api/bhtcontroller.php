@@ -86,9 +86,12 @@ class BhtController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        //
+        if (Buhta::where('buhtas.id', $id)->join('aprs','buhtas.id', 'aprs.buhta_id')->where('aprs.buhta_id', '!=', NULL)->first()) 
+        {
+           return Buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->where('warehouse_id', $id)->get(); // вывод бухт 
+        }
     }
 
     /**

@@ -44,31 +44,31 @@
     </div>
 </template>
 
-    <script>
-       export default {
-            data: () => ({
-                    links: [
-                            {
-                                title: "Тип металла",
-                                href:"/info"
-                            },
-                            {
-                                title: "Размеры труб",
-                                href:"/info2"
-                            },
-                            {
-                                title: "Толщина металла",
-                                href:"/info5"
-                            },
-                            {
-                                title: "Управление складами",
-                                href:"/warehouseinfo"
-                            },
-                            {
-                                title: "Смены",
-                                href:"/brigade"
-                            }
-                        ]
-            })
-       }
-    </script>
+<script>
+export default {
+data: () => ({
+    links: [
+        {
+            title: "Тип металла",
+            href:"/info"
+        },
+        {
+            title: "Размеры труб",
+            href:"/info2"
+        },
+        {
+            title: "Толщина металла",
+            href:"/info5"
+        },
+        {
+            title: "Управление складами",
+            href:"/warehouseinfo"
+        },
+        {
+            title: "Смены",
+            href:"/brigade"
+        }
+    ]
+})
+}
+</script>

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    export default {
-            name: "demands"
-                }
+export default {
+    name: "demands"
+}
 </script>

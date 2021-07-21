@@ -1,5 +1,4 @@
 <template>
-<div>
     <div class="container-fluid">
         <div class="d-flex mt-3">
             <div class="mr-auto">
@@ -30,11 +29,9 @@
             </tfoot>
         </table>
     </div>
-</div>
 </template>
 
 <script>
-import axios from 'axios';
 import buhta from '../components/buhta.vue';
 export default {
     components: {buhta},

@@ -20,31 +20,29 @@
 
 <script>
 export default {
-    data() {
-        return {
-            links: [
-                {
-                    title: "Склады",
-                    href: "/buhtas"
-                },
-                {
-                    title: "Управление производством",
-                    href: "/productionmanagement"
-                },
-                {
-                    title: "Заявки",
-                    href: "/demands"
-                },
-                {
-                    title: "Справочники",
-                    href: "/info"
-                },
-                {
-                    title: "Контрагенты",
-                    href: "/info3"
-                }
-            ]
-        };
-    }
-};
+data: () => ({
+    links: [
+        {
+            title: "Склады",
+            href: "/buhtas"
+        },
+        {
+            title: "Управление производством",
+            href: "/productionmanagement"
+        },
+        {
+            title: "Заявки",
+            href: "/demands"
+        },
+        {
+            title: "Справочники",
+            href: "/info"
+        },
+        {
+            title: "Контрагенты",
+            href: "/info3"
+        }
+    ]
+})
+}
 </script>

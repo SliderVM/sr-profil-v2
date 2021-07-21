@@ -2,7 +2,7 @@
     <div>
         <label>Тип металла</label>
         <select v-model="selected">
-            <option v-for="types in selecttype" v-bind:key="types.id" v-bind:value="types.name">{{types.name}} </option>
+            <option v-for="types in selecttype" :key="types.id" :value="types.name">{{types.name}} </option>
         </select>
     </div>
 </template>
@@ -19,15 +19,14 @@ export default {
     }),
     mounted() {
         this.loadtypes();
-        },
+    },
     methods: {
         loadtypes() {
             axios.get('/api/types')
             .then(res => {
                 this.selecttype = res.data;
             })
-        },
+        }
     }
-
 }
 </script>

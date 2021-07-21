@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="hidden" v-if="visible">
          <b-table-simple bordered>
             <b-thead>
                 <b-tr>
@@ -24,7 +24,7 @@
                     <td>{{buhta.weight}}</td>
                     <td>{{buhta.price}}</td>
                 </tr>
-                <tr class="hidden" v-if="buhta.id === visible">
+                <tr class="hidden" v-if="buhta.id === aprId">
                     <aprLoad :apr="aprs"></aprLoad>
                 </tr>
             </tbody>
@@ -35,36 +35,40 @@
 <script>
 import aprLoad from './aprLoad.vue'
 export default {
+    props: ["warehouseKey"],
     components: {aprLoad},
     data:() => ({
         aprArray: [],
         aprs: [],
-        visible: '',
+        aprId: '',
+        visible: false,
     }),
     mounted() {
         this.loadApr();
     },
     methods: {
         loadApr() {
-            axios.get('/api/apr')
+            axios.get('/api/buhtas/' + this.warehouseKey)
             .then(res => {
                 this.aprArray = res.data
-            })
+                if (res.data.length ) {
+                    console.log(res.data.length)
+                    this.visible = true
+                }
+                else {
+                    alert('Нет бухт с АПР');
+                    this.visible = false
+                }
+            }) 
         },
         loadA(id) {
-            console.log();
             axios.get('/api/apr/' + id)
             .then(res => {
                 console.log(res.data);
                 this.aprs = res.data;
-                this.visible = id;
-                 console.log( this.visible);
+                this.aprId = id;
             })
         }
     }
 }
 </script>
-
-<style>
-
-</style>

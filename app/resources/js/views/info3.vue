@@ -20,40 +20,38 @@
     </div>
 </template>
 <script>
-    import axios from 'axios';
-    import counterparties from '../components/counterparties.vue';
-
-    export default {
-        components: {counterparties},
-        data: () => ({
-            counterpartiesArray: [],
-            form: {
-                imya: ""
-            },
-        }),
-        mounted() {
-            this.loadcounterparties();
+import counterparties from '../components/counterparties.vue';
+export default {
+    components: {counterparties},
+    data: () => ({
+        counterpartiesArray: [],
+        form: {
+            imya: ""
         },
-        methods: {
-            loadcounterparties() {
-                axios.get('/api/counterparties')
-                .then(res => {
-                    this.counterpartiesArray = res.data;
-                })
-            },
-            send() {
-                axios.post('/api/counterparties', this.form, {
-                    headers: {"Content-type": "application/json"}
-                })
-                .then((response) => {
-                this.form = response.data;
-                this.counterpartiesArray.push(this.form)
-                console.log(this.form);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-            }
+    }),
+    mounted() {
+        this.loadcounterparties();
+    },
+    methods: {
+        loadcounterparties() {
+            axios.get('/api/counterparties')
+            .then(res => {
+                this.counterpartiesArray = res.data;
+            })
+        },
+        send() {
+            axios.post('/api/counterparties', this.form, {
+                headers: {"Content-type": "application/json"}
+            })
+            .then((response) => {
+            this.form = response.data;
+            this.counterpartiesArray.push(this.form)
+            console.log(this.form);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         }
     }
+}
 </script>

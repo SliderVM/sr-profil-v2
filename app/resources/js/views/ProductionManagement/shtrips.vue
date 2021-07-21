@@ -75,7 +75,7 @@
     </div>
 </template>
 <script>
-    export default {
-        name: "shtrips"
-    }
+export default {
+    name: "shtrips"
+}
 </script>

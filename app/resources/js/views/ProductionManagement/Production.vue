@@ -14,7 +14,7 @@
         </div>
         <div class="col-3">
             <select class="form-control col-3" name="type" @change="loadPage">
-                <option value="" selected>Выберите тип склад</option>
+                <option value="">Выберите тип склада</option>
                 <option size="sm" class="mt-3" v-for="warehouset in warehouseT.warehouse_types"
                 :key="warehouset.id"
                 :value="warehouset.id">
@@ -24,10 +24,10 @@
         </div>
         <br>
         <h5> Управление производством </h5>
-        <div class="hidden" v-if="visible">
-            <buhta></buhta>
+        <div v-if="visible">
+            <buhta :warehouseKey="val1"></buhta>
         </div>
-  </div>
+    </div>
 </div>
 </template>
 
@@ -42,7 +42,8 @@ export default {
         ],
         warehouseT: {},
         selected: '',
-        visible: false
+        visible: false,
+        val1: ''
     }),
     mounted() {
         this.loadwarehouse();
@@ -52,6 +53,7 @@ export default {
             axios.get('/api/warehouse/' + event.target.value)
             .then((response) => {
                 this.warehouseT = response.data
+                this.val1 = event.target.value
             });
         },
         loadwarehouse() {
@@ -62,11 +64,11 @@ export default {
         },
         loadPage(event) {
             if(event.target.value == 1) {
-            this.visible=true
+                this.visible = true
             }
             else {
                 alert('Нет бухт с АПР');
-                this.visible=false
+                this.visible = false
             }
         }
     }

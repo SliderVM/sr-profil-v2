@@ -16,11 +16,5 @@
 <script>
 export default {
     props: {apr:Array},
-    data:() => ({}),
-    methods: {}
 }
 </script>
-
-<style>
-
-</style>

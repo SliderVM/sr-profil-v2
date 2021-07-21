@@ -2,7 +2,7 @@
     <div >
         <label>Толщина</label>
         <select v-model="selected">
-            <option size="sm" class="mt-3" v-for="thicknesse in thicknessesArray" v-bind:key="thicknesse.id" v-bind:value="thicknesse.thicknesses">{{thicknesse.thicknesses}} </option>
+            <option size="sm" class="mt-3" v-for="thicknesse in thicknessesArray" :key="thicknesse.id" :value="thicknesse.thicknesses">{{thicknesse.thicknesses}} </option>
         </select>
     </div>
 </template>
@@ -11,7 +11,7 @@
 
 
 export default {
-data: () => ({
+    data: () => ({
         selected: '',
         thicknessesArray: [],
         options: [

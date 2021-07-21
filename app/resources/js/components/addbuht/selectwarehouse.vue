@@ -2,14 +2,12 @@
 <div>
     <label>Склад</label>
     <select v-model="warehouse_id">
-        <option size="sm" class="mt-3"  v-for="warehouse in warehouseArray" v-bind:key="warehouse.message" v-bind:value="warehouse.name">{{warehouse.name}} </option>
+        <option size="sm" class="mt-3"  v-for="warehouse in warehouseArray" :key="warehouse.message" :value="warehouse.name">{{warehouse.name}} </option>
     </select>
 </div>
 </template>
 
 <script>
-
-
 export default {
     data: () => ({
         warehouse_id: '',

@@ -102,8 +102,7 @@
 </template>
 
 <script>
-
-    export default {
-        name: "truba"
-    }
-    </script>
+export default {
+    name: "truba"
+}
+</script>

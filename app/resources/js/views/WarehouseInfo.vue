@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import  Warehouse from '../components/Warehouse.vue'
 export default {
     components: {Warehouse},

@@ -12,11 +12,12 @@ class aprController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->get();
+        return Buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->get(); // вывод бухт
     }
 
     /**
@@ -58,7 +59,7 @@ class aprController extends Controller
      */
     public function show($id)
     {
-        return apr::join('buhtas','buhtas.id', 'aprs.buhta_id')->where('buhtas.id',$id)->where('aprs.buhta_id', '!=', NULL)->get(['aprs.width','aprs.amount', 'aprs.tonage']);
+        return apr::join('buhtas','buhtas.id', 'aprs.buhta_id')->where('buhtas.id',$id)->where('aprs.buhta_id', '!=', NULL)->get(['aprs.width','aprs.amount', 'aprs.tonage']); // бухты с апр по айди
     }
 
     /**

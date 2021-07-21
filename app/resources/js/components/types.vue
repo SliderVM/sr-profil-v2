@@ -7,9 +7,6 @@
 
 <script>
 export default {
-    data: ()=> ({
-        errorMessage: {}
-    }),
     name: "types",
     props: ["types"],
     methods: {
@@ -17,18 +14,7 @@ export default {
             console.log(this.types.id);
             axios.delete('api/types/' + this.types.id)
             this.$emit('removing', {id: this.types.id})
-            // .then((response) => {
-            //     if(response.data.error){
-            //         this.errorMessage = response.data.message;
-            //     }
-            //     else
-            //     {
-            //
-            //     }
-            // })
-
         }
-
     }
 }
 </script>

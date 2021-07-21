@@ -94,7 +94,6 @@ data: () => ({
     CounterpartiesArray: [],
     Value: '',
     trackBy: 'id',
-
     warehouseArray: [],
     optionsW: [
         { warehouseArray: '', value: '' },
@@ -182,7 +181,6 @@ data: () => ({
             })
         },
     }
-    }
-
+}
 </script>
 

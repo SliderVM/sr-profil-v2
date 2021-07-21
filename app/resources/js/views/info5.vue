@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import thicknesse from '../components/thicknesse.vue';
     export default {
         components: {thicknesse},

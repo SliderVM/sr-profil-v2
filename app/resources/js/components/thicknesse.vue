@@ -9,11 +9,11 @@
 export default {
     name: "thicknesse",
     props: ["thicknesse"],
-        methods: {
-            removing () {
-                axios.delete('/api/thicknesse/' + this.thicknesse.id)
-                this.$emit('removing', {id: this.thicknesse.id})
-            }
+    methods: {
+        removing () {
+            axios.delete('/api/thicknesse/' + this.thicknesse.id)
+            this.$emit('removing', {id: this.thicknesse.id})
         }
+    }
 }
 </script>

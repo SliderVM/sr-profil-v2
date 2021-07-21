@@ -13,7 +13,6 @@ export default {
 
     methods: {
          Cash() {
-             console.log(man);
              this.$emit('Cash', {price: this.man});
          }
     }

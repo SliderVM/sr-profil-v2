@@ -31,6 +31,6 @@ export default {
             this.warehouse = data.form
             this.warehouse.push(this.form);
         }
-    },
+    }
 }
 </script>

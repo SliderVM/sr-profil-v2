@@ -1,7 +1,6 @@
 <template>
     <tr>
         <td>{{Warehouse.name}}</td>
-
         <td><span v-for="warehouse_type in Warehouse.warehouse_types" :key="warehouse_type.id" @happy="warehouseTypeNew"> {{warehouse_type.name}} </span></td>
         <td>
             <div class='btn-group'>
@@ -15,27 +14,22 @@
 
 <script>
 export default {
-    props: ["Warehouse"],
-    name: "Warehouse",
-    data: () => ({
-        warehouse_types: []
-    }),
-    methods: {
-        warehouseTypeNew(data) {
-            console.log('16')
-            this.warehouse_types = data.form
-            this.warehouse_types.push(this.form);
-        },
-        removeWarehouse() {
-            console.log(this.Warehouse.id);
-            axios.delete('api/warehousetype/' + this.Warehouse.id);
-            this.$emit('removeWarehouse', {id: this.Warehouse.id})
-        },
-        // editWarehouse(data) {
-        //     console.log(data)
-        //     this.warehouse_types = data.form
-        //     this.$emit('editWarehouse', {form: this.form})
-        // }
-    }
+props: ["Warehouse"],
+name: "Warehouse",
+data: () => ({
+    warehouse_types: []
+}),
+methods: {
+    warehouseTypeNew(data) {
+        console.log('16')
+        this.warehouse_types = data.form
+        this.warehouse_types.push(this.form);
+    },
+    removeWarehouse() {
+        console.log(this.Warehouse.id);
+        axios.delete('api/warehousetype/' + this.Warehouse.id);
+        this.$emit('removeWarehouse', {id: this.Warehouse.id})
+    },
+}
 }
 </script>

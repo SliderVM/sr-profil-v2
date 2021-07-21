@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
     data: () => ({
         CounterpartiesArray: [],
@@ -36,8 +35,8 @@ export default {
             .then(res => {
                 this.CounterpartiesArray = res.data;
                 this.form.counterpartyId = this.Value.id;
-            });
-        },
+            })
+        }
     }
 }
 </script>
