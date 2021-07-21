@@ -29,4 +29,8 @@ class Buhta extends Model
     {
       return $this->hasOne(warehouse::class, 'id', 'warehouse_id');
     }
+    public function metalThicknesse()
+    {
+      return $this->hasOne(metalThicknesse::class, 'id', 'metal_thickness_id');
+    }
 }

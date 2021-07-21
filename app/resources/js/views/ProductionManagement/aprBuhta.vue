@@ -13,19 +13,21 @@
                     <b-th>Стоимость, руб</b-th>
                 </b-tr>
             </b-thead>
-            <b-tbody>
-                <b-tr v-for='apr in aprArray' :key='apr.id'>
-                <td @click="loadA(apr.id)">{{apr.name}}</td>
-                <td>{{apr.counterparties.name}}</td>
-                <td>{{apr.types_metals.name}}</td>
-                <td>{{apr.width}}</td>
-                <td>{{apr.metal_thickness_id}}</td>
-                <td>{{apr.length}}</td>
-                <td>{{apr.weight}}</td>
-                <td>{{apr.price}}</td>
-                <aprLoad :apr="veryApr" v-if="visible"></aprLoad>
-                </b-tr>
-            </b-tbody>
+            <tbody v-for="buhta in aprArray" :key="buhta.id">
+                <tr>
+                    <td @click="loadA(buhta.id)">{{buhta.name}}</td>
+                    <td>{{buhta.counterparties.name}}</td>
+                    <td>{{buhta.types_metals.name}}</td>
+                    <td>{{buhta.width}}</td>
+                    <td>{{buhta.metal_thicknesse.thicknesses}}</td>
+                    <td>{{buhta.length}}</td>
+                    <td>{{buhta.weight}}</td>
+                    <td>{{buhta.price}}</td>
+                </tr>
+                <tr class="hidden" v-if="buhta.id === visible">
+                    <aprLoad :apr="aprs"></aprLoad>
+                </tr>
+            </tbody>
         </b-table-simple>
     </div>
 </template>
@@ -36,8 +38,8 @@ export default {
     components: {aprLoad},
     data:() => ({
         aprArray: [],
-        veryApr: [],
-        visible: false,
+        aprs: [],
+        visible: '',
     }),
     mounted() {
         this.loadApr();
@@ -50,11 +52,13 @@ export default {
             })
         },
         loadA(id) {
-             axios.get('/api/apr/' + id)
+            console.log();
+            axios.get('/api/apr/' + id)
             .then(res => {
-                console.log(res.data)
-                this.veryApr = res.data;
-                this.visible = true;
+                console.log(res.data);
+                this.aprs = res.data;
+                this.visible = id;
+                 console.log( this.visible);
             })
         }
     }

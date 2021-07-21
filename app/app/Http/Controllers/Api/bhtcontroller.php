@@ -18,7 +18,7 @@ class BhtController extends Controller
      */
     public function index()
     {
-        return Buhta::with('TypesMetals', 'counterparties')->get();
+        return Buhta::with('TypesMetals', 'counterparties', 'metalThicknesse')->get();
     }
 
     /**

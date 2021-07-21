@@ -16,7 +16,7 @@ class aprController extends Controller
      */
     public function index()
     {
-        return buhta::with('TypesMetals', 'counterparties', 'warehouses')->get();
+        return buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->get();
     }
 
     /**

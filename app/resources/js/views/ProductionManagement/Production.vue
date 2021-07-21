@@ -24,7 +24,7 @@
         </div>
         <br>
         <h5> Управление производством </h5>
-        <div class="hidden" v-show="visible">
+        <div class="hidden" v-if="visible">
             <buhta></buhta>
         </div>
   </div>
