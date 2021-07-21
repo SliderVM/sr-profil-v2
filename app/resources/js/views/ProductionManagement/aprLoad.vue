@@ -11,10 +11,9 @@
                 </b-thead>
                 <b-tbody>
                     <b-tr>
-
-                    <td>{{veryApr.width}}</td>
-                    <td>{{veryApr.tonage}}</td>
-                    <td>{{veryApr.amount}}</td>
+                    <td>{{apr.width}}</td>
+                    <td>{{apr.tonage}}</td>
+                    <td>{{apr.amount}}</td>
                     </b-tr>
                 </b-tbody>
             </b-table-simple>
@@ -24,7 +23,7 @@
 
 <script>
 export default {
-    props: {veryApr: Array},
+    props: {apr: Array},
     data:() => ({
         aprs: []
     }),

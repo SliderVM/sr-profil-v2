@@ -14,7 +14,7 @@
         </div>
         <div class="col-3">
             <select class="form-control col-3" name="type" @change="loadPage">
-                <option disabled value="" selected>Выберите тип склад</option>
+                <option value="" selected>Выберите тип склад</option>
                 <option size="sm" class="mt-3" v-for="warehouset in warehouseT.warehouse_types"
                 :key="warehouset.id"
                 :value="warehouset.id">

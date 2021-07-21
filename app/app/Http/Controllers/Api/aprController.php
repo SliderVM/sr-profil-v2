@@ -58,8 +58,7 @@ class aprController extends Controller
      */
     public function show($id)
     {
-        $apr = apr::join('buhtas','buhtas.id', 'aprs.buhta_id')->where('buhtas.id',$id)->get(['aprs.width','aprs.amount', 'aprs.tonage']);
-        return $apr;
+        return apr::join('buhtas','buhtas.id', 'aprs.buhta_id')->where('buhtas.id',$id)->where('aprs.buhta_id', '!=', NULL)->get(['aprs.width','aprs.amount', 'aprs.tonage']);
     }
 
     /**
