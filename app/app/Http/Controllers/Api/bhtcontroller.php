@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Buhta;
-use App\Models\apr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
@@ -88,9 +87,9 @@ class BhtController extends Controller
      */
     public function show($id)
     {
-        if (Buhta::where('buhtas.id', $id)->join('aprs','buhtas.id', 'aprs.buhta_id')->where('aprs.buhta_id', '!=', NULL)->first()) 
+        if (Buhta::where('buhtas.warehouse_id', $id)->join('aprs','buhtas.id', 'aprs.buhta_id')->where('aprs.buhta_id', '!=', NULL)->first())
         {
-           return Buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->where('warehouse_id', $id)->get(); // вывод бухт 
+           return Buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->where('warehouse_id', $id)->get(); // вывод бухт
         }
     }
 

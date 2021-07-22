@@ -18,7 +18,7 @@
                 :hide-selected="true"
                 :multiple="true">
                 </multiselect>
-            </div> 
+            </div>
             <div slot="modal-footer">
                 <button @click="send" size="sm" class="btn btn-primary input-group-addon">Сохранить</button>
             </div>
@@ -52,7 +52,6 @@ export default {
             })
             .then((response) => {
                 this.$bvModal.hide('modal-10')
-                response.data.TypeWarehouse = this.Form.TypeWarehouse
                 this.$emit('happy', response.data)
                 this.Form = '';
             })

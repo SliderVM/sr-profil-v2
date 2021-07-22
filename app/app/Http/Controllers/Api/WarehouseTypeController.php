@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\warehouse;
 use App\Models\WarehouseType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\MessageBag;
 
 class WarehouseTypeController extends Controller
 {
@@ -48,8 +46,6 @@ class WarehouseTypeController extends Controller
         ]);
 
         $warehouse->WarehouseTypes()->sync(array_map($func, $request->TypeWarehouse));
-
-        return $warehouse;
     }
 
     /**
@@ -83,7 +79,6 @@ class WarehouseTypeController extends Controller
      */
     public function update(Request $request)
     {
-
         $func = function($value) {
             return $value['id'];
         };
@@ -95,8 +90,6 @@ class WarehouseTypeController extends Controller
         $warehouse = warehouse::find($request->id);
 
         $warehouse->WarehouseTypes()->sync(array_map($func,$request->WarehouseTypes));
-
-        return $warehouse;
     }
 
     /**

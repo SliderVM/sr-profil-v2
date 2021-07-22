@@ -5,10 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\TypesMetal;
 use App\Models\Buhta;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\MessageBag;
 
 
 class TypeController extends Controller
@@ -90,7 +87,7 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        if(buhta::where('type_metal_id',$id)->first())
+        if(buhta::where('type_metal_id', $id)->first())
         {
           return 'Невозможно удалить тип металла, так как он привязан к бухте';
         }

@@ -13,21 +13,21 @@
                     <b-th>Стоимость, руб</b-th>
                 </b-tr>
             </b-thead>
-            <tbody v-for="buhta in aprArray" :key="buhta.id">
-                <tr>
-                    <td @click="loadA(buhta.id)">{{buhta.name}}</td>
-                    <td>{{buhta.counterparties.name}}</td>
-                    <td>{{buhta.types_metals.name}}</td>
-                    <td>{{buhta.width}}</td>
-                    <td>{{buhta.metal_thicknesse.thicknesses}}</td>
-                    <td>{{buhta.length}}</td>
-                    <td>{{buhta.weight}}</td>
-                    <td>{{buhta.price}}</td>
-                </tr>
-                <tr class="hidden" v-if="buhta.id === aprId">
+           <b-tbody v-for="buhta in aprArray" :key="buhta.id">
+                <b-tr>
+                    <b-td @click="loadA(buhta.id)">{{buhta.name}}</b-td>
+                    <b-td>{{buhta.counterparties.name}}</b-td>
+                    <b-td>{{buhta.types_metals.name}}</b-td>
+                    <b-td>{{buhta.width}}</b-td>
+                    <b-td>{{buhta.metal_thicknesse.thicknesses}}</b-td>
+                    <b-td>{{buhta.length}}</b-td>
+                    <b-td>{{buhta.weight}}</b-td>
+                    <b-td>{{buhta.price}}</b-td>
+                </b-tr>
+                <b-tr class="hidden" v-if="buhta.id === aprId">
                     <aprLoad :apr="aprs"></aprLoad>
-                </tr>
-            </tbody>
+                </b-tr>
+           </b-tbody>
         </b-table-simple>
     </div>
 </template>
@@ -52,19 +52,17 @@ export default {
             .then(res => {
                 this.aprArray = res.data
                 if (res.data.length ) {
-                    console.log(res.data.length)
                     this.visible = true
                 }
                 else {
                     alert('Нет бухт с АПР');
                     this.visible = false
                 }
-            }) 
+            })
         },
         loadA(id) {
             axios.get('/api/apr/' + id)
             .then(res => {
-                console.log(res.data);
                 this.aprs = res.data;
                 this.aprId = id;
             })

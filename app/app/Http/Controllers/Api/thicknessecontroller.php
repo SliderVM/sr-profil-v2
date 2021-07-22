@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\metalThicknesse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\MessageBag;
 
 class ThicknesseController extends Controller
 {
@@ -89,6 +87,5 @@ class ThicknesseController extends Controller
     {
         $metal= metalThicknesse::find($id);
         $metal->delete();
-        return $metal;
     }
 }

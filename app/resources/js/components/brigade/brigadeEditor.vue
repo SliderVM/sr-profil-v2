@@ -66,14 +66,12 @@ export default {
                 console.log(response.data);
                 this.$bvModal.hide('modal-1')
                 response.data.warehouse = this.Form.warehouse
-                this.$emit('send', response.data)
+                console.log(this.Form.warehouse)
+                this.$emit('send', this.Form.warehouse)
             })
             .catch((error) => {
                 console.log(error);
             })
-            {
-                this.$emit('send', {form: this.Form})
-            }
         }
     }
 }

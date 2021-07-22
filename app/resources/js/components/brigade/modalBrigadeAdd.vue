@@ -51,7 +51,7 @@ export default {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
-                console.log(response)
+                console.log(response.data)
                 this.$bvModal.hide('modal-13')
                 response.data.warehouse = this.Form.warehouse
                 this.$emit('send', response.data)

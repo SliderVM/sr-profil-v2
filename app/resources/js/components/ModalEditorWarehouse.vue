@@ -65,7 +65,8 @@ export default {
             .then((response) => {
                 console.log('1',response.data);
                 this.$bvModal.hide('modal-1')
-                this.$emit('send', {form: this.Form})
+                this.WarehouseTypes =
+                this.$emit('send', response.data)
             })
             .catch((error) => {
                 console.log(error);

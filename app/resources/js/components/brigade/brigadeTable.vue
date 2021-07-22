@@ -3,8 +3,8 @@
         <td>
             {{brigade.name}}
         </td>
-        <td>
-            <span v-for="warehouse in brigade.warehouse" :key="warehouse.id"> {{warehouse.name}} </span>
+        <td @send="editorBrigade">
+            <span v-for="warehouse in brigade.warehouse" :key="warehouse.id" > {{warehouse.name}} </span>
         </td>
         <td>
             <div class='btn-group'>
@@ -27,9 +27,10 @@ export default {
             axios.delete('api/brigade/' + this.brigade.id);
             this.$emit('removeBrigade', {id: this.brigade.id})
         },
-        editorBrigade() {
-            this.warehouse = data.form
-            this.warehouse.push(this.form);
+        editorBrigade(data) {
+            console.log('1')
+            console.log(data)
+            this.warehouse.push(data.Form.warehouse);
         }
     }
 }
