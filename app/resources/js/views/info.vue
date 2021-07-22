@@ -15,11 +15,13 @@
                 </div>
                 <table class="table mt-3">
                     <thead>
+                        <tr>
                         <th>Тип</th>
-                        <th class="col-2">Операции</th>
+                        <th class="col-1">Операции</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <types v-for="type in types" :key="type.id" :types="type" @removing="rem" />
+                        <types v-for="type in types" :key="type.id" :types="type" @removing="loadtypes()" />
                     </tbody>
                 </table>
             </div>
@@ -82,10 +84,6 @@
             .catch((error) => {
                 console.log(error);
             });
-            },
-            rem(id) {
-                const index = this.types.findIndex(types => type.id === id)
-                this.types.splice(index,1)
             }
         }
     }

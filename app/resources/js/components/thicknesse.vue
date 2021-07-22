@@ -12,7 +12,9 @@ export default {
     methods: {
         removing () {
             axios.delete('/api/thicknesse/' + this.thicknesse.id)
-            this.$emit('removing', {id: this.thicknesse.id})
+            .then(res => {
+                this.$emit('removing')
+            })
         }
     }
 }

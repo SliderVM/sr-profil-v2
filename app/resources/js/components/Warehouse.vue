@@ -1,11 +1,10 @@
 <template>
     <tr>
         <td>{{Warehouse.name}}</td>
-        <td><span v-for="warehouse_type in Warehouse.warehouse_types" :key="warehouse_type.id" @happy="addNew"> {{warehouse_type.name}} </span></td>
+        <td><span v-for="warehouse_type in Warehouse.warehouse_types" :key="warehouse_type.id"> {{warehouse_type.name}} </span></td>
         <td>
             <div class='btn-group'>
-                <v-ModalEditorWarehouse :Warehouse="Warehouse"
-                @send="editW"></v-ModalEditorWarehouse>
+                <v-ModalEditorWarehouse :Warehouse="Warehouse"></v-ModalEditorWarehouse>
                 <b-button @click="removeWarehouse" :value="Warehouse.id" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon></b-button>
             </div>
         </td>
@@ -21,17 +20,10 @@ data: () => ({
 }),
 methods: {
     removeWarehouse() {
-        console.log(this.Warehouse.id);
-        axios.delete('api/warehousetype/' + this.Warehouse.id);
-        this.$emit('removeWarehouse', {id: this.Warehouse.id})
-    },
-    editW(data) {
-        console.log(data)
-        this.warehouse_types.push(data)
-    },
-    addNew(data) {
-        console.log(data.TypeWarehouse);
-        this.warehouse_types.push(data.TypeWarehouse)
+        axios.delete('api/warehousetype/' + this.Warehouse.id)
+        .then(res => {
+            this.$emit('removeWarehouse')
+        })
     }
 }
 }

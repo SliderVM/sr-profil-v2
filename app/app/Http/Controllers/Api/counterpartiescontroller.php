@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\counterparties;
+use App\Models\Buhta;
 use Illuminate\Http\Request;
 
 class CounterpartiesController extends Controller
@@ -84,6 +85,11 @@ class CounterpartiesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Buhta::where('counterparty_id', $id)->first()) {
+            return 'Невозможно удалить контрагента, так как он привязан к бухте';
+        } else {
+            $Agent = counterparties::find($id);
+            $Agent->delete();
+        };
     }
 }

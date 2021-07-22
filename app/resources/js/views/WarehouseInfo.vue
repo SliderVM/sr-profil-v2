@@ -21,7 +21,7 @@
                     <tbody>
                         <warehouse v-for="Warehouse in Warehouses"
                         :key="Warehouse.id"
-                        :Warehouse="Warehouse" @removeWarehouse="removing" @editWarehouse="editor"/>
+                        :Warehouse="Warehouse" @removeWarehouse="loadWarehouse()" @editWarehouse="editor"/>
                     </tbody>
                 </table>
             </div>
@@ -77,10 +77,6 @@ export default {
         editor() {
             this.form = data.Form
             this.Warehouses.push(this.Form);
-        },
-        removing(id) {
-            const index = this.Warehouses.findIndex(Warehouses => Warehouse.id === id)
-            this.Warehouses.splice(index,1)
         }
     }
 }

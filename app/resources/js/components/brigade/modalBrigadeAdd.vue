@@ -20,7 +20,7 @@
                 </multiselect>
             </div>
             <div slot="modal-footer">
-                <button @click="send" size="sm" class="btn btn-primary input-group-addon">Добавить</button>
+                <button  @click="send" size="sm" class="btn btn-primary input-group-addon">Добавить</button>
             </div>
         </b-modal>
   </div>
@@ -55,7 +55,7 @@ export default {
                 this.$bvModal.hide('modal-13')
                 response.data.warehouse = this.Form.warehouse
                 this.$emit('send', response.data)
-                this.form = '';
+
             })
             .catch((error) => {
                 console.log(error);

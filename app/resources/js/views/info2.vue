@@ -21,22 +21,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>40x40</td>
-                            <td>
-                                <a class="close" href="#" title="Удалить">
-                                    <span aria-hidden="true">&times;</span>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>20x20</td>
-                            <td>
-                                <a class="close" href="#" title="Удалить">
-                                    <span aria-hidden="true">&times;</span>
-                                </a>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>

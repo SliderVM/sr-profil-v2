@@ -9,7 +9,7 @@
         <td>
             <div class='btn-group'>
             <v-modalEditor :brigade="brigade"></v-modalEditor>
-             <b-button @click="removeBrigade" :value="this.brigade.id" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon></b-button>
+                <b-button @click="removeBrigade" :value="this.brigade.id" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon></b-button>
             </div>
         </td>
     </tr>
@@ -24,12 +24,12 @@ export default {
     }),
     methods: {
         removeBrigade() {
-            axios.delete('api/brigade/' + this.brigade.id);
-            this.$emit('removeBrigade', {id: this.brigade.id})
+            axios.delete('api/brigade/' + this.brigade.id)
+            .then(res => {
+                this.$emit('removeBrigade')
+            })
         },
         editorBrigade(data) {
-            console.log('1')
-            console.log(data)
             this.warehouse.push(data.Form.warehouse);
         }
     }

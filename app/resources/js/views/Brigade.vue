@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <brigadeTable v-for="brigade in brigadeArray" :key="brigade.id" :brigade="brigade" @removeBrigade="removingSmena"> </brigadeTable>
+                    <brigadeTable v-for="brigade in brigadeArray" :key="brigade.id" :brigade="brigade" @removeBrigade="loadBrigade()"> </brigadeTable>
                 </tbody>
             </table>
         </div>
@@ -70,9 +70,6 @@ export default {
         },
         brigadeNew(data) {
             this.brigadeArray.push(data);
-        },
-        removingSmena(rst) {
-            this.brigadeArray.splice(this.brigadeArray.indexOf(rst.id),1)
         }
     }
 }

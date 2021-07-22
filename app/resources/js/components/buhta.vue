@@ -23,7 +23,10 @@ props: ["buhta"],
 methods: {
     removeBuhta() {
         axios.delete('api/buhtas/' + this.buhta.id)
-        this.$emit('removeBuhta', {id: this.buhta.id})
+        .then(res => {
+            this.$emit('removeBuhta')
+        })
+
     }
 }
 }

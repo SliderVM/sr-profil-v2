@@ -11,9 +11,10 @@ export default {
     props: ["types"],
     methods: {
         removing () {
-            console.log(this.types.id);
             axios.delete('api/types/' + this.types.id)
-            this.$emit('removing', {id: this.types.id})
+            .then(res => {
+                this.$emit('removing')
+            })
         }
     }
 }

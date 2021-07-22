@@ -21,9 +21,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <thicknesse v-for="thicknesse in thicknessesArray"
-                            :key="thicknesse.id"
-                            :thicknesse="thicknesse" @removing="rem" />
+                        <thicknesse v-for="thicknesse in thicknessesArray"
+                        :key="thicknesse.id"
+                        :thicknesse="thicknesse" @removing="loadthicknesse()" />
                     </tbody>
                 </table>
             </div>
@@ -33,63 +33,59 @@
 
 <script>
 import thicknesse from '../components/thicknesse.vue';
-    export default {
-        components: {thicknesse},
-        data: () => ({
-            thicknessesArray: [],
-            form:{
-                tolsch: ""
-            },
-            links: [
-                {
-                    title: "Тип металла",
-                    href:"/info"
-                },
-                {
-                    title: "Размеры труб",
-                    href:"/info2"
-                },
-                {
-                    title: "Толщина металла",
-                    href:"/info5"
-                },
-                {
-                    title: "Управление складами",
-                    href:"/warehouseinfo"
-                },
-                {
-                    title: "Смены",
-                    href:"/brigade"
-                }
-            ]
-        }),
-        mounted() {
-            this.loadthicknesse();
+export default {
+    components: {thicknesse},
+    data: () => ({
+        thicknessesArray: [],
+        form:{
+            tolsch: ""
         },
-        methods: {
-            loadthicknesse() {
-                axios.get('/api/thicknesse')
-                .then(res => {
-                    this.thicknessesArray = res.data;
-                })
+        links: [
+            {
+                title: "Тип металла",
+                href:"/info"
             },
-            send() {
-                axios.post('/api/thicknesse', this.form, {
-                headers: {"Content-type": "application/json"}
-                })
-                .then((response) => {
-                    this.form = response.data;
-                    this.thicknessesArray.push(this.form);
-                })
-
-                .catch((error) => {
-                    console.log(error);
-                });
+            {
+                title: "Размеры труб",
+                href:"/info2"
             },
-            rem(id) {
-                const index = this.thicknessesArray.findIndex(thicknessesArray => thicknesse.id === id)
-                this.thicknessesArray.splice(index,1)
+            {
+                title: "Толщина металла",
+                href:"/info5"
+            },
+            {
+                title: "Управление складами",
+                href:"/warehouseinfo"
+            },
+            {
+                title: "Смены",
+                href:"/brigade"
             }
+        ]
+    }),
+    mounted() {
+        this.loadthicknesse();
+    },
+    methods: {
+        loadthicknesse() {
+            axios.get('/api/thicknesse')
+            .then(res => {
+                this.thicknessesArray = res.data;
+            })
+        },
+        send() {
+            axios.post('/api/thicknesse', this.form, {
+            headers: {"Content-type": "application/json"}
+            })
+            .then((response) => {
+                this.form = response.data;
+                this.thicknessesArray.push(this.form);
+            })
+
+            .catch((error) => {
+                console.log(error);
+            });
         }
     }
+}
 </script>
