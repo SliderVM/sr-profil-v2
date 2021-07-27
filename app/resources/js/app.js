@@ -5,8 +5,14 @@ window.Vue = require('vue').default;
 import Vue from 'vue'
 import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 
+
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+Vue.use(require('@websanova/vue-auth'), {
+    auth: require('@websanova/vue-auth/src/drivers/auth/bearer.js'),
+    http: require('@websanova/vue-auth/src/drivers/http/axios.1.x.js'),
+    router: require('@websanova/vue-auth/src/drivers/router/vue-router.2.x.js'),
+});
 
 Vue.component('v-header', require('./components/header.vue').default);
 
@@ -35,7 +41,6 @@ Vue.component('v-InputPrice', require('./components/addbuht/input/InputPrice.vue
 Vue.component('v-InputWeight', require('./components/addbuht/input/InputWeight.vue').default);
 Vue.component('v-InputWidth', require('./components/addbuht/input/InputWidth.vue').default);
 Vue.component('v-buhtaApr', require('./views/ProductionManagement/buhtaOutput.vue').default);
-
 
 
 import router from "./router";
