@@ -3,61 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\RegisterFormRequest;
+use Illuminate\Routing\Controller;
+use Laravel\Sanctum\NewAccessToken;
 use App\Models\User;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    public function register(RegisterFormRequest $request)
+    public function register(Request $request)
     {
-        $user = new User;
-        $user->email = $request->email;
-        $user->name = $request->name;
-        $user->password = bcrypt($request->password);
-        $user->save();
-        return response([
-            'status' => 'success',
-            'data' => $user
-        ], 200);
+        return User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=> Hash::make($request->password)
+        ]);
     }
+    /** @var \App\Models\User */
+
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        if (!$token = JWTAuth::attempt($credentials)) {
+
+        if (Auth::guard('web')->attempt($request->only('email', 'password'))) {
+            $user = Auth::user();
+
             return response([
-                'status' => 'error',
-                'error' => 'invalid.credentials',
-                'msg' => 'Invalid Credentials.'
-            ], 400);
+                'message' => 'Success'
+            ]);
         }
         return response([
-            'status' => 'success'
-        ])
-            ->header('Authorization', $token);
-    }
-    public function user(Request $request)
-    {
-        $user = User::find(Auth::user()->id);
-        return response([
-            'status' => 'success',
-            'data' => $user
+            'message' => 'invalid auth'
         ]);
+
     }
-    public function refresh()
+    public function user()
     {
-        return response([
-            'status' => 'success'
-        ]);
-    }
-    public function logout()
-    {
-        JWTAuth::invalidate();
-        return response([
-            'status' => 'success',
-            'msg' => 'Logged out Successfully.'
-        ], 200);
+        return Auth::user();
     }
 }

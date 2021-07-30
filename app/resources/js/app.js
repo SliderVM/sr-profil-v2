@@ -8,11 +8,6 @@ import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
-Vue.use(require('@websanova/vue-auth'), {
-    auth: require('@websanova/vue-auth/src/drivers/auth/bearer.js'),
-    http: require('@websanova/vue-auth/src/drivers/http/axios.1.x.js'),
-    router: require('@websanova/vue-auth/src/drivers/router/vue-router.2.x.js'),
-});
 
 Vue.component('v-header', require('./components/header.vue').default);
 

@@ -25,7 +25,6 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "@websanova/vue-auth": "^4.1.4",
         "install": "^0.13.0",
         "vue-jest": "^3.0.7",
         "vue-multiselect": "^2.1.6",
