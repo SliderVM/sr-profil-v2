@@ -42,7 +42,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'sanctum',
             'provider' => 'users',
             'hash' => false,
         ],
@@ -75,8 +75,7 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    ],
-
+        ],
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords

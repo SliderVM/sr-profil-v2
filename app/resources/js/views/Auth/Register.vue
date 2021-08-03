@@ -4,7 +4,6 @@
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" class="form-control" v-model="reg.name" required>
-                <!-- <input type="hidden" name="_token" :value="csrf"> -->
             </div>
             <div class="form-group">
                 <label for="email">E-mail</label>
@@ -19,30 +18,27 @@
     </div>
 </template>
 <script>
-    export default {
-        data(){
-            return {
-                reg: {
-                name: '',
-                email: '',
-                password: '',
-                csrf: ''
-                }
-            };
-        },
-        methods: {
-            register() {
-                axios.post("/register", this.reg, {
-                    header: "Content-type: application/json"
-                })
-                .then(response => {
-                    console.log(response)
-                    this.$router.push({ path: '/'})
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-            }
+export default {
+    data: () => ({
+        reg: {
+            name: '',
+            email: '',
+            password: '',
+        }
+    }),
+    methods: {
+        register() {
+            axios.post("/register", this.reg, {
+                header: "Content-type: application/json"
+            })
+            .then(response => {
+                console.log(response)
+                this.$router.push({ path: '/info2'})
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
     }
+}
 </script>

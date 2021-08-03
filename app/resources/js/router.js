@@ -16,14 +16,10 @@ import Brigade from "./views/Brigade.vue"
 import Login from "./views/Auth/Login.vue"
 import Register from "./views/Auth/Register.vue"
 
-
 const routes = [
     {
         path: "/",
         component: buhtas,
-        meta: {
-            auth: true
-        }
     },
     {
         path: "/buhtas",
@@ -69,17 +65,11 @@ const routes = [
         path: "/login",
         component: Login,
         name: 'login',
-        meta: {
-            auth: false
-        }
     },
     {
         path: "/register",
         component: Register,
         name: 'register',
-        meta: {
-            auth: false
-        }
     },
 ];
 

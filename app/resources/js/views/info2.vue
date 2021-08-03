@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <h5 class="mb-3">Справочники</h5>
+        <!-- <h5 class="mb-3">Справочники</h5>
         <div class="row">
             <div class="col-3">
                 <div class="list-group small">
@@ -24,13 +24,19 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
+    <div>
+        Email: {{user.email}}
+        <button @click.prevent="logout">Logout</button>
+    </div>
     </div>
 </template>
 
 <script>
 export default {
 data: () => ({
+    user: {},
+    token: localStorage['token'],
     links: [
         {
             title: "Тип металла",
@@ -53,6 +59,25 @@ data: () => ({
             href:"/brigade"
         }
     ]
-})
+}),
+mounted() {
+    window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+    axios.get('api/user').then((response) => {
+        console.log(response)
+        this.user = response.data
+    }).catch((errors) => {
+        console.log(errors)
+    })
+},
+methods: {
+    logout(){
+        axios.post('api/logout').then((response) => {
+            localStorage.removeItem('token')
+            this.$router.push('/login')
+        }).catch((errors) => {
+            console.log(errors)
+        })
+    }
+}
 }
 </script>

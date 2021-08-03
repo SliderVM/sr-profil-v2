@@ -1,7 +1,6 @@
 <template>
     <div>
         <form autocomplete="off" @submit.prevent="login" method="post">
-
             <div class="form-group">
                 <label for="email">E-mail</label>
                 <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="log.email" required>
@@ -10,38 +9,30 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" class="form-control" v-model="log.password" required>
             </div>
-            <input type="hidden" name="_token" :value="csrf">
             <button type="submit" class="btn btn-default">Sign in</button>
         </form>
     </div>
 </template>
 <script>
-  export default {
-    data(){
-      return {
-
+export default {
+    data: () => ({
         log: {
             email: null,
             password: null,
-            // csrf_token: '123'
-            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            device_name: 'browser',
         }
-      }
-    },
+    }),
     methods: {
         login() {
-            axios.post("/login", this.log, {
-                header: "Content-type: application/json"
-            })
+            axios.post('/login', this.log)
             .then(response => {
-                console.log(response)
-                // this.$router.push({ path: '/'})
+                localStorage.setItem('token', response.data)
+                this.$router.push({ path: '/info2'})
             })
             .catch(error => {
                 console.log(error);
             });
-            // console.log(this.csrf);
         }
     }
-  }
+}
 </script>
