@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="col-9">
-                <h2 class="mb-3">Тип металла</h2>
+                <h5 class="mb-3">Тип металла</h5>
                 <div class="input-group my-4">
                     <input v-model="form.imya" placeholder="Начните вводить тип" class="form-control">
                     <button @click="send" class="btn btn-sm btn-outline-primary"><b-icon icon="plus-square"></b-icon> Добавить</button>
@@ -60,7 +60,11 @@
                 {
                     title: "Смены",
                     href:"/brigade"
-                }
+                },
+                {
+                    title: "Пользователи",
+                    href:"/users"
+                },
             ]
         }),
         mounted() {

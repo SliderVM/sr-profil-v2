@@ -6,10 +6,10 @@
                 <input type="email" id="email" class="form-control" placeholder="user@example.com" v-model="log.email" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Пароль</label>
                 <input type="password" id="password" class="form-control" v-model="log.password" required>
             </div>
-            <button type="submit" class="btn btn-default">Sign in</button>
+            <button type="submit" class="btn btn-default">Вход</button>
         </form>
     </div>
 </template>
@@ -19,19 +19,19 @@ export default {
         log: {
             email: null,
             password: null,
-            device_name: 'browser',
         }
     }),
     methods: {
         login() {
             axios.post('/login', this.log)
             .then(response => {
-                localStorage.setItem('token', response.data)
-                this.$router.push({ path: '/info2'})
+                console.log(response);
+                this.$router.push({ name: 'home'})
             })
             .catch(error => {
                 console.log(error);
             });
+            console.log('вы внутри')
         }
     }
 }

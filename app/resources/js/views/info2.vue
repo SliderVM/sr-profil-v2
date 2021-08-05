@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <!-- <h5 class="mb-3">Справочники</h5>
+        <h5 class="mb-3">Справочники</h5>
         <div class="row">
             <div class="col-3">
                 <div class="list-group small">
@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="col-9">
-                <h2 class="mb-3">Размер</h2>
+                <h5 class="mb-3">Размер</h5>
                 <div class="input-group my-4">
                     <input placeholder="Добавьте размер в мм" class="form-control">
                     <button class="btn btn-sm btn-outline-primary"><b-icon icon="plus-square"></b-icon> Добавить</button>
@@ -24,19 +24,13 @@
                     </tbody>
                 </table>
             </div>
-        </div> -->
-    <div>
-        Email: {{user.email}}
-        <button @click.prevent="logout">Logout</button>
-    </div>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
 data: () => ({
-    user: {},
-    token: localStorage['token'],
     links: [
         {
             title: "Тип металла",
@@ -57,27 +51,12 @@ data: () => ({
         {
             title: "Смены",
             href:"/brigade"
-        }
+        },
+        {
+            title: "Пользователи",
+            href:"/users"
+        },
     ]
-}),
-mounted() {
-    window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
-    axios.get('api/user').then((response) => {
-        console.log(response)
-        this.user = response.data
-    }).catch((errors) => {
-        console.log(errors)
-    })
-},
-methods: {
-    logout(){
-        axios.post('api/logout').then((response) => {
-            localStorage.removeItem('token')
-            this.$router.push('/login')
-        }).catch((errors) => {
-            console.log(errors)
-        })
-    }
-}
+})
 }
 </script>

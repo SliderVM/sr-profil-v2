@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="col-9">
-                <h2 class="mb-3">Склады</h2>
+                <h5 class="mb-3">Склады</h5>
                     <v-ModalWarehouse @happy="WarehouseNew"></v-ModalWarehouse>
                 <table class="table mt-9">
                     <thead>
@@ -56,7 +56,11 @@ export default {
             {
                 title: "Смены",
                 href:"/brigade"
-            }
+            },
+            {
+                title: "Пользователи",
+                href:"/users"
+            },
         ]
     }),
     mounted() {

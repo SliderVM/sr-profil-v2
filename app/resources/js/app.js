@@ -5,14 +5,11 @@ window.Vue = require('vue').default;
 import Vue from 'vue'
 import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 
-function loggedIn(){
-    return localStorage.getItem('token')
-}
-
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
 Vue.component('v-header', require('./components/header.vue').default);
+Vue.component('login', require('./views/Auth/Login.vue').default);
 
 Vue.component('v-buhta', require('./components/buhta.vue').default);
 Vue.component('v-aprModal', require('./components/aprModal.vue').default);

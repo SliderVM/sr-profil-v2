@@ -10,17 +10,9 @@
                         :key="link.id"
                         >{{ link.title }}</router-link>
                 </nav>
-                <nav>
-                <ul class="list-inline">
-                    <li class="pull-right">
-                        <router-link :to="{ name: 'login' }">Login</router-link>
-                    </li>
-                    <li class="pull-right">
-                        <router-link :to="{ name: 'register' }">Register</router-link>
-                    </li>
-                </ul>
-            </nav>
+                <b-button size="sm" @click.prevent="logout"><b-icon icon='box-arrow-right'></b-icon> Выход</b-button>
             </div>
+            <!-- <b-button size="sm" @click="logged">Проверить юзера</b-button> -->
         </div>
     </div>
 </template>
@@ -28,6 +20,7 @@
 <script>
 export default {
     data: () => ({
+        user: {},
         links: [
             {
                 title: "Склады",
@@ -51,5 +44,22 @@ export default {
             }
         ]
     }),
+    methods: {
+        logout() {
+            axios.post('/logout')
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((errors) => {
+                console.log(errors)
+            })
+        },
+        logged() { // получить авторизованного пользователя
+            axios.get('/user')
+            .then((response) => {
+                console.log(response)
+            })
+        }
+    }
 }
 </script>

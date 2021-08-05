@@ -2,10 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Route::post('/register', 'App\Http\Controllers\AuthController@register');
-// Route::post('/login', 'App\Http\Controllers\AuthController@login');
-// Route::post('/logout', 'App\Http\Controllers\AuthController@logout');
+// Route::get();
+Route::post('login', 'AuthController@login')->name('login');
 
-Route::get('/{any}', function() {
+// Route::group(['middleware' => 'auth',], function () {
+    Route::post('register', 'AuthController@register');
+    Route::post('logout', 'AuthController@logout');
+    Route::get('user', 'AuthController@user');
+
+    Route::get('/{any}', function() {
     return view('index');
-})->where('any','.*');
+    })->where('any','.*');
+// });

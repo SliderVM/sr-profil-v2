@@ -14,12 +14,13 @@ import ModalEditorWarehouse from "./components/ModalEditorWarehouse.vue"
 import Production from "./views/ProductionManagement/Production.vue"
 import Brigade from "./views/Brigade.vue"
 import Login from "./views/Auth/Login.vue"
-import Register from "./views/Auth/Register.vue"
+import user from "./views/Users.vue"
 
 const routes = [
     {
         path: "/",
         component: buhtas,
+        name: 'home'
     },
     {
         path: "/buhtas",
@@ -67,10 +68,9 @@ const routes = [
         name: 'login',
     },
     {
-        path: "/register",
-        component: Register,
-        name: 'register',
-    },
+        path: "/users",
+        component: user
+    }
 ];
 
 export default new vueRouter ({

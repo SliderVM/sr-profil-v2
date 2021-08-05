@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="col-9">
-                <h2 class="mb-3">Толщина металла</h2>
+                <h5 class="mb-3">Толщина металла</h5>
                 <div class="input-group my-4">
                     <input type="number" v-model="form.tolsch" placeholder="Добавьте толщину в мм" class="form-control">
                     <button @click="send" size="sm" class="btn btn-sm btn-outline-primary"><b-icon icon="plus-square"></b-icon> Добавить</button>
@@ -60,7 +60,11 @@ export default {
             {
                 title: "Смены",
                 href:"/brigade"
-            }
+            },
+            {
+                title: "Пользователи",
+                href:"/users"
+            },
         ]
     }),
     mounted() {

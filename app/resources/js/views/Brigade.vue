@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="col-9">
-            <h2 class="mb-3">Смены</h2>
+            <h5 class="mb-3">Смены</h5>
             <v-modalAdd @send="brigadeNew"></v-modalAdd>
             <table class="table table-sm mt-3">
                 <thead>
@@ -54,7 +54,11 @@ export default {
             {
                 title: "Смены",
                 href:"/brigade"
-            }
+            },
+            {
+                title: "Пользователи",
+                href:"/users"
+            },
         ]
     }),
     mounted() {
