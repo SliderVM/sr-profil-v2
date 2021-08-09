@@ -21,8 +21,7 @@ class CreateStripsTable extends Migration
             $table->integer('metal_thicknesse_id')->unsigned();
             $table->bigInteger('types_metal_id')->unsigned();
             $table->bigInteger('counterpartie_id')->unsigned()->nullable();
-
-            $table->integer('width_one_piece');
+            
             $table->integer('length_in_meters');
             $table->integer('width_in_millimeters');
             $table->float('weight_in_tons');
