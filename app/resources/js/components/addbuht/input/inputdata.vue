@@ -8,12 +8,12 @@
 export default {
      data: () => ({
         receiptDate: '',
-     }),
-     methods: {
+    }),
+    methods: {
          Vibe() {
              this.$emit('Vibe', {receiptDate: this.receiptDate});
          }
-     }
+    }
 }
 </script>
 

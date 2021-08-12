@@ -26,7 +26,6 @@ methods: {
         .then(res => {
             this.$emit('removeBuhta')
         })
-
     }
 }
 }

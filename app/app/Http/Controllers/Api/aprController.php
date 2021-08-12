@@ -48,7 +48,7 @@ class aprController extends Controller
         ]);
         $i=$i+1;
         }
-        return $apr;
+        return $apr; // добавление апр к бухте
     }
 
     /**

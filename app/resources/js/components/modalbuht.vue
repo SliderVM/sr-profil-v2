@@ -1,9 +1,12 @@
 <template>
-    <div class="hidden" v-if="visible">
+    <div>
         <b-button v-b-modal.bv-modal-example size="sm" variant="outline-primary"><b-icon icon="plus-square"></b-icon> Приход металла</b-button>
         <b-modal id="bv-modal-example" title="Приход металла">
             <v-InputData @Vibe="Ran"></v-InputData>
-            <v-inputname @SmenaName="NewName"></v-inputname>
+             <div class="form-group">
+                <label>Наименование</label>
+                <input type="text" v-model="form.name" placeholder="Введите наименование" class="form-control" />
+            </div>
             <!-- <v-selectcounterparties></v-selectcounterparties> -->
             <div>
                 <label>Контрагенты</label>
@@ -98,11 +101,11 @@
             </div>
 
             <!-- <v-checkbox></v-checkbox> -->
-            <input type="radio" id="one" value="1" v-model="form.available" />
-            <label for="one">Бухта в пути</label>
+            <input type="radio" id="zero" value="0" v-model="form.available" />
+            <label for="zero">Бухта в пути</label>
             <br />
-            <input type="radio" id="two" value="2" v-model="form.available" />
-            <label for="two">Бухта на складе</label>
+            <input type="radio" id="one" value="1" v-model="form.available" />
+            <label for="one">Бухта на складе</label>
 
             <div slot="modal-footer">
                 <button @click="send" size="sm" class="btn btn-outline-primary">
@@ -116,7 +119,7 @@
 <script>
 import multiselect from "vue-multiselect";
 export default {
-    components: { multiselect },
+    components: {multiselect},
     data: () => ({
         CounterpartiesArray: [],
         Value: "",
@@ -153,9 +156,6 @@ export default {
         VesTonna(data) {
             this.form.weight = data.weight;
         },
-        NewName(data) {
-            this.form.name = data.name;
-        },
         CounterpartiesOpen() {
             axios.get("/api/counterparties").then(res => {
                 this.CounterpartiesArray = res.data;
@@ -183,20 +183,24 @@ export default {
             });
         },
         send() {
-            axios
-                .post("/api/buhtas", this.form, {
+            console.log(this.form);
+            axios.post("/api/buhtas", this.form, {
                     header: "Content-type: application/json"
                 })
                 .then(response => {
+                    if(response.data.status = true) {
+                    console.log(response)
                     this.form = response.data;
                     this.$bvModal.hide("bv-modal-example");
                     this.$emit("send", { form: this.form });
                     this.form = "";
+                    }
+                    alert(response.data)
                 })
                 .catch(error => {
                     console.log(error);
                 });
         }
     }
-};
+}
 </script>

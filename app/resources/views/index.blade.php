@@ -12,7 +12,9 @@
     </head>
     <body>
         <div id="app">
+            
             <v-header></v-header>
+
             <router-view></router-view>
         </div>
         <script src="{{asset('js/vue.min.js')}}"></script>

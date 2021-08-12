@@ -9,11 +9,11 @@
 export default {
     data: () => ({
         weight: '',
-     }),
+    }),
      methods: {
          Ves() {
-             this.$emit('Ves', {weight: this.weight});
-         }
-     }
+            this.$emit('Ves', {weight: this.weight});
+        }
+    }
 }
 </script>

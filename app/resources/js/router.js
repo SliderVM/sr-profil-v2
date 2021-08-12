@@ -15,6 +15,7 @@ import Production from "./views/ProductionManagement/Production.vue"
 import Brigade from "./views/Brigade.vue"
 import Login from "./views/Auth/Login.vue"
 import user from "./views/Users.vue"
+import history from "./views/History/history.vue"
 
 const routes = [
     {
@@ -70,8 +71,22 @@ const routes = [
     {
         path: "/users",
         component: user
+    },
+    {
+        path: "/history",
+        component: history
     }
 ];
+
+// router.beforeEach((to, from, next) => {
+//     const protectedRoutes = ['/', '/buhtas','/demands','/productionmanagement','/info','/info3','/info2','/info5','/warehouseinfo','/warehousetype/:id','/brigade','/users'];
+//     if (protectedRoutes.includes(to.path)) {
+//         return next('/login');
+//     }
+//     else
+//     {
+//         return next();
+//     }})
 
 export default new vueRouter ({
     routes: routes,

@@ -41,6 +41,10 @@ export default {
             {
                 title: "Контрагенты",
                 href: "/info3"
+            },
+            {
+                title: "История",
+                href: "/history"
             }
         ]
     }),
@@ -49,6 +53,8 @@ export default {
             axios.post('/logout')
             .then((response) => {
                 console.log(response);
+                localStorage.removeItem('token');
+                this.$router.push({ name: 'login'})
             })
             .catch((errors) => {
                 console.log(errors)

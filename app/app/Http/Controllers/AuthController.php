@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -21,24 +22,19 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
-        return 'Авторизован';
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
+        return $user->createToken($request->device_name)->plainTextToken;
     }
-    // public function loginShow()
-    // {
-    //     return view('welcome');
-    //     return redirect('/');
-    // }
 
     public function logout(Request $request)
     {
-        Auth::guard('web')->logout();
+        $request->user()->currentAccessToken()->delete();
         return response()->json(['msg' => 'Не авторизован']);
-    }
-    public function user() {
-        if(Auth::check()) {
-            return 'Авторизован';
-        }
-        return 'Не авторизован';
     }
 }

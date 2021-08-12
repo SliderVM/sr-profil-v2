@@ -2,15 +2,13 @@
     <div class='btn-group'>
         <b-button @click='modalShow=!modalShow' size='sm' variant='outline-primary'><b-icon icon='calculator'></b-icon> АПР</b-button>
 
-        <b-button type='button' v-if='visible && buhta.available == 1' @click='prihod' :value='buhta.id' variant='outline-primary'>Оприходовать</b-button>
+        <b-button type='button' v-if='visible && buhta.available == 0' @click='prihod' :value='buhta.id' variant='outline-primary'>Оприходовать</b-button>
 
-        <b-modal v-model='modalShow' size='lg'>
-
-            <div slot='modal-title'>
+        <b-modal id="34" v-model='modalShow' size='lg'>
+            <div slot='modal-header'>
                 <label>Бухта №{{buhta.id}}, тип {{buhta.types_metals.name}}, толщина {{buhta.metal_thickness_id}} мм, {{buhta.weight}}тн. </label>
                  <br>Ширина: {{buhta.width}} мм
             </div>
-
             <v-aprModal
             :buhta='buhta'
             :complect="complect"
@@ -24,11 +22,10 @@
             <span class='btn btn-outline-primary' @click='addNewComplect'>Добавить тип резки</span>
             <span class="float-left">Обрезь: {{remainder}} мм</span>
             <div slot='modal-footer'>
-                <b-button size='sm' @click='savve' variant='outline-primary'>Сохранить </b-button>
+                <b-button size='sm' @click='savve' variant='outline-primary'>Сохранить</b-button>
             </div>
         </b-modal>
     </div>
-
 </template>
 
 <script>

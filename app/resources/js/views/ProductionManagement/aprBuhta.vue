@@ -23,6 +23,9 @@
                     <b-td>{{buhta.length}}</b-td>
                     <b-td>{{buhta.weight}}</b-td>
                     <b-td>{{buhta.price}}</b-td>
+                    <div>
+                        <shtrips-modal :buhta="aprArray" :apr="aprs"></shtrips-modal>
+                    </div>
                 </b-tr>
                 <b-tr class="hidden" v-if="buhta.id === aprId">
                     <aprLoad :apr="aprs"></aprLoad>
@@ -33,22 +36,24 @@
 </template>
 
 <script>
+import shtripsModal from '../../components/shtripsModal.vue'
 import aprLoad from './aprLoad.vue'
 export default {
     props: ["warehouseKey"],
-    components: {aprLoad},
+    components: {aprLoad, shtripsModal},
     data:() => ({
         aprArray: [],
         aprs: [],
         aprId: '',
         visible: false,
+        modalShow: false,
     }),
     mounted() {
         this.loadApr();
     },
     methods: {
         loadApr() {
-            axios.get('/api/buhtas/' + this.warehouseKey)
+            axios.get('/api/buhtas/' + this.warehouseKey) // получить бухты по айди склада
             .then(res => {
                 this.aprArray = res.data
                 if (res.data.length ) {
@@ -60,7 +65,7 @@ export default {
                 }
             })
         },
-        loadA(id) {
+        loadA(id) { // получить апр по айди бухты
             axios.get('/api/apr/' + id)
             .then(res => {
                 this.aprs = res.data;

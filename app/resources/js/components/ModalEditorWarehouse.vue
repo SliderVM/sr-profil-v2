@@ -35,19 +35,19 @@ export default {
     components: {multiselect},
     data: () => ({
         WarehouseTypeArray: [],
-        Form:{
+        Form: {
             id: "",
             name: "",
             WarehouseTypes: []
         },
         modalShow: false,
-        value:[]
+        value: []
     }),
     created: function() {
         axios.get('/api/warehousetype')
-            .then(res => {
-                this.WarehouseTypeArray = res.data;
-            })
+        .then(res => {
+            this.WarehouseTypeArray = res.data;
+        })
     },
     mounted() {
         this.loadForm();

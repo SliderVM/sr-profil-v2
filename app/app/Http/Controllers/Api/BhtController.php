@@ -41,6 +41,7 @@ class BhtController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
+                "name" => ["unique:buhtas,name"],
                 "warehouseId" => ["required"],
                 "receiptDate" => ["required"],
                 "typeMetalId" => ["required"],
@@ -62,7 +63,7 @@ class BhtController extends Controller
         $buhta = buhta::create([
             "receipt_date" => $request->receiptDate,
             "warehouse_id" => $request->warehouseId,
-            "name" => (buhta::max('id') +1).' / '.$request->warehouseId,
+            "name" =>  $request->name ? $request->name : (buhta::max('id') +1).' / '.$request->warehouseId,
             "type_metal_id" => $request->typeMetalId,
             "width" => $request->width,
             "weight" => $request->weight,
@@ -89,7 +90,7 @@ class BhtController extends Controller
     {
         if (Buhta::where('buhtas.warehouse_id', $id)->join('aprs','buhtas.id', 'aprs.buhta_id')->where('aprs.buhta_id', '!=', NULL)->first())
         {
-           return Buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->where('warehouse_id', $id)->get(); // вывод бухт
+           return Buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->where('warehouse_id', $id)->where('available', '1')->get(); // вывод бухт
         }
     }
 
@@ -112,7 +113,7 @@ class BhtController extends Controller
      */
     public function update(Request $request)
     {
-        buhta::find($request->id)->update(['available'=> 2,'receipt_date' =>date("d.m.Y")]);
+        buhta::find($request->id)->update(['available'=> 1,'receipt_date' =>date("d.m.Y")]);
     }
 
     /**

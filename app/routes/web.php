@@ -1,16 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
-// Route::get();
 Route::post('login', 'AuthController@login')->name('login');
 
 // Route::group(['middleware' => 'auth',], function () {
-    Route::post('register', 'AuthController@register');
-    Route::post('logout', 'AuthController@logout');
-    Route::get('user', 'AuthController@user');
+Route::post('register', 'AuthController@register');
+Route::post('logout', 'AuthController@logout')->middleware(('auth:sanctum'));
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
     Route::get('/{any}', function() {
     return view('index');
     })->where('any','.*');
-// });

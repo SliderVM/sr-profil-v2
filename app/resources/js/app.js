@@ -7,6 +7,9 @@ import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+function loggedIn() {
+    return localStorage.getItem('token')
+}
 
 Vue.component('v-header', require('./components/header.vue').default);
 Vue.component('login', require('./views/Auth/Login.vue').default);
@@ -34,8 +37,6 @@ Vue.component('v-inputname', require('./components/addbuht/input/inputName.vue')
 Vue.component('v-InputData', require('./components/addbuht/input/InputData.vue').default);
 Vue.component('v-InputPrice', require('./components/addbuht/input/InputPrice.vue').default);
 Vue.component('v-InputWeight', require('./components/addbuht/input/InputWeight.vue').default);
-Vue.component('v-InputWidth', require('./components/addbuht/input/InputWidth.vue').default);
-Vue.component('v-buhtaApr', require('./views/ProductionManagement/buhtaOutput.vue').default);
 
 
 import router from "./router";

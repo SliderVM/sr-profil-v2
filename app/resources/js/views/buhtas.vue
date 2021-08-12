@@ -75,12 +75,14 @@ export default {
     },
     methods: {
         loadBuhts() {
-            axios.get("/api/buhtas").then(res => {
+            axios.get("/api/buhtas")
+            .then(res => {
                 this.buhtas = res.data;
             });
         },
         loadwarehouse() {
-            axios.get("/api/warehouse/create").then(res => {
+            axios.get("/api/warehouse/create")
+            .then(res => {
                 this.warehouseArray = res.data;
             });
         },
@@ -93,7 +95,8 @@ export default {
             }
         },
         smena(event) {
-            axios.get("/api/warehouse/" + event.target.value).then(response => {
+            axios.get("/api/warehouse/" + event.target.value)
+            .then(response => {
                 this.warehouseT = response.data;
             });
         },

@@ -10,7 +10,6 @@ export default {
     data: () => ({
         man: '',
     }),
-
     methods: {
          Cash() {
              this.$emit('Cash', {price: this.man});

@@ -19,6 +19,7 @@ export default {
         log: {
             email: null,
             password: null,
+            device_name: 'browser'
         }
     }),
     methods: {
@@ -26,6 +27,7 @@ export default {
             axios.post('/login', this.log)
             .then(response => {
                 console.log(response);
+                localStorage.setItem('token',response.data)
                 this.$router.push({ name: 'home'})
             })
             .catch(error => {
