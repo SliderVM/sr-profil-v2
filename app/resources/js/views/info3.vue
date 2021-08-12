@@ -1,8 +1,8 @@
 <template>
     <div class="container-fluid">
-    <h2 class="mb-3">Контрагенты</h2>
+        <h5 class="mb-3">Контрагенты</h5>
         <div class="input-group my-4">
-            <input v-model="form.imya" placeholder="Добавить" class="form-control">
+            <input v-model="form.imya" placeholder="Введите наименование" class="form-control">
             <button @click="send" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#info3Modal"><b-icon icon="plus-square"></b-icon> Добавить</button>
         </div>
         <table class="table mt-3">

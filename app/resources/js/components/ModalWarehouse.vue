@@ -51,7 +51,9 @@ export default {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
+                console.log(response.data)
                 this.$bvModal.hide('modal-10')
+                response.data.TypeWarehouse = this.Form.TypeWarehouse
                 this.$emit('happy', response.data)
                 this.Form = '';
             })

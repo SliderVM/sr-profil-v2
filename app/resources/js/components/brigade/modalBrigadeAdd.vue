@@ -55,7 +55,6 @@ export default {
                 this.$bvModal.hide('modal-13')
                 response.data.warehouse = this.Form.warehouse
                 this.$emit('send', response.data)
-
             })
             .catch((error) => {
                 console.log(error);

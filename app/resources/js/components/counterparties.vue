@@ -17,10 +17,12 @@ export default {
         removeCounterparties() {
             axios.delete('/api/counterparties/' + this.agent.id)
             .then(res => {
-                console.log(res)
+                if (res.data == "") {
                 this.$emit('removeCounterparties')
-                    alert(res.data); // доделать, работает некорректно
-
+                }
+                else {
+                    alert(res.data);
+                }
             })
         }
     }

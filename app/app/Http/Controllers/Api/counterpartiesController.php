@@ -85,9 +85,12 @@ class CounterpartiesController extends Controller
      */
     public function destroy($id)
     {
-        if (Buhta::where('counterparty_id', $id)->first()) {
+        if (Buhta::where('counterparty_id', $id)->first())
+        {
             return 'Невозможно удалить контрагента, так как он привязан к бухте';
-        } else {
+        }
+        else
+        {
             $Agent = counterparties::find($id);
             $Agent->delete();
         };

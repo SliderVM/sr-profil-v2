@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\metalThicknesse;
+use App\Models\Buhta;
 use Illuminate\Http\Request;
 
 class ThicknesseController extends Controller
@@ -85,7 +86,14 @@ class ThicknesseController extends Controller
      */
     public function destroy($id)
     {
-        $metal= metalThicknesse::find($id);
-        $metal->delete();
+        if (Buhta::where('metal_thickness_id', $id)->first())
+        {
+            return 'Невозможно удалить толщину металла, так как он привязан к бухте';
+        }
+         else
+        {
+            $metal = metalThicknesse::find($id);
+            $metal->delete();
+        }
     }
 }

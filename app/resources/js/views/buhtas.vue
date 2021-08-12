@@ -68,17 +68,25 @@ export default {
         selectType: '',
         visible: false,
         buhtas: [],
-        form: {}
+        form: {},
+        val: ''
     }),
     mounted() {
-        this.loadBuhts();
         this.loadwarehouse();
     },
     methods: {
         loadBuhts() {
-            axios.get("/api/buhtas")
+            axios.get("/api/buhtas/" + this.val + "/edit")
             .then(res => {
-                this.buhtas = res.data;
+                if(res.data.length == 0)
+                {
+                    alert('Нет бухт!');
+                    this.visible = false;
+                }
+                else {
+                    this.buhtas = res.data;
+                    this.visible = true;
+                }
             });
         },
         loadwarehouse() {
@@ -89,9 +97,10 @@ export default {
         },
         loadPage(event) {
             if (event.target.value == 1) {
-                this.visible = true;
+
+                this.loadBuhts();
             } else {
-                alert("Нет бухт с АПР");
+                alert("Нет бухт!");
                 this.visible = false;
             }
         },
@@ -100,6 +109,7 @@ export default {
             .then(response => {
                 this.warehouseT = response.data;
                 this.selectType = ''
+                this.val = event.target.value;
             });
         },
         buhtaNew(data) {

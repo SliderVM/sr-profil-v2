@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\warehouse;
+use App\Models\Buhta;
 use App\Models\WarehouseType;
 use Illuminate\Http\Request;
 
@@ -46,6 +47,8 @@ class WarehouseTypeController extends Controller
         ]);
 
         $warehouse->WarehouseTypes()->sync(array_map($func, $request->TypeWarehouse));
+
+        return $warehouse;
     }
 
     /**
@@ -100,8 +103,15 @@ class WarehouseTypeController extends Controller
      */
     public function destroy($id)
     {
-        $warehouse= warehouse::find($id);
-        $warehouse->WarehouseTypes()->detach();
-        $warehouse->delete();
+        if (Buhta::where('warehouse_id', $id)->first())
+        {
+            return 'Невозможно удалить склад, так как он привязан к бухте';
+        }
+        else
+        {
+            $warehouse= warehouse::find($id);
+            $warehouse->WarehouseTypes()->detach();
+            $warehouse->delete();
+        }
     }
 }

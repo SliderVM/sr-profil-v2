@@ -4,7 +4,7 @@
 
         <b-button type='button' v-if='visible && buhta.available == 0' @click='prihod' :value='buhta.id' variant='outline-primary'>Оприходовать</b-button>
 
-        <b-modal id="34" v-model='modalShow' size='lg'>
+        <b-modal v-model='modalShow' size='lg'>
             <div slot='modal-header'>
                 <label>Бухта №{{buhta.id}}, тип {{buhta.types_metals.name}}, толщина {{buhta.metal_thickness_id}} мм, {{buhta.weight}}тн. </label>
                  <br>Ширина: {{buhta.width}} мм
@@ -68,7 +68,7 @@ export default {
             this.Form = this.buhta;
             this.remainder = this.buhta.width;
         },
-        addNewComplect() {
+        addNewComplect() { // добавить новый тип резки
 			this.complects.push({form: {
                 id: this.count++,
                 width1: 0,
@@ -76,7 +76,7 @@ export default {
                 tonage: "",
             }});
 		},
-        prihod() {
+        prihod() { // кнопка оприходовать
             axios.put('api/buhtas/' + this.buhta.id, this.Form, {
                 header: ("Content-type: application/json")
             })

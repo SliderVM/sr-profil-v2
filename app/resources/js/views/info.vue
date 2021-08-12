@@ -30,57 +30,55 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    import types from '../components/types.vue';
-
-    export default {
-        components: {types},
-        data: () => ({
-            types: [],
-            form: {
-                imya: ""
-            },
-            links: [
-                {
-                    title: "Тип металла",
-                    href:"/info"
-                },
-                {
-                    title: "Размеры труб",
-                    href:"/info2"
-                },
-                {
-                     title: "Толщина металла",
-                     href:"/info5"
-                },
-                {
-                    title: "Управление складами",
-                    href:"/warehouseinfo"
-                },
-                {
-                    title: "Смены",
-                    href:"/brigade"
-                },
-                {
-                    title: "Пользователи",
-                    href:"/users"
-                },
-            ]
-        }),
-        mounted() {
-            this.loadtypes();
+import types from '../components/types.vue';
+export default {
+    components: {types},
+    data: () => ({
+        types: [],
+        form: {
+            imya: ""
         },
-        methods: {
-            loadtypes() {
-                axios.get('/api/types')
-                .then(res => {
-                    this.types = res.data;
-                })
+        links: [
+            {
+                title: "Тип металла",
+                href:"/info"
             },
-            send() {
-                axios.post('/api/types',this.form, {
-                    headers: {"Content-type": "application/json"}
-                })
+            {
+                title: "Размеры труб",
+                href:"/info2"
+            },
+            {
+                    title: "Толщина металла",
+                    href:"/info5"
+            },
+            {
+                title: "Управление складами",
+                href:"/warehouseinfo"
+            },
+            {
+                title: "Смены",
+                href:"/brigade"
+            },
+            {
+                title: "Пользователи",
+                href:"/users"
+            },
+        ]
+    }),
+    mounted() {
+        this.loadtypes();
+    },
+    methods: {
+        loadtypes() {
+            axios.get('/api/types')
+            .then(res => {
+                this.types = res.data;
+            })
+        },
+        send() {
+            axios.post('/api/types',this.form, {
+                headers: {"Content-type": "application/json"}
+            })
             .then((response) => {
                 this.form = response.data;
                 this.types.push(this.form);
@@ -88,7 +86,7 @@
             .catch((error) => {
                 console.log(error);
             });
-            }
         }
     }
+}
 </script>

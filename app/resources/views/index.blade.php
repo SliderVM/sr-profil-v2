@@ -5,14 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>СР-Профиль</title>
-        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-        <link rel="stylesheet" href="{{asset('css/bootstrap-vue.min.css')}}">
-        <link rel="stylesheet" href="{{asset('css/custom.css')}}">
-        <link rel="stylesheet" href="{{asset('css/vue-multiselect.min.css')}}">
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" >
+        <link rel="stylesheet" href="{{asset('css/bootstrap-vue.min.css')}}" >
+        <link rel="stylesheet" href="{{asset('css/custom.css')}}" >
+        <link rel="stylesheet" href="{{asset('css/vue-multiselect.min.css')}}" >
     </head>
     <body>
         <div id="app">
-            
+
             <v-header></v-header>
 
             <router-view></router-view>

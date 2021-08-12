@@ -13,7 +13,12 @@ export default {
         removing () {
             axios.delete('api/types/' + this.types.id)
             .then(res => {
+                if (res.data == "") {
                 this.$emit('removing')
+                }
+                else {
+                    alert(res.data);
+                }
             })
         }
     }

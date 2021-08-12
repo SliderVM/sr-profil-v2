@@ -95,7 +95,6 @@ class TypeController extends Controller
         {
             $Types= TypesMetal::find($id);
             $Types->delete();
-            return $Types;
-        };
+        }
     }
 }

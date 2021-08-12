@@ -10,7 +10,7 @@
                         :key="link.id"
                         >{{ link.title }}</router-link>
                 </nav>
-                <b-button size="sm" @click.prevent="logout"><b-icon icon='box-arrow-right'></b-icon> Выход</b-button>
+                <b-button  variant="outline-primary" size="sm" @click.prevent="logout"><b-icon icon='box-arrow-right'></b-icon> Выход</b-button>
             </div>
             <!-- <b-button size="sm" @click="logged">Проверить юзера</b-button> -->
         </div>

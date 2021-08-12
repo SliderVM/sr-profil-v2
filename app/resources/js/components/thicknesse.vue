@@ -13,7 +13,12 @@ export default {
         removing () {
             axios.delete('/api/thicknesse/' + this.thicknesse.id)
             .then(res => {
-                this.$emit('removing')
+                if (res.data == "") {
+                    this.$emit('removing')
+                }
+                else {
+                    alert(res.data);
+                }
             })
         }
     }

@@ -75,7 +75,6 @@ export default {
             })
         },
         WarehouseNew(data) {
-            console.log(data)
             this.Warehouses.push(data);
         },
         editor() {

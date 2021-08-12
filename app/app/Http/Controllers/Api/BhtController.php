@@ -102,7 +102,7 @@ class BhtController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Buhta::with('TypesMetals', 'counterparties', 'metalThicknesse')->where('warehouse_id', $id)->get();
     }
 
     /**

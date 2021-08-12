@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\brigade;
+use App\Models\strips;
 use Illuminate\Http\Request;
 
 class BrigadeController extends Controller
@@ -45,7 +46,6 @@ class BrigadeController extends Controller
         ]);
 
         $warehouse->Warehouse()->sync(array_map($func, $request->warehouse));
-
         return $warehouse;
     }
 
@@ -78,7 +78,7 @@ class BrigadeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $func = function($value) {
             return $value['id'];
@@ -91,7 +91,6 @@ class BrigadeController extends Controller
         $warehouse = brigade::find($request->id);
 
         $warehouse->Warehouse()->sync(array_map($func,$request->Warehouse));
-
         return $warehouse;
     }
 
@@ -103,8 +102,14 @@ class BrigadeController extends Controller
      */
     public function destroy($id)
     {
-        $warehouse= brigade::find($id);
-        $warehouse->Warehouse()->detach();
-        $warehouse->delete();
+        if (strips::where('brigade_id', $id)->first()) {
+            return 'Невозможно удалить смену, так как она привязан к штрипсу';
+        } else {
+            $warehouse= brigade::find($id);
+            $warehouse->Warehouse()->detach();
+            $warehouse->delete();
+        }
+
     }
+
 }

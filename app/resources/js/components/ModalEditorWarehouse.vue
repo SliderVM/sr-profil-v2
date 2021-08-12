@@ -63,7 +63,6 @@ export default {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
-                console.log('1',response.data);
                 this.$bvModal.hide('modal-1')
                 this.WarehouseTypes = ''
                 this.$emit('send', response.data)
