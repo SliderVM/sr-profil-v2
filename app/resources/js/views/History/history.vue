@@ -13,7 +13,7 @@
             </select>
         </div>
         <div class="col-3">
-            <select class="form-control col-3" id="type" @change="loadPage">
+            <select v-model="selectType" class="form-control col-3" @change="loadPage">
                 <option value="">Выберите тип склада</option>
                 <option size="sm" class="mt-3" v-for="warehouset in warehouseT.warehouse_types"
                 :key="warehouset.id"
@@ -103,10 +103,7 @@ export default {
             .then((response) => {
                 this.warehouseT = response.data
                 this.val1 = event.target.value
-                document.getElementById('type')
-                console.log( document.getElementById('type'));
-                document.getElementById('type') = null;
-                console.log( document.getElementById('type'))
+                this.selectType = ''
             })
         },
         loadwarehouse() { // загрузка складов

@@ -10,7 +10,7 @@
                 </select>
             </div>
             <div class="col-3">
-                <select class="form-control col-3" name="type" @change="loadPage">
+                <select v-model="selectType" class="form-control col-3" @change="loadPage">
                     <option value="">Выберите тип склада</option>
                     <option size="sm" class="mt-3" v-for="warehouset in warehouseT.warehouse_types" :key="warehouset.id" :value="warehouset.id">
                         {{ warehouset.name }}
@@ -62,9 +62,10 @@ export default {
     components: { buhta },
     data: () => ({
         warehouseArray: [],
-        options: [{ warehouseArray: "", value: "" }],
+        options: [{ warehouseArray: '', value: '' }],
         warehouseT: {},
-        selected: "",
+        selected: '',
+        selectType: '',
         visible: false,
         buhtas: [],
         form: {}
@@ -98,6 +99,7 @@ export default {
             axios.get("/api/warehouse/" + event.target.value)
             .then(response => {
                 this.warehouseT = response.data;
+                this.selectType = ''
             });
         },
         buhtaNew(data) {

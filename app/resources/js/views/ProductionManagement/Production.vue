@@ -13,7 +13,7 @@
             </select>
         </div>
         <div class="col-3">
-            <select class="form-control col-3" name="type" @change="loadPage">
+            <select v-model="selectType" class="form-control col-3" @change="loadPage">
                 <option value="">Выберите тип склада</option>
                 <option size="sm" class="mt-3" v-for="warehouset in warehouseT.warehouse_types"
                 :key="warehouset.id"
@@ -42,6 +42,7 @@ export default {
         ],
         warehouseT: {},
         selected: '',
+        selectType: '',
         visible: false,
         val1: ''
     }),
@@ -54,6 +55,7 @@ export default {
             .then((response) => {
                 this.warehouseT = response.data
                 this.val1 = event.target.value
+                this.selectType = ''
             });
         },
         loadwarehouse() {
