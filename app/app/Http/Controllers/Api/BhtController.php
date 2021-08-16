@@ -60,6 +60,7 @@ class BhtController extends Controller
                 $errors = $validator->errors()
             ];
         };
+
         $buhta = buhta::create([
             "receipt_date" => $request->receiptDate,
             "warehouse_id" => $request->warehouseId,
@@ -127,5 +128,9 @@ class BhtController extends Controller
         $buhta= buhta::find($id);
         $buhta->delete();
         return $buhta;
+    }
+    public function histories()
+    {
+        return Buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->where('available', '0')->get(); // вывод бухт во вкладвке история
     }
 }

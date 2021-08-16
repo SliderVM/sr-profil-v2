@@ -101,8 +101,8 @@
             </div>
 
             <!-- <v-checkbox></v-checkbox> -->
-            <input type="radio" id="zero" value="0" v-model="form.available" />
-            <label for="zero">Бухта в пути</label>
+            <input type="radio" id="negativeOne" value="-1" v-model="form.available" />
+            <label for="negativeOne">Бухта в пути</label>
             <br />
             <input type="radio" id="one" value="1" v-model="form.available" />
             <label for="one">Бухта на складе</label>
@@ -186,20 +186,20 @@ export default {
             console.log(this.form);
             axios.post("/api/buhtas", this.form, {
                     header: "Content-type: application/json"
-                })
-                .then(response => {
-                    if(response.data.status = true) {
-                    console.log(response)
-                    this.form = response.data;
-                    this.$bvModal.hide("bv-modal-example");
-                    this.$emit("send", { form: this.form });
-                    this.form = "";
-                    }
-                    alert(response.data)
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            })
+            .then(response => {
+                if(response.data.status = "") {
+                console.log(response)
+                this.form = response.data;
+                this.$bvModal.hide("bv-modal-example");
+                this.$emit("send", { form: this.form });
+                this.form = "";
+                }
+                alert(response.data)
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
     }
 }

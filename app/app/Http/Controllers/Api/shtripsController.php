@@ -73,8 +73,8 @@ class shtripsController extends Controller
      */
     public function show($id)
     {
-        if (strips::where('strips.warehouse_id', $id)->first()) {
-            return strips::with('counterparties','brigade', 'TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->get(); // вывод штрипса по айди склада
+        if(strips::where('strips.buhta_id', $id)->first()){
+            return strips::with('counterparties', 'brigade', 'TypesMetals', 'metalThicknesse')->where('buhta_id', $id)->get(); // вывод штрипса по айди бухты
         }
     }
 
@@ -109,6 +109,9 @@ class shtripsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $strips = strips::where('buhta_id', $id)->first();
+        $strips->delete();
+        $buhtaDelete = Buhta::find($id)->update(['available'=> 1]);
+        return response()->json(['msg' => 'Удалено!']);
     }
 }

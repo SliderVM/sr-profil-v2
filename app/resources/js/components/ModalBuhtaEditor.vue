@@ -2,7 +2,7 @@
     <div class='btn-group'>
         <b-button @click='modalShow=!modalShow' size='sm' variant='outline-primary'><b-icon icon='calculator'></b-icon> АПР</b-button>
 
-        <b-button type='button' v-if='visible && buhta.available == 0' @click='prihod' :value='buhta.id' variant='outline-primary'>Оприходовать</b-button>
+        <b-button type='button' v-if='visible && buhta.available == -1' @click='prihod' :value='buhta.id' variant='outline-primary'>Оприходовать</b-button>
 
         <b-modal v-model='modalShow' size='lg'>
             <div slot='modal-header'>
