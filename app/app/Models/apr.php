@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class apr extends Model
+class Apr extends Model
 {
     use HasFactory;
     protected $fillable = ['buhta_id', 'width', 'amount', 'tonage'];
