@@ -13,7 +13,7 @@ class M20210817 extends Migration
      */
     public function up()
     {
-        $c = new App\Models\Configs();
+        $c = new App\Models\Config();
         $c->label = "cost_strip_production";
         $c->name = "Стоимость производства штрипса";
         $c->value = "1000";
