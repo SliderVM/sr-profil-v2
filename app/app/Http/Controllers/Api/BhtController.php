@@ -131,6 +131,9 @@ class BhtController extends Controller
     }
     public function histories()
     {
-        return Buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->where('available', '0')->get(); // вывод бухт во вкладвке история
+        return Buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->where('available', '0')->get(); // вывод бухт во вкладке история
+    }
+    public function history($id) {
+        return Buhta::with('TypesMetals', 'counterparties', 'warehouses', 'metalThicknesse')->where('available', '0')->where('warehouse_id', $id)->get(); // вывод бухт во вкладке история по айди склада
     }
 }

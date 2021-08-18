@@ -61,6 +61,10 @@ export default {
                 title: "Пользователи",
                 href:"/users"
             },
+            {
+                title: "Конфигурации",
+                href:"/configuration"
+            },
         ]
     }),
     mounted() {

@@ -3,7 +3,7 @@
     <div class='btn-group'>
          <b-button @click="modalShow=!modalShow" size="sm" variant='outline-primary' ><b-icon icon="pencil"></b-icon></b-button>
     </div>
-        <b-modal id="modal-1" v-model="modalShow" title="Редактирование склада">
+        <b-modal v-model="modalShow" title="Редактирование склада">
             <div>
                 <label>Наименование</label>
                 <input type="text" v-model="Form.name" class="form-control"  />
@@ -63,7 +63,7 @@ export default {
                 header: ("Content-type: application/json")
             })
             .then((response) => {
-                this.$bvModal.hide('modal-1')
+                this.modalShow = false;
                 this.WarehouseTypes = ''
                 this.$emit('send', response.data)
             })

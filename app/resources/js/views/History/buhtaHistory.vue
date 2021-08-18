@@ -1,5 +1,5 @@
 <template>
-    <div class="hidden" v-if="visible">
+    <div class="hidden" v-if="visible" @loadPage="loadBuhtWarehouse">
          <b-table-simple bordered>
             <b-thead>
                 <b-tr>
@@ -17,14 +17,14 @@
            <b-tbody v-for="buhta in aprArray" :key="buhta.id">
                 <b-tr>
                     <b-td @click="loadShtrips(buhta.id)">{{buhta.name}}</b-td>
-                    <b-td>{{buhta.counterparties.name}}</b-td>
-                    <b-td>{{buhta.types_metals.name}}</b-td>
+                    <b-td>{{buhta.counterparties}}</b-td>
+                    <b-td>{{buhta.types_metals}}</b-td>
                     <b-td>{{buhta.width}}</b-td>
-                    <b-td>{{buhta.metal_thicknesse.thicknesses}}</b-td>
+                    <b-td>{{buhta.metal_thicknesse}}</b-td>
                     <b-td>{{buhta.length}}</b-td>
                     <b-td>{{buhta.weight}}</b-td>
                     <b-td>{{buhta.price}}</b-td>
-                    <b-td>{{buhta.available}}</b-td>
+                    <b-td>{{buhta.warehouse_id}}</b-td>
                     <b-td>
                         <div class='btn-group'>
                             <b-button @click="restartBuht" :value="buhta.id" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon> Откатить бухту</b-button>
@@ -66,12 +66,14 @@ export default {
         }
     },
     mounted() {
-        this.loadApr();
+        this.loadBuht();
+        this.loadBuhtWarehouse();
     },
     methods: {
-        loadApr() {
-            axios.get('/histories/' + this.warehouseKey) // получить бухты по айди склада
+        loadBuht() {
+            axios.get('/histories') // получить бухты
             .then(res => {
+                console.log(res);
                 this.aprArray = res.data
                 if (res.data.length ) {
                     this.visible = true
@@ -81,6 +83,23 @@ export default {
                     this.visible = false
                 }
             })
+        },
+        loadBuhtWarehouse() {
+            console.log(this.warehouseKey)
+            if(this.warehouseKey != null) {
+                axios.get('/histories/' + this.warehouseKey) // получить бухты по айди склада
+                .then(res => {
+                    console.log(res);
+                    this.aprArray = res.data
+                    if (res.data.length ) {
+                        this.visible = true
+                    }
+                    else {
+                        alert('Нет бухт с АПР');
+                        this.visible = false
+                    }
+                })
+            }
         },
         loadShtrips(id) { // получить штрипс по айди бухты
             axios.get('/api/shtrips/' + id)

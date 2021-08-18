@@ -57,6 +57,7 @@ export default {
                 this.warehouseT = response.data
                 this.val1 = event.target.value
                 this.selectType = ''
+                this.visible = false;
             })
         },
         loadwarehouse() { // загрузка складов
@@ -68,9 +69,10 @@ export default {
         loadPage(event) { // событие второго селекта, выбрать тип склада
             if(event.target.value == 1) { // если тип == бухта
                 this.visible = true;
+                this.$emit('loadPage', {visible: this.visible});
             }
             else {
-                alert('Нет бухт с АПР');
+                alert('Нет бухт');
                 this.visible = false;
             }
         }

@@ -16,6 +16,7 @@ import Brigade from "./views/Brigade.vue"
 import Login from "./views/Auth/Login.vue"
 import user from "./views/Users.vue"
 import history from "./views/History/history.vue"
+import configuration from './views/Configuration.vue'
 
 const routes = [
     {
@@ -75,6 +76,10 @@ const routes = [
     {
         path: "/history",
         component: history
+    },
+    {
+        path: "/configuration",
+        component: configuration
     }
 ];
 

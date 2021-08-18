@@ -55,7 +55,7 @@ export default {
         this.loadForm();
     },
     computed:{
-        remainder: function() {
+        remainder() {
             let sumwidth = this.complects
                 .reduce(function(sum, current) {
                     return sum -  current.form.width1 * current.form.amount;

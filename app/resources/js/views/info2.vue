@@ -56,6 +56,10 @@ data: () => ({
             title: "Пользователи",
             href:"/users"
         },
+        {
+            title: "Конфигурации",
+            href:"/configuration"
+        },
     ]
 })
 }

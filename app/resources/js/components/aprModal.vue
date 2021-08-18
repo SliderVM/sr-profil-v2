@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-4">
                     <b-input-group append="шт">
-                    <input  type="number" @input="tonage" v-model="complect.form.amount" placeholder="Количество штук" />
+                    <input type="number" @input="tonage" v-model="complect.form.amount" placeholder="Количество штук" />
                     </b-input-group>
                 </div>
 
