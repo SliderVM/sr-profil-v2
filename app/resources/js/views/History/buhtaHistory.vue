@@ -17,10 +17,10 @@
            <b-tbody v-for="buhta in aprArray" :key="buhta.id">
                 <b-tr>
                     <b-td @click="loadShtrips(buhta.id)">{{buhta.name}}</b-td>
-                    <b-td>{{buhta.counterparties}}</b-td>
-                    <b-td>{{buhta.types_metals}}</b-td>
+                    <b-td>{{buhta.counterparties.name}}</b-td>
+                    <b-td>{{buhta.types_metals.name}}</b-td>
                     <b-td>{{buhta.width}}</b-td>
-                    <b-td>{{buhta.metal_thicknesse}}</b-td>
+                    <b-td>{{buhta.metal_thicknesse.thicknesses}}</b-td>
                     <b-td>{{buhta.length}}</b-td>
                     <b-td>{{buhta.weight}}</b-td>
                     <b-td>{{buhta.price}}</b-td>
@@ -67,7 +67,7 @@ export default {
     },
     mounted() {
         this.loadBuht();
-        this.loadBuhtWarehouse();
+        // this.loadBuhtWarehouse();
     },
     methods: {
         loadBuht() {
@@ -84,23 +84,23 @@ export default {
                 }
             })
         },
-        loadBuhtWarehouse() {
-            console.log(this.warehouseKey)
-            if(this.warehouseKey != null) {
-                axios.get('/histories/' + this.warehouseKey) // получить бухты по айди склада
-                .then(res => {
-                    console.log(res);
-                    this.aprArray = res.data
-                    if (res.data.length ) {
-                        this.visible = true
-                    }
-                    else {
-                        alert('Нет бухт с АПР');
-                        this.visible = false
-                    }
-                })
-            }
-        },
+        // loadBuhtWarehouse() {
+        //     console.log(this.warehouseKey)
+        //     if(this.warehouseKey != null) {
+        //         axios.get('/histories/' + this.warehouseKey) // получить бухты по айди склада
+        //         .then(res => {
+        //             console.log(res);
+        //             this.aprArray = res.data
+        //             if (res.data.length ) {
+        //                 this.visible = true
+        //             }
+        //             else {
+        //                 alert('Нет бухт с АПР');
+        //                 this.visible = false
+        //             }
+        //         })
+        //     }
+        // },
         loadShtrips(id) { // получить штрипс по айди бухты
             axios.get('/api/shtrips/' + id)
             .then(res => {
