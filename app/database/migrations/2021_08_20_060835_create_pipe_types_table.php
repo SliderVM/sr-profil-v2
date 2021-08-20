@@ -18,7 +18,7 @@ class CreatePipeTypesTable extends Migration
             $table->longText('name');
             $table->integer('metal_thicknesse_id')->unsigned();
             $table->integer('width_strip_in_millimeters');
-            $table->integer('types_metal_id')->unsigned();
+            $table->bigInteger('types_metal_id')->unsigned();
             $table->double('coefficient', 15, 8);
             $table->double('thickness_in_millimeters');
             $table->integer('pipe_in_pack');
