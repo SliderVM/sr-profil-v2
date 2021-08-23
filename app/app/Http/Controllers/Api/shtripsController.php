@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\strips;
 use App\Models\Buhta;
+use App\Models\apr;
 
 class shtripsController extends Controller
 {
@@ -113,5 +114,19 @@ class shtripsController extends Controller
         $strips->delete();
         $buhtaDelete = Buhta::find($id)->update(['available'=> 1]);
         return response()->json(['msg' => 'Удалено!']);
+    }
+
+    public function showOutfitStripping(Request $request)
+    {
+        $id = $request->buhtas[0]['id'];
+        $type = $request->buhtas[0]['types_metals']['name'];
+        $width = $request->buhtas[0]['width'];
+        $length = $request->buhtas[0]['length'];
+        $thicknesses = $request->buhtas[0]['metal_thicknesse']['thicknesses'];
+        $date = $request->dateOutfit;
+
+        $vm = apr::where('buhta_id', $id)->first();
+        ;
+        return view('FormPrint.OutfitStripping', ['vm' =>$vm, 'id' => $id, 'date' => $date, 'type' => $type, 'width' => $width, 'thicknesses' => $thicknesses, 'length' => $length]);
     }
 }

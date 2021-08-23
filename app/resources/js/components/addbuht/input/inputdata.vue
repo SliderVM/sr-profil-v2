@@ -10,9 +10,9 @@ export default {
         receiptDate: '',
     }),
     methods: {
-         Vibe() {
-             this.$emit('Vibe', {receiptDate: this.receiptDate});
-         }
+        Vibe() {
+            this.$emit('Vibe', {receiptDate: this.receiptDate});
+        }
     }
 }
 </script>

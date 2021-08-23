@@ -3,7 +3,7 @@
     <div class='btn-group'>
          <b-button @click="modalShow=!modalShow" size="sm" variant='outline-primary' ><b-icon icon="pencil"></b-icon></b-button>
     </div>
-        <b-modal id="modal-1" v-model="modalShow" title="Редактирование смены">
+        <b-modal v-model="modalShow" title="Редактирование смены" hide-header-close>
             <div>
                 <label>Наименование смены</label>
                 <input type="text" v-model="Form.name" class="form-control"  />
@@ -64,7 +64,7 @@ export default {
             })
             .then((response) => {
                 console.log(response.data);
-                this.$bvModal.hide('modal-1')
+                this.modalShow = false;
                 response.data.warehouse = this.Form.warehouse
                 console.log(this.Form.warehouse)
                 this.$emit('send', this.Form.warehouse)

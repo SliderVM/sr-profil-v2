@@ -9,7 +9,7 @@
         </div>
         <div class="col-9">
             <h5 class="mb-3">Смены</h5>
-            <v-modalAdd @send="brigadeNew"></v-modalAdd>
+            <v-modalAdd @send="loadBrigade"></v-modalAdd>
             <table class="table table-sm mt-3">
                 <thead>
                     <tr>
@@ -63,6 +63,10 @@ export default {
                 title: "Конфигурации",
                 href:"/configuration"
             },
+            {
+                title: "Сорт труб",
+                href:"/pipegrade"
+            },
         ]
     }),
     mounted() {
@@ -75,9 +79,6 @@ export default {
                 this.brigadeArray = res.data;
                 console.log(this.brigadeArray)
             })
-        },
-        brigadeNew(data) {
-            this.brigadeArray.push(data);
         }
     }
 }

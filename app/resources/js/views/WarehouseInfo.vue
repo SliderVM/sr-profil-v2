@@ -9,7 +9,7 @@
             </div>
             <div class="col-9">
                 <h5 class="mb-3">Склады</h5>
-                    <v-ModalWarehouse @happy="WarehouseNew"></v-ModalWarehouse>
+                    <v-ModalWarehouse @happy="loadWarehouse"></v-ModalWarehouse>
                 <table class="table mt-9">
                     <thead>
                         <tr>
@@ -64,6 +64,10 @@ export default {
             {
                 title: "Конфигурации",
                 href:"/configuration"
+            },
+            {
+                title: "Сорт труб",
+                href:"/pipegrade"
             },
         ]
     }),

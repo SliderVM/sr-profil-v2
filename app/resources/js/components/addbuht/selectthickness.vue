@@ -1,15 +1,14 @@
 <template>
-    <div >
-        <label>Толщина</label>
-        <select v-model="selected">
-            <option size="sm" class="mt-3" v-for="thicknesse in thicknessesArray" :key="thicknesse.id" :value="thicknesse.thicknesses">{{thicknesse.thicknesses}} </option>
+    <div>
+        <label>Толщина металла, мм</label>
+        <br>
+        <select v-model="selected" @change="selectThickness">
+            <option size="sm" class="mt-3" v-for="thicknesse in thicknessesArray" :key="thicknesse.id" :value="thicknesse.id" >{{thicknesse.thicknesses}} </option>
         </select>
     </div>
 </template>
 
 <script>
-
-
 export default {
     data: () => ({
         selected: '',
@@ -19,7 +18,7 @@ export default {
         ]
     }),
     mounted() {
-            this.loadthicknesse();
+        this.loadthicknesse();
     },
     methods: {
         loadthicknesse() {
@@ -27,8 +26,11 @@ export default {
             .then(res => {
                 this.thicknessesArray = res.data;
             })
+        },
+        selectThickness() {
+            console.log(this.selected)
+            this.$emit('selectThickness', {selected: this.selected})
         }
     }
 }
-
 </script>

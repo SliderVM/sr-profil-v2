@@ -43,9 +43,9 @@ export default {
             id: '',
             value: ''
         },
-        visible: false,
-        status: true,
-        isHidden: true,
+        visible: false, // кнопка сохранить
+        status: true, // ридонли инпут
+        isHidden: true, // кнопка редактировать
         links: [
             {
                 title: "Тип металла",
@@ -74,6 +74,10 @@ export default {
             {
                 title: "Конфигурации",
                 href:"/configuration"
+            },
+            {
+                title: "Сорт труб",
+                href:"/pipegrade"
             },
         ]
     }),

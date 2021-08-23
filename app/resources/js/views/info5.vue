@@ -69,6 +69,10 @@ export default {
                 title: "Конфигурации",
                 href:"/configuration"
             },
+            {
+                title: "Сорт труб",
+                href:"/pipegrade"
+            },
         ]
     }),
     mounted() {

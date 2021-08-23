@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-button v-b-modal.bv-modal-example size="sm" variant="outline-primary"><b-icon icon="plus-square"></b-icon> Приход металла</b-button>
-        <b-modal id="bv-modal-example" title="Приход металла">
+        <b-button @click="modalShow=!modalShow" size="sm" variant="outline-primary"><b-icon icon="plus-square"></b-icon> Приход металла</b-button>
+        <b-modal v-model="modalShow" title="Приход металла" hide-header-close>
             <v-InputData @Vibe="Ran"></v-InputData>
              <div class="form-group">
                 <label>Наименование</label>
@@ -121,6 +121,7 @@ import multiselect from "vue-multiselect";
 export default {
     components: {multiselect},
     data: () => ({
+        modalShow: false,
         CounterpartiesArray: [],
         Value: "",
         trackBy: "id",
@@ -189,11 +190,11 @@ export default {
             })
             .then(response => {
                 if(response.data.status = "") {
-                console.log(response)
-                this.form = response.data;
-                this.$bvModal.hide("bv-modal-example");
-                this.$emit("send", { form: this.form });
-                this.form = "";
+                    console.log(response)
+                    this.form = response.data;
+                    this.modalShow = false;
+                    this.$emit("send", { form: this.form });
+                    this.form = "";
                 }
                 alert(response.data)
             })

@@ -1,7 +1,7 @@
 <template>
   <div>
       <b-button v-b-modal.modal-10 @click="modalShow=!modalShow" size="sm" variant="outline-primary" ><b-icon icon="plus-square"></b-icon> Добавление склада</b-button>
-        <b-modal id="modal-10" title="Добавление склада">
+        <b-modal id="modal-10" title="Добавление склада" hide-header-close>
             <div class="form-group">
                 <label>Наименование</label>
                 <input type="text" v-model="Form.name" class="form-control" />
@@ -20,7 +20,7 @@
                 </multiselect>
             </div>
             <div slot="modal-footer">
-                <button @click="send" size="sm" class="btn btn-primary input-group-addon">Сохранить</button>
+                <button @click="send" size="sm" class="btn btn-primary input-group-addon">Добавить</button>
             </div>
         </b-modal>
   </div>

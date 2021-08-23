@@ -3,7 +3,7 @@
     <div class='btn-group'>
          <b-button @click="modalShow=!modalShow" size="sm" variant='outline-primary' ><b-icon icon="pencil"></b-icon></b-button>
     </div>
-    <b-modal id="updateUser" v-model="modalShow" title="Обновление информации о пользователе">
+    <b-modal v-model="modalShow" title="Обновление информации о пользователе" hide-header-close>
         <div class="form-group">
             <label>Имя</label>
             <input type="text" id="name" v-model="editUser.name" class="form-control">
@@ -51,7 +51,7 @@ export default {
                 headers: {'Access-Control-Allow-Origin': true }
             })
             .then((response) => {
-                this.$bvModal.hide('updateUser')
+                this.modalShow = false;
                 this.$emit('updateUser', response.data)
             })
             .catch((error) => {

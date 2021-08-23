@@ -3,7 +3,7 @@
     <div class='btn-group'>
          <b-button @click="modalShow=!modalShow" size="sm" variant='outline-primary' ><b-icon icon="pencil"></b-icon></b-button>
     </div>
-        <b-modal v-model="modalShow" title="Редактирование склада">
+        <b-modal v-model="modalShow" title="Редактирование склада" hide-header-close>
             <div>
                 <label>Наименование</label>
                 <input type="text" v-model="Form.name" class="form-control"  />

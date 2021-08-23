@@ -23,8 +23,9 @@
                     <b-td>{{buhta.length}}</b-td>
                     <b-td>{{buhta.weight}}</b-td>
                     <b-td>{{buhta.price}}</b-td>
-                    <div>
+                    <div class='btn-group'>
                         <shtrips-modal :buhta="aprArray" :apr="aprs"></shtrips-modal>
+                        <print :buhta="aprArray"></print>
                     </div>
                 </b-tr>
                 <b-tr class="hidden" v-if="buhta.id === aprId">
@@ -36,11 +37,12 @@
 </template>
 
 <script>
-import shtripsModal from '../../components/shtripsModal.vue'
+import print from '../../components/productionComponents/Print.vue'
+import shtripsModal from '../../components/productionComponents/shtripsModal.vue'
 import aprLoad from './aprLoad.vue'
 export default {
     props: ["warehouseKey"],
-    components: {aprLoad, shtripsModal},
+    components: {aprLoad, shtripsModal, print},
     data:() => ({
         aprArray: [],
         aprs: [],

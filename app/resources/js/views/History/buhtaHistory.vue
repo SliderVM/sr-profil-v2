@@ -1,5 +1,5 @@
 <template>
-    <div class="hidden" v-if="visible" @loadPage="loadBuhtWarehouse">
+    <div class="hidden" v-if="visible">
          <b-table-simple bordered>
             <b-thead>
                 <b-tr>
@@ -37,12 +37,25 @@
            </b-tbody>
         </b-table-simple>
         <div class="mt-3">
-            <b-pagination
+            <!-- <b-pagination
                 v-model="currentPage"
                 :total-rows="rows"
                 :per-page="perPage"
                 align="right"
-            ></b-pagination>
+            ></b-pagination> -->
+            <ul>
+            <li v-for="p in paginatedData">
+            {{p.first}}
+            {{p.last}}
+            {{p.suffix}}
+            </li>
+        </ul>
+        <button @click="prevPage">
+            Previous
+        </button>
+        <button @click="nextPage">
+            Next
+        </button>
         </div>
     </div>
 </template>
@@ -57,12 +70,19 @@ export default {
         shtrips: [],
         shtripsId: '',
         visible: false,
-        perPage: 5,
-        currentPage: 1,
+        pageNumber: 1,
+        size: 7
     }),
     computed: {
         rows() {
-            return this.aprArray.length // опредляет длину массива с данными для разбивки на страницы
+            let l =  this.aprArray.length, // опредляет длину массива с данными для разбивки на страницы
+            s = this.size;
+            return Math.ceil(l/s);
+        },
+        paginatedData(){
+            const start = this.pageNumber * this.size,
+                end = start + this.size;
+            return this.aprArray.slice(start, end);
         }
     },
     mounted() {
@@ -70,6 +90,12 @@ export default {
         // this.loadBuhtWarehouse();
     },
     methods: {
+        nextPage(){
+           this.pageNumber++;
+        },
+        prevPage(){
+           this.pageNumber--;
+        },
         loadBuht() {
             axios.get('/histories') // получить бухты
             .then(res => {

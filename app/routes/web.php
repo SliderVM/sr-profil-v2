@@ -15,6 +15,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('histories', 'Api\BhtController@histories');
 Route::post('history/{id}', 'Api\BhtController@history');
+Route::post('showOutfitStripping', 'Api\shtripsController@showOutfitStripping');
 
 Route::get('/{any}', function() {
     return view('index');

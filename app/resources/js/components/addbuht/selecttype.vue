@@ -1,14 +1,14 @@
 <template>
     <div>
         <label>Тип металла</label>
-        <select v-model="selected">
-            <option v-for="types in selecttype" :key="types.id" :value="types.name">{{types.name}} </option>
+        <br>
+        <select v-model="selected" @change="selectType">
+            <option v-for="types in selecttype" :key="types.id" :value="types.id">{{types.name}} </option>
         </select>
     </div>
 </template>
 
 <script>
-
 export default {
     data: () => ({
         selected: '',
@@ -26,6 +26,9 @@ export default {
             .then(res => {
                 this.selecttype = res.data;
             })
+        },
+        selectType() {
+            this.$emit('selectType', {selected: this.selected})
         }
     }
 }

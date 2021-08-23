@@ -17,6 +17,7 @@ import Login from "./views/Auth/Login.vue"
 import user from "./views/Users.vue"
 import history from "./views/History/history.vue"
 import configuration from './views/Configuration.vue'
+import pipeGrade from './views/pipeGrade.vue'
 
 const routes = [
     {
@@ -80,6 +81,10 @@ const routes = [
     {
         path: "/configuration",
         component: configuration
+    },
+    {
+        path: "/pipegrade",
+        component: pipeGrade
     }
 ];
 

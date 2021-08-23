@@ -1,7 +1,7 @@
 <template>
   <div>
       <b-button v-b-modal.modal-13 @click="modalShow=!modalShow"  size="sm" variant="outline-primary" ><b-icon icon="plus-square"></b-icon> Добавить смену</b-button>
-        <b-modal id="modal-13" title="Добавление бригады">
+        <b-modal id="modal-13" title="Добавление бригады" hide-header-close>
             <div class="form-group">
                 <label>Наименование бригады</label>
                 <input type="text" v-model="Form.imya" class="form-control" />
