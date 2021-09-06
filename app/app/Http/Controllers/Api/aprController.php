@@ -12,7 +12,7 @@ class aprController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -59,7 +59,7 @@ class aprController extends Controller
      */
     public function show($id)
     {
-        return apr::join('buhtas','buhtas.id', 'aprs.buhta_id')->where('buhtas.id',$id)->where('aprs.buhta_id', '!=', NULL)->get(['aprs.width','aprs.amount', 'aprs.tonage']); // бухты с апр по айди
+        return apr::join('buhtas','buhtas.id', 'aprs.buhta_id')->where('buhtas.id', $id)->where('aprs.buhta_id', '!=', NULL)->get(['aprs.width','aprs.amount', 'aprs.tonage']); // бухты с апр по айди
     }
 
     /**

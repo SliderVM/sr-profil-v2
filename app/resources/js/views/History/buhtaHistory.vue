@@ -1,101 +1,120 @@
 <template>
     <div class="hidden" v-if="visible">
-         <b-table-simple bordered>
-            <b-thead>
-                <b-tr>
-                    <b-th>Наименование</b-th>
-                    <b-th>Контрагент</b-th>
-                    <b-th>Тип металла</b-th>
-                    <b-th>Ширина, мм</b-th>
-                    <b-th>Толщина, мм</b-th>
-                    <b-th>Длина, м</b-th>
-                    <b-th>Вес, тн</b-th>
-                    <b-th>Стоимость, руб</b-th>
-                    <b-th>Операции</b-th>
-                </b-tr>
-            </b-thead>
-           <b-tbody v-for="buhta in aprArray" :key="buhta.id">
-                <b-tr>
-                    <b-td @click="loadShtrips(buhta.id)">{{buhta.name}}</b-td>
-                    <b-td>{{buhta.counterparties.name}}</b-td>
-                    <b-td>{{buhta.types_metals.name}}</b-td>
-                    <b-td>{{buhta.width}}</b-td>
-                    <b-td>{{buhta.metal_thicknesse.thicknesses}}</b-td>
-                    <b-td>{{buhta.length}}</b-td>
-                    <b-td>{{buhta.weight}}</b-td>
-                    <b-td>{{buhta.price}}</b-td>
-                    <b-td>{{buhta.warehouse_id}}</b-td>
-                    <b-td>
-                        <div class='btn-group'>
-                            <b-button @click="restartBuht" :value="buhta.id" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon> Откатить бухту</b-button>
-                        </div>
-                    </b-td>
-                </b-tr>
-                <b-tr class="hidden" v-if="buhta.id === shtripsId">
-                    <shtrips :shtrips="shtrips"></shtrips>
-                </b-tr>
-           </b-tbody>
-        </b-table-simple>
-        <div class="mt-3">
-            <!-- <b-pagination
-                v-model="currentPage"
-                :total-rows="rows"
-                :per-page="perPage"
-                align="right"
-            ></b-pagination> -->
-            <ul>
-            <li v-for="p in paginatedData">
-            {{p.first}}
-            {{p.last}}
-            {{p.suffix}}
-            </li>
-        </ul>
-        <button @click="prevPage">
-            Previous
-        </button>
-        <button @click="nextPage">
-            Next
-        </button>
-        </div>
+        <b-table
+            id="my-table"
+            :fields="fields"
+            :items="aprArray"
+            :per-page="perPage"
+            :current-page="currentPage"
+            small
+            bordered
+        >
+            <template #cell(opr)="row">
+                <b-button size="sm" @click="row.row-selected" v-on:click="loadShtrips(row.item.id)" variant='outline-primary' class="mr-2">
+                {{ row.detailsShowing ? 'Скрыть' : 'Показать'}} штрипс
+                </b-button>
+                <b-button @click="restartBuht" :value="row.item.id" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon> Откатить прокат бухты</b-button>
+            </template>
+            <template #row-details>
+                <b-card>
+                    <b-table
+                    id="my-table"
+                    :fields="fields2"
+                    :items="shtrips"
+                    :per-page="perPage"
+                    :current-page="currentPage"
+                    small>
+                    </b-table>
+                    <div class="mt-3">
+                        <b-pagination
+                            v-model="currentPage2"
+                            :total-rows="shtripsRows"
+                            :per-page="perPage"
+                            aria-controls="my-table"
+                            align="right"
+                        ></b-pagination>
+                    </div>
+                </b-card>
+            </template>
+        </b-table>
+        <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            aria-controls="my-table"
+            align="right"
+        ></b-pagination>
     </div>
 </template>
 
 <script>
-import shtrips from './shtripsHistory.vue'
 export default {
     props: ["warehouseKey"],
-    components: {shtrips},
     data:() => ({
+        fields2: [ // поля таблицы штрипс
+            {key: 'id',
+            label: 'ID штрипса'},
+            {key: 'buhta_id',
+            label: 'ID бухты'},
+            {key: 'brigade.name',
+            label: 'Наименование бригады'},
+            {key: 'date_manufacture',
+            label: 'Дата проката'},
+            {key: 'counterparties.name',
+            label: 'Контрагент'},
+            {key: 'types_metals.name',
+            label: 'Тип металла'},
+            {key: 'width_in_millimeters',
+            label: 'Ширина, мм'},
+            {key: 'metal_thicknesse.thicknesses',
+            label: 'Толщина, мм'},
+            {key: 'length_in_meters',
+            label: 'Длина, м'},
+            {key: 'weight_in_tons',
+            label: 'Вес, тн'},
+            {key: 'cost',
+            label: 'Стоимость, руб'}
+        ],
+        fields: [ // поля таблицы бухты
+            {key: 'name',
+            label: 'Наименование'},
+            {key: 'counterparties.name',
+            label: 'Контрагент'},
+            {key: 'types_metals.name',
+            label: 'Тип металла'},
+            {key: 'width',
+            label: 'Ширина, мм'},
+            {key: 'metal_thicknesse.thicknesses',
+            label: 'Толщина, мм'},
+            {key: 'length',
+            label: 'Длина, м'},
+            {key: 'weight',
+            label: 'Вес, тн'},
+            {key: 'price',
+            label: 'Стоимость, руб'},
+            {key: 'opr',
+            label: ''}
+        ],
         aprArray: [],
         shtrips: [],
-        shtripsId: '',
-        visible: false,
-        pageNumber: 1,
-        size: 7
+        perPage: 3,
+        currentPage: 1,
+        currentPage2: 1,
+        visible: false
     }),
     computed: {
         rows() {
-            let l =  this.aprArray.length, // опредляет длину массива с данными для разбивки на страницы
-            s = this.size;
-            return Math.ceil(l/s);
-        },
-        paginatedData(){
-            const start = this.pageNumber * this.size,
-                end = start + this.size;
-            return this.aprArray.slice(start, end);
-        }
+            return this.aprArray.length
+        }, // опредляет длину массива с данными для разбивки на страницы для таблицы бухты
+        shtripsRows() {
+            return this.shtrips.length
+        } // опредляет длину массива с данными для разбивки на страницы для таблицы штрипс
     },
     mounted() {
         this.loadBuht();
         // this.loadBuhtWarehouse();
     },
     methods: {
-        nextPage(){
-           this.pageNumber++;
-        },
-        prevPage(){
-           this.pageNumber--;
-        },
         loadBuht() {
             axios.get('/histories') // получить бухты
             .then(res => {
@@ -133,8 +152,7 @@ export default {
                 if(res.data.length == 0) {
                     alert('нет штрипса')
                 }
-                this.shtrips = res.data;
-                this.shtripsId = id;
+                this.shtrips = res.data
             })
         },
         restartBuht(event) {

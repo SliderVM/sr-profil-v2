@@ -14,8 +14,8 @@
                 </b-tr>
             </b-thead>
            <b-tbody v-for="buhta in aprArray" :key="buhta.id">
-                <b-tr>
-                    <b-td @click="loadA(buhta.id)">{{buhta.name}}</b-td>
+                <b-tr @click="loadA(buhta.id)">
+                    <b-td>{{buhta.name}}</b-td>
                     <b-td>{{buhta.counterparties.name}}</b-td>
                     <b-td>{{buhta.types_metals.name}}</b-td>
                     <b-td>{{buhta.width}}</b-td>

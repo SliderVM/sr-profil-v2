@@ -20,9 +20,8 @@
             <div v-if="visible">
                 <div>
                     <br>
-                    <v-modalbuht @send="buhtaNew"></v-modalbuht>
+                    <v-modalbuht @send="loadBuhts"></v-modalbuht>
                 </div>
-
                 <table class="table table-sm table-hover small mt-4" id="buhta">
                     <thead>
                         <tr>
@@ -52,14 +51,18 @@
                     </tfoot>
                 </table>
             </div>
+            <div v-if="show">
+                <shtrips :shtrips="shtripsArray"></shtrips>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import shtrips from '../views/Warehouses/Shtrips.vue'
 import buhta from "../components/buhta.vue";
 export default {
-    components: { buhta },
+    components: { buhta, shtrips},
     data: () => ({
         warehouseArray: [],
         options: [{ warehouseArray: '', value: '' }],
@@ -69,7 +72,9 @@ export default {
         visible: false,
         buhtas: [],
         form: {},
-        val: ''
+        val: '',
+        show: false,
+        shtripsArray: []
     }),
     mounted() {
         this.loadwarehouse();
@@ -97,11 +102,14 @@ export default {
         },
         loadPage(event) {
             if (event.target.value == 1) {
-
                 this.loadBuhts();
-            } else {
-                alert("Нет бухт!");
+                this.show = false;
+            }
+            else
+            {
+                this.loadShtrips();
                 this.visible = false;
+                this.show = true;
             }
         },
         smena(event) {
@@ -112,10 +120,13 @@ export default {
                 this.val = event.target.value;
             });
         },
-        buhtaNew(data) {
-            this.form = data.form;
-            this.buhtas.push(this.form);
-        }
+        loadShtrips() {
+            axios.get("/api/shtrips/" + this.val + "/edit")
+            .then(res => {
+                this.shtripsArray = res.data;
+                this.show = true;
+            });
+        },
     }
 }
 </script>

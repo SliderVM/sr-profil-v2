@@ -69,7 +69,6 @@ export default {
         loadPage(event) { // событие второго селекта, выбрать тип склада
             if(event.target.value == 1) { // если тип == бухта
                 this.visible = true;
-                this.$emit('loadPage', {visible: this.visible});
             }
             else {
                 alert('Нет бухт');

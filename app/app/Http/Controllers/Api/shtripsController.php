@@ -87,7 +87,7 @@ class shtripsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return strips::with('TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->get();
     }
 
     /**
@@ -128,5 +128,11 @@ class shtripsController extends Controller
         $vm = apr::where('buhta_id', $id)->first();
         ;
         return view('FormPrint.OutfitStripping', ['vm' =>$vm, 'id' => $id, 'date' => $date, 'type' => $type, 'width' => $width, 'thicknesses' => $thicknesses, 'length' => $length]);
+    }
+    public function warehouseNum($id)
+    {
+        $shtrips = strips::find($id);
+        $name = $shtrips['buhta_id'] .'/'. $shtrips['width_in_millimeters'];
+        return $name;
     }
 }

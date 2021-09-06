@@ -1,7 +1,8 @@
 <template>
 <div>
-    <label>Склад</label>
-    <select v-model="warehouse_id">
+    <label>На склад</label>
+    <br>
+    <select v-model="warehouse_id" @change="selectWarehouse">
         <option size="sm" class="mt-3"  v-for="warehouse in warehouseArray" :key="warehouse.message" :value="warehouse.name">{{warehouse.name}} </option>
     </select>
 </div>
@@ -25,6 +26,9 @@ export default {
             .then(res => {
                 this.warehouseArray = res.data;
             })
+        },
+        selectWarehouse() {
+            this.$emit('selectWarehouse', {selected: this.warehouse_id})
         }
     }
 }

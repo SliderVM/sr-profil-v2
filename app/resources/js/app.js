@@ -5,6 +5,7 @@ window.Vue = require('vue').default;
 import Vue from 'vue'
 import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 
+
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 function loggedIn() {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\shtripsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('histories', 'Api\BhtController@histories');
 Route::post('history/{id}', 'Api\BhtController@history');
 Route::post('showOutfitStripping', 'Api\shtripsController@showOutfitStripping');
+Route::post('shtripsnum/{id}', 'Api\shtripsController@warehouseNum');
 
 Route::get('/{any}', function() {
     return view('index');

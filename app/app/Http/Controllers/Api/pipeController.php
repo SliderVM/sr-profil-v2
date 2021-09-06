@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\pipeType;
+use App\Models\Strips;
 
 class pipeController extends Controller
 {
@@ -55,7 +56,10 @@ class pipeController extends Controller
      */
     public function show($id)
     {
-        //
+        $shtrips = strips::find($id);
+        $pipe =  pipeType::where('width_strip_in_millimeters', $shtrips->width_in_millimeters)->where('metal_thicknesse_id', $shtrips->metal_thicknesse_id)->where('types_metal_id', $shtrips->types_metal_id)->first();
+        $sum = $shtrips['cost'] * $shtrips['weight_in_tons'];
+        return [$pipe, $sum];
     }
 
     /**

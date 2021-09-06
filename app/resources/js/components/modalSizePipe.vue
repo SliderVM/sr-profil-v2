@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import thickness from './addbuht/selectThickness.vue'
-import type from './addbuht/selectType.vue'
+import thickness from './addbuht/selectthickness.vue'
+import type from './addbuht/selecttype.vue'
 export default {
     components: {thickness, type},
     data: () => ({
