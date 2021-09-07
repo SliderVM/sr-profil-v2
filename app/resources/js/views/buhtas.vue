@@ -83,16 +83,16 @@ export default {
         loadBuhts() {
             axios.get("/api/buhtas/" + this.val + "/edit")
             .then(res => {
-                if(res.data.length == 0)
-                {
-                    alert('Нет бухт!');
-                    this.visible = false;
-                }
-                else {
+                // if(res.data.length == 0)
+                // {
+                //     alert('Нет бухт!');
+                //     this.visible = false;
+                // }
+                // else {
                     this.buhtas = res.data;
                     this.visible = true;
                 }
-            });
+            );
         },
         loadwarehouse() {
             axios.get("/api/warehouse/create")

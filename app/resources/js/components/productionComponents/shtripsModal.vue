@@ -51,7 +51,7 @@ export default {
         },
         saveShtrips() {
             this.Form.aprs = this.apr; // переменная = пропс
-            console.log(this.aprs)
+            console.log('1', this.aprs)
             axios.post('/api/shtrips', this.Form, {
                 header: ("Content-type: application/json")
             })

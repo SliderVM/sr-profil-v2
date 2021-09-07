@@ -14,20 +14,20 @@
                     <b-th>Прогноз, тн</b-th>
                 </b-tr>
             </b-thead>
-            <b-tbody >
-                <b-tr v-for="shtrips in shtripsArray" :key="shtrips.id" @click="te(shtrips.id)">
-                    <b-td >{{shtrips.types_metals.name}}</b-td>
-                    <b-td>{{shtrips.width_in_millimeters}}</b-td>
-                    <b-td>{{shtrips.metal_thicknesse.thicknesses}}</b-td>
-                    <b-td>{{shtrips.length_in_meters}}</b-td>
-                    <b-td>{{shtrips.weight_in_tons}}</b-td>
-                    <b-td>{{shtrips.cost}}</b-td>
+            <b-tbody v-for="shtrips1 in shtrips" :key="shtrips1.id">
+                <b-tr @click="te(shtrips1.id)">
+                    <b-td >{{shtrips1.types_metals.name}}</b-td>
+                    <b-td>{{shtrips1.width_in_millimeters}}</b-td>
+                    <b-td>{{shtrips1.metal_thicknesse.thicknesses}}</b-td>
+                    <b-td>{{shtrips1.length_in_meters}}</b-td>
+                    <b-td>{{shtrips1.weight_in_tons}}</b-td>
+                    <b-td>{{shtrips1.cost}}</b-td>
                     <b-td>{{sum}}</b-td>
                     <b-td>{{pipe.name}}</b-td>
-                    <b-td>{{shtrips.name}}</b-td>
-                    <b-td>{{shtrips.id}}</b-td>
+                    <b-td>{{shtrips1.name}}</b-td>
+                    <b-td>{{shtrips1.id}}</b-td>
                 </b-tr>
-                <b-tr class="hidden" v-if="visible">
+                <b-tr class="hidden" v-if="shtrips1.id === val">
                     <shtripsMore :id="val" :name="name"></shtripsMore>
                 </b-tr>
             </b-tbody>
@@ -60,10 +60,6 @@ export default {
     //         return this.shtrips.cost +
     //     }
     // },
-    mounted() {
-        this.shtripsArray = this.shtrips;
-        console.log(this.shtripsArray)
-    },
     methods: {
         te(id) {
             axios.get("/api/pipetype/" + id)
@@ -71,7 +67,6 @@ export default {
                 this.pipe = res.data[0]
                 this.sum = res.data[1];
                 this.val = id;
-                this.visible = true
                 this.nameShtrips();
             });
         },

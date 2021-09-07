@@ -38,15 +38,19 @@ class shtripsController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->aprs['0']['amount']);
         $widthAPR = 0; // общая длина штрипса
         $i = 0;
         while ($i < count($request->aprs)) {
             $widthAPR = $widthAPR + $request->aprs[$i]['width'];
             $i = $i + 1;
         }
+        $num = $request->aprs;
 
         $i = 0;
-        while ($i < count($request->aprs)) {
+        // dd($i < $num);
+        while ($i < $num) {
+            dd($request->aprs);
             strips::create([
                 'buhta_id' => $request->buhtas[0]['id'], // айди бухты
                 'brigade_id' => $request->brigadeId, // айди бригады
@@ -61,7 +65,7 @@ class shtripsController extends Controller
                 'available' => '1', // доступность
                 'date_manufacture' => $request->dateManufacture, // дата производства
             ]);
-            $i = $i + 1;
+            $i++;
         }
         Buhta::find($request->buhtas[0]['id'])->update(['available'=> 0]); // после резки штрипса делать бухту недоступной
     }
@@ -129,10 +133,18 @@ class shtripsController extends Controller
         ;
         return view('FormPrint.OutfitStripping', ['vm' =>$vm, 'id' => $id, 'date' => $date, 'type' => $type, 'width' => $width, 'thicknesses' => $thicknesses, 'length' => $length]);
     }
-    public function warehouseNum($id)
+    public function warehouseNum($id) // складской номер
     {
         $shtrips = strips::find($id);
         $name = $shtrips['buhta_id'] .'/'. $shtrips['width_in_millimeters'];
         return $name;
+    }
+    public function sumShtrips($id, Request $request)
+    {
+        $num = $request['0'];
+        $strip = strips::find($id);
+        $sumLength = $strip->length_in_meters * $num;
+        $sumWeight = $strip->weight_in_tons * $num;
+        return [$sumLength, $sumWeight];
     }
 }

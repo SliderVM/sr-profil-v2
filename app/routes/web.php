@@ -18,6 +18,7 @@ Route::get('histories', 'Api\BhtController@histories');
 Route::post('history/{id}', 'Api\BhtController@history');
 Route::post('showOutfitStripping', 'Api\shtripsController@showOutfitStripping');
 Route::post('shtripsnum/{id}', 'Api\shtripsController@warehouseNum');
+Route::post('sumshtrips/{id}', 'Api\shtripsController@sumshtrips');
 
 Route::get('/{any}', function() {
     return view('index');

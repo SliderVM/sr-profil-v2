@@ -7,29 +7,29 @@
                 <div class="col">
                     <warehouse @selectWarehouse="warehouse"></warehouse>
                 </div>
-                <!-- <div class="form-group col">
+                <div class="form-group col">
                     <label>Дата перемещения</label>
-                    <input type="date" v-model="dateSending" class="form-control"/>
-                </div> -->
+                    <input type="date" v-model="Form.dateSending" class="form-control"/>
+                </div>
             </div>
             <div class="row">
                 <div class="form-group col">
                     <label>Доступно, шт</label>
-                    <input type="number" class="form-control" disabled />
+                    <input type="number" class="form-control" disabled v-model="available" />
                 </div>
                 <div class="form-group col">
                     <label>Переместить, шт</label>
-                    <input type="number" class="form-control" />
+                    <input type="number" class="form-control" @input="amount(id)" v-model="count" />
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col">
                     <label>Общая длина</label>
-                    <input type="number" class="form-control" disabled />
+                    <input type="number" class="form-control" disabled placeholder="0.0" v-model="Form.length" />
                 </div>
                 <div class="form-group col">
                     <label>Расчетный вес, тн</label>
-                    <input type="number" class="form-control" disabled />
+                    <input type="number" class="form-control" disabled placeholder="0.000" v-model="Form.tonage" />
                 </div>
             </div>
             <div slot="modal-footer">
@@ -48,10 +48,14 @@ export default {
     components: {warehouse},
     data: () => ({
         modalShow: false,
+        available: '',
         Form: {
             warehouseInComing: '',
             dateSending: '',
-        }
+            length: '',
+            tonage: ''
+        },
+        count: ''
     }),
     methods: {
         loadShrips(id) {
@@ -73,6 +77,15 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
+        },
+        amount(id) {
+            axios.post('sumshtrips/' + id, this.count, {
+                headers: {"Content-type": "application/json"}
+            })
+            .then((res) => {
+                this.Form.length = res.data[0]; // длина
+                this.Form.tonage = res.data[1]; // вес
+            })
         }
     }
 }
