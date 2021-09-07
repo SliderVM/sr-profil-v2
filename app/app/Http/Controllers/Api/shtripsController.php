@@ -45,12 +45,12 @@ class shtripsController extends Controller
             $widthAPR = $widthAPR + $request->aprs[$i]['width'];
             $i = $i + 1;
         }
-        $num = $request->aprs;
-
         $i = 0;
-        // dd($i < $num);
-        while ($i < $num) {
-            dd($request->aprs);
+        while($i < count($request->aprs)) {
+$j = 0;
+
+        while ($j < $request->aprs[$i]['amount']) {
+            // dd($request->aprs);
             strips::create([
                 'buhta_id' => $request->buhtas[0]['id'], // айди бухты
                 'brigade_id' => $request->brigadeId, // айди бригады
@@ -65,8 +65,12 @@ class shtripsController extends Controller
                 'available' => '1', // доступность
                 'date_manufacture' => $request->dateManufacture, // дата производства
             ]);
-            $i++;
+            $j++;
         }
+        $i++;
+        }
+        // dd(count($request->aprs));
+
         Buhta::find($request->buhtas[0]['id'])->update(['available'=> 0]); // после резки штрипса делать бухту недоступной
     }
 
