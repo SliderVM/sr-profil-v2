@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -22,19 +23,34 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        If (!Auth::guard('web')->attempt($request->only('email', 'password'))) {
+            return response(['msg' => 'no!'], 401);
         }
-        return $user->createToken($request->device_name)->plainTextToken;
+        $user = Auth::guard('web')->user();
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        $cookie = cookie('jwt', $token, 60 * 24);
+
+        return response(['msg' => 'yes!'])->withCookie($cookie);
+
+        // $user = User::where('email', $request->email)->first();
+
+        // if (!$user || !Hash::check($request->password, $user->password)) {
+        //     throw ValidationException::withMessages([
+        //         'email' => ['The provided credentials are incorrect.'],
+        //     ]);
+        // }
+        // return $user->createToken($request->device_name)->plainTextToken;
     }
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
-        return response()->json(['msg' => 'Не авторизован']);
+        $cookie = Cookie::forget('jwt');
+        return response()->json(['msg' => 'Не авторизован'])->withCookie($cookie);
+    }
+    public function user()
+    {
+        return Auth::user();
     }
 }
