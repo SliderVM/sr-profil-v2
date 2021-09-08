@@ -10,7 +10,9 @@
 
 <script>
 export default {
+    props: ['war'],
     data: () => ({
+        selected: '',
         warehouse_id: '',
         warehouseArray: [],
         options: [
@@ -19,6 +21,7 @@ export default {
     }),
     mounted() {
         this.loadwarehouse();
+        
     },
     methods: {
         loadwarehouse() {

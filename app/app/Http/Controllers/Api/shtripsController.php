@@ -38,38 +38,34 @@ class shtripsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->aprs['0']['amount']);
         $widthAPR = 0; // общая длина штрипса
         $i = 0;
         while ($i < count($request->aprs)) {
             $widthAPR = $widthAPR + $request->aprs[$i]['width'];
             $i = $i + 1;
         }
-        $i = 0;
-        while($i < count($request->aprs)) {
-$j = 0;
-
-        while ($j < $request->aprs[$i]['amount']) {
-            // dd($request->aprs);
-            strips::create([
-                'buhta_id' => $request->buhtas[0]['id'], // айди бухты
-                'brigade_id' => $request->brigadeId, // айди бригады
-                'width_in_millimeters' => $request->aprs[$i]['width'], // ширина штрипса в миллимтрах
-                'warehouse_id' => $request->buhtas[0]['warehouse_id'], // айди склада
-                'counterpartie_id' => $request->buhtas[0]['counterparty_id'], // айди контрагента
-                'weight_in_tons' => $request->buhtas[0]['weight'] / $widthAPR * $request->aprs[$i]['width'], // вес штрипса в тоннах
-                'metal_thicknesse_id' => $request->buhtas[0]['metal_thickness_id'], // толщина меттала
-                'types_metal_id' => $request->buhtas[0]['type_metal_id'], // тип металла
-                'length_in_meters' => $request->buhtas[0]['length'], // длина штрипса в метрах
-                'cost' => $request->buhtas[0]['price'] * ($request->buhtas[0]['weight'] / $widthAPR * $request->aprs[$i]['width']), // стоимость
-                'available' => '1', // доступность
-                'date_manufacture' => $request->dateManufacture, // дата производства
-            ]);
-            $j++;
+        $k = 0;
+        while($k < count($request->aprs)) {
+            $j = 0;
+            while ($j < $request->aprs[$k]['amount']) {
+                strips::create([
+                    'buhta_id' => $request->buhtas[0]['id'], // айди бухты
+                    'brigade_id' => $request->brigadeId, // айди бригады
+                    'width_in_millimeters' => $request->aprs[$k]['width'], // ширина штрипса в миллимтрах
+                    'warehouse_id' => $request->buhtas[0]['warehouse_id'], // айди склада
+                    'counterpartie_id' => $request->buhtas[0]['counterparty_id'], // айди контрагента
+                    'weight_in_tons' => $request->buhtas[0]['weight'] / $widthAPR * $request->aprs[$k]['width'], // вес штрипса в тоннах
+                    'metal_thicknesse_id' => $request->buhtas[0]['metal_thickness_id'], // толщина меттала
+                    'types_metal_id' => $request->buhtas[0]['type_metal_id'], // тип металла
+                    'length_in_meters' => $request->buhtas[0]['length'], // длина штрипса в метрах
+                    'cost' => $request->buhtas[0]['price'] * ($request->buhtas[0]['weight'] / $widthAPR * $request->aprs[$k]['width']), // стоимость
+                    'available' => '1', // доступность
+                    'date_manufacture' => $request->dateManufacture, // дата производства
+                ]);
+                $j++;
+            }
+        $k++;
         }
-        $i++;
-        }
-        // dd(count($request->aprs));
 
         Buhta::find($request->buhtas[0]['id'])->update(['available'=> 0]); // после резки штрипса делать бухту недоступной
     }
@@ -95,7 +91,7 @@ $j = 0;
      */
     public function edit($id)
     {
-        return strips::with('TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->get();
+        //
     }
 
     /**
@@ -120,11 +116,11 @@ $j = 0;
     {
         $strips = strips::where('buhta_id', $id)->first();
         $strips->delete();
-        $buhtaDelete = Buhta::find($id)->update(['available'=> 1]);
+        Buhta::find($id)->update(['available'=> 1]);
         return response()->json(['msg' => 'Удалено!']);
     }
 
-    public function showOutfitStripping(Request $request)
+    public function showOutfitStripping(Request $request) // печать нарядов
     {
         $id = $request->buhtas[0]['id'];
         $type = $request->buhtas[0]['types_metals']['name'];
@@ -143,12 +139,20 @@ $j = 0;
         $name = $shtrips['buhta_id'] .'/'. $shtrips['width_in_millimeters'];
         return $name;
     }
-    public function sumShtrips($id, Request $request)
+    public function sumShtrips($id, Request $request) // общая сумма длины и веса при перемещении
     {
-        $num = $request['0'];
+        $num = $request['0']; // количество из инпута переместить
         $strip = strips::find($id);
         $sumLength = $strip->length_in_meters * $num;
         $sumWeight = $strip->weight_in_tons * $num;
         return [$sumLength, $sumWeight];
+    }
+    public function groupShtrips($id) // сгруппировать штрипс по общим параметрам, посчитать количество сгруппированных
+    {
+        $shtrips = strips::with('TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->groupBy('weight_in_tons', 'length_in_meters', 'width_in_millimeters')->get();
+
+        $count = strips::with('TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->groupBy('weight_in_tons', 'length_in_meters', 'width_in_millimeters')->count();
+
+        return [$shtrips, $count];
     }
 }

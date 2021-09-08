@@ -1,11 +1,11 @@
 <template>
     <div>
-        <b-button @click="modalShow=!modalShow" size="sm" variant="outline-primary" :value="id"><b-icon icon="arrow-left-right"></b-icon> Переместить</b-button>
+        <b-button @click="modalShow=!modalShow" size="sm" variant="outline-primary"><b-icon icon="arrow-left-right"></b-icon> Переместить</b-button>
 
         <b-modal v-model="modalShow" title="Перемещение штрипса" hide-header-close>
             <div class="row">
                 <div class="col">
-                    <warehouse @selectWarehouse="warehouse"></warehouse>
+                    <warehouse @selectWarehouse="warehouse" :war="val"></warehouse>
                 </div>
                 <div class="form-group col">
                     <label>Дата перемещения</label>
@@ -44,30 +44,28 @@
 <script>
 import warehouse from '../../components/addbuht/selectwarehouse.vue'
 export default {
-    props: ['id'],
+    props: ['id', 'available', 'val'],
     components: {warehouse},
     data: () => ({
         modalShow: false,
-        available: '',
         Form: {
             warehouseInComing: '',
             dateSending: '',
             length: '',
-            tonage: ''
+            tonage: '',
+            available: '',
         },
         count: ''
     }),
+    mounted() {
+        this.Form.available = this.available;
+
+    },
     methods: {
-        loadShrips(id) {
-            axios.get("/api/shtrips/" + id + "/edit")
-            .then(res => {
-                this.shtripsArray = res.data;
-            });
-        },
         warehouse(data) {
             this.Form.warehouseInComing = data.selected
         },
-        send() {
+        send() { // сделать сохранение + селект чтобы не выбирался текущий склад
             axios.post('/api/shtrips', this.Form, {
             headers: {"Content-type": "application/json"}
             })

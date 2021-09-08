@@ -52,7 +52,7 @@
                 </table>
             </div>
             <div v-if="show">
-                <shtrips :shtrips="shtripsArray"></shtrips>
+                <shtrips :shtrips="shtripsArray" :wId="val"></shtrips>
             </div>
         </div>
     </div>
@@ -121,9 +121,9 @@ export default {
             });
         },
         loadShtrips() {
-            axios.get("/api/shtrips/" + this.val + "/edit")
+            axios.get("groupshtrips/" + this.val)
             .then(res => {
-                this.shtripsArray = res.data;
+                this.shtripsArray = res.data[0];
                 this.show = true;
             });
         },

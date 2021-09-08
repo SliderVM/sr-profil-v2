@@ -25,10 +25,9 @@
                     <b-td>{{sum}}</b-td>
                     <b-td>{{pipe.name}}</b-td>
                     <b-td>{{shtrips1.name}}</b-td>
-                    <b-td>{{shtrips1.id}}</b-td>
                 </b-tr>
                 <b-tr class="hidden" v-if="shtrips1.id === val">
-                    <shtripsMore :id="val" :name="name"></shtripsMore>
+                    <shtripsMore :id="wId"  :val="val" :name="name"></shtripsMore>
                 </b-tr>
             </b-tbody>
             <b-tfoot>
@@ -41,11 +40,12 @@
     </div>
 </template>
 <script>
+// сделать итого как сумма всех штрипсов + прогноз тн: общая длина штрипса одного типа(!) * коэффициент трубы
 import shtripsMore from '../Warehouses/ShtripsMore.vue'
 export default {
     components: {shtripsMore},
     name: "shtrips",
-    props: ['shtrips'],
+    props: ['shtrips', 'wId'],
     data: () => ({
         shtripsArray: [],
         sum: '',
@@ -55,11 +55,6 @@ export default {
         total: '',
         name: ''
     }),
-    // computed: {
-    //     total: () => {
-    //         return this.shtrips.cost +
-    //     }
-    // },
     methods: {
         te(id) {
             axios.get("/api/pipetype/" + id)
