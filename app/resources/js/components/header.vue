@@ -53,19 +53,18 @@ export default {
             axios.post('/logout')
             .then((response) => {
                 console.log(response);
-                localStorage.removeItem('token');
-                this.$router.push({ name: 'login'})
+                window.location.href = '/'
             })
             .catch((errors) => {
                 console.log(errors)
             })
         },
-        logged() { // получить авторизованного пользователя
-            axios.get('/user')
-            .then((response) => {
-                console.log(response)
-            })
-        }
+        // logged() { // получить авторизованного пользователя
+        //     axios.get('/user')
+        //     .then((response) => {
+        //         console.log(response)
+        //     })
+        // }
     }
 }
 </script>

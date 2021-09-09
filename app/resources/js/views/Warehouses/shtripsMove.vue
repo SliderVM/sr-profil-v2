@@ -59,7 +59,6 @@ export default {
     }),
     mounted() {
         this.Form.available = this.available;
-
     },
     methods: {
         warehouse(data) {

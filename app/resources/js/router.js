@@ -67,8 +67,7 @@ const routes = [
     },
     {
         path: "/login",
-        component: Login,
-        name: 'login',
+        component: Login
     },
     {
         path: "/users",
@@ -88,15 +87,6 @@ const routes = [
     }
 ];
 
-// router.beforeEach((to, from, next) => {
-//     const protectedRoutes = ['/', '/buhtas','/demands','/productionmanagement','/info','/info3','/info2','/info5','/warehouseinfo','/warehousetype/:id','/brigade','/users'];
-//     if (protectedRoutes.includes(to.path)) {
-//         return next('/login');
-//     }
-//     else
-//     {
-//         return next();
-//     }})
 
 export default new vueRouter ({
     routes: routes,

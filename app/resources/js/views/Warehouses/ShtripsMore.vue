@@ -32,11 +32,9 @@ export default {
     },
     methods: {
         loadAmount() {
-            console.log(this.id);
-            axios.get('groupshtrips/' + this.id)
+            axios.get('groupshtrips/' + this.val)
             .then(res => {
-                console.log(res.data)
-                this.kol = res.data[1];
+                this.kol = res.data;
             });
         }
     }

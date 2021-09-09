@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -33,21 +34,14 @@ class AuthController extends Controller
         $cookie = cookie('jwt', $token, 60 * 24);
 
         return response(['msg' => 'yes!'])->withCookie($cookie);
-
-        // $user = User::where('email', $request->email)->first();
-
-        // if (!$user || !Hash::check($request->password, $user->password)) {
-        //     throw ValidationException::withMessages([
-        //         'email' => ['The provided credentials are incorrect.'],
-        //     ]);
-        // }
-        // return $user->createToken($request->device_name)->plainTextToken;
     }
 
     public function logout(Request $request)
     {
+        Auth::guard('web')->logout();
         $cookie = Cookie::forget('jwt');
         return response()->json(['msg' => 'Не авторизован'])->withCookie($cookie);
+        return redirect('/welcome');
     }
     public function user()
     {

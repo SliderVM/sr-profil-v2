@@ -16,9 +16,6 @@ use App\Http\Controllers\Api\pipeController;
 use App\Http\Controllers\Api\pipeQualitieController;
 
 
-// Route::post('register', 'Api\AuthController@register');
-
-
 Route::resource('buhtas', BhtController::class);
 Route::resource('types', TypeController::class);
 Route::resource('thicknesse', ThicknesseController::class);

@@ -8,9 +8,7 @@ import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
-function loggedIn() {
-    return localStorage.getItem('token')
-}
+
 
 Vue.component('v-header', require('./components/header.vue').default);
 Vue.component('login', require('./views/Auth/Login.vue').default);

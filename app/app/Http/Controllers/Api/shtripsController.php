@@ -91,7 +91,7 @@ class shtripsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return strips::with('TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->groupBy('weight_in_tons', 'length_in_meters', 'width_in_millimeters')->get();
     }
 
     /**
@@ -149,10 +149,10 @@ class shtripsController extends Controller
     }
     public function groupShtrips($id) // сгруппировать штрипс по общим параметрам, посчитать количество сгруппированных
     {
-        $shtrips = strips::with('TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->groupBy('weight_in_tons', 'length_in_meters', 'width_in_millimeters')->get();
+        $prop = strips::with('TypesMetals', 'metalThicknesse')->find($id);
 
-        $count = strips::with('TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->groupBy('weight_in_tons', 'length_in_meters', 'width_in_millimeters')->count();
-
-        return [$shtrips, $count];
+        // $shtrips = strips::where($prop['weight_in_tons'], 'weight_in_tons')->first();
+        dd(strips::where($prop['weight_in_tons'])->get());
+        return $shtrips;
     }
 }

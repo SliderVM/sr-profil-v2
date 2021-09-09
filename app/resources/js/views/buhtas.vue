@@ -101,7 +101,11 @@ export default {
             });
         },
         loadPage(event) {
-            if (event.target.value == 1) {
+            if(event.target.value == "") {
+                this.show = false;
+                this.visible = false;
+            }
+            else if (event.target.value == 1) {
                 this.loadBuhts();
                 this.show = false;
             }
@@ -118,12 +122,14 @@ export default {
                 this.warehouseT = response.data;
                 this.selectType = ''
                 this.val = event.target.value;
+                this.show = false;
+                this.visible = false;
             });
         },
         loadShtrips() {
-            axios.get("groupshtrips/" + this.val)
+            axios.get("/api/shtrips/" + this.val + "/edit")
             .then(res => {
-                this.shtripsArray = res.data[0];
+                this.shtripsArray = res.data;
                 this.show = true;
             });
         },
