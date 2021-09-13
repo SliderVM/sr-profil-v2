@@ -3,14 +3,13 @@
     <label>На склад</label>
     <br>
     <select v-model="warehouse_id" @change="selectWarehouse">
-        <option size="sm" class="mt-3"  v-for="warehouse in warehouseArray" :key="warehouse.message" :value="warehouse.name">{{warehouse.name}} </option>
+        <option size="sm" class="mt-3"  v-for="warehouse in warehouseArray" :key="warehouse.message" :value="warehouse.id">{{warehouse.name}} </option>
     </select>
 </div>
 </template>
 
 <script>
 export default {
-    props: ['war'],
     data: () => ({
         selected: '',
         warehouse_id: '',
@@ -21,7 +20,7 @@ export default {
     }),
     mounted() {
         this.loadwarehouse();
-        
+
     },
     methods: {
         loadwarehouse() {

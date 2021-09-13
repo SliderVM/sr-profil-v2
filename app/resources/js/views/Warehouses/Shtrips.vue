@@ -27,11 +27,11 @@
                     <b-td>{{shtrips1.name}}</b-td>
                 </b-tr>
                 <b-tr class="hidden" v-if="shtrips1.id === val">
-                    <shtripsMore :id="wId"  :val="val" :name="name"></shtripsMore>
+                    <shtripsMore :wId="wId" :val="val" :name="name"></shtripsMore>
                 </b-tr>
             </b-tbody>
             <b-tfoot>
-                <b-tr class="font-weight-bold">
+                <b-tr>
                     <b-td colspan="7">Итого: </b-td>
                     <b-td colspan="4">{{total}}</b-td>
                 </b-tr>
@@ -44,7 +44,6 @@
 import shtripsMore from '../Warehouses/ShtripsMore.vue'
 export default {
     components: {shtripsMore},
-    name: "shtrips",
     props: ['shtrips', 'wId'],
     data: () => ({
         shtripsArray: [],
@@ -73,6 +72,12 @@ export default {
             })
             .catch(error => {
                 console.log(error);
+            });
+        },
+        loadAmount() {
+            axios.get('groupshtrips/' + this.wId)
+            .then(res => {
+                this.sumShtrips = res.data;
             });
         }
     }

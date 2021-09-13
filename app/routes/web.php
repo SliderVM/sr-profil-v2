@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\Api\shtripsController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-
 
 Route::view('login', 'welcome');
 
@@ -14,6 +12,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', 'AuthController@user');
     Route::post('logout', 'AuthController@logout');
     Route::get('groupshtrips/{id}', 'Api\shtripsController@groupShtrips');
+    Route::get('getshtrips', [shtripsController::class, 'getShtrips']);
+    Route::post('shtripstransfer', [shtripsController::class, 'stripsTransfer']);
+    Route::post('shtripsreceipt', 'Api\shtripsController@stripsReceipt');
     Route::get('histories', 'Api\BhtController@histories');
     Route::post('history/{id}', 'Api\BhtController@history');
     Route::post('showOutfitStripping', 'Api\shtripsController@showOutfitStripping');

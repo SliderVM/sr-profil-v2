@@ -5,7 +5,7 @@
         <b-modal v-model="modalShow" title="Перемещение штрипса" hide-header-close>
             <div class="row">
                 <div class="col">
-                    <warehouse @selectWarehouse="warehouse" :war="val"></warehouse>
+                    <warehouse @selectWarehouse="warehouse"></warehouse>
                 </div>
                 <div class="form-group col">
                     <label>Дата перемещения</label>
@@ -44,32 +44,34 @@
 <script>
 import warehouse from '../../components/addbuht/selectwarehouse.vue'
 export default {
-    props: ['id', 'available', 'val'],
+    props: ['wId', 'available', 'id'],
     components: {warehouse},
     data: () => ({
         modalShow: false,
         Form: {
-            warehouseInComing: '',
-            dateSending: '',
-            length: '',
-            tonage: '',
-            available: '',
+            id: '', // айди штрипса
+            warehouseInComing: '', // в какой склад отправится
+            warehouseOutgoing: '', // из какого склада отправится
+            dateSending: '', // дата
+            length: '', // длина
+            tonage: '', // вес
+            available: '', // общее количество
+            userSending: '', // айди отправителя
+            count: ''
         },
-        count: ''
+        count: '' // количество перемещаемых штрипсов
     }),
-    mounted() {
-        this.Form.available = this.available;
-    },
     methods: {
         warehouse(data) {
-            this.Form.warehouseInComing = data.selected
+            this.Form.warehouseInComing = data.selected;
         },
-        send() { // сделать сохранение + селект чтобы не выбирался текущий склад
-            axios.post('/api/shtrips', this.Form, {
-            headers: {"Content-type": "application/json"}
-            })
+        send() { // сделать селект чтобы не выбирался текущий склад
+            this.Form.id = this.id;
+            this.Form.warehouseOutgoing = this.wId;
+            this.Form.available = this.available;
+            axios.post('shtripstransfer', this.Form)
             .then((response) => {
-                this.Form = response.data
+                console.log(response)
             })
             .catch((error) => {
                 console.log(error);
@@ -82,6 +84,14 @@ export default {
             .then((res) => {
                 this.Form.length = res.data[0]; // длина
                 this.Form.tonage = res.data[1]; // вес
+                this.userCheck();
+            })
+        },
+        userCheck() {
+            axios.get('/user')
+            .then(response => {
+                this.Form.userSending = response.data.id
+                console.log(response.data.id)
             })
         }
     }

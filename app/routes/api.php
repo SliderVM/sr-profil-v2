@@ -16,17 +16,19 @@ use App\Http\Controllers\Api\pipeController;
 use App\Http\Controllers\Api\pipeQualitieController;
 
 
-Route::resource('buhtas', BhtController::class);
-Route::resource('types', TypeController::class);
-Route::resource('thicknesse', ThicknesseController::class);
-Route::resource('counterparties', CounterpartiesController::class);
-Route::resource('warehouse', WarehouseController::class);
-Route::resource('warehousetype', warehouseTypeController::class);
-Route::resource('apr', aprController::class);
-Route::resource('brigade', BrigadeController::class);
-Route::resource('user', UserController::class);
-Route::resource('shtrips', shtripsController::class);
-Route::resource('configuration', configurationController::class);
-Route::resource('pipetype', pipeController::class);
-Route::resource('qualitie', pipeQualitieController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::resource('buhtas', BhtController::class);
+    Route::resource('types', TypeController::class);
+    Route::resource('thicknesse', ThicknesseController::class);
+    Route::resource('counterparties', CounterpartiesController::class);
+    Route::resource('warehouse', WarehouseController::class);
+    Route::resource('warehousetype', warehouseTypeController::class);
+    Route::resource('apr', aprController::class);
+    Route::resource('brigade', BrigadeController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('shtrips', shtripsController::class);
+    Route::resource('configuration', configurationController::class);
+    Route::resource('pipetype', pipeController::class);
+    Route::resource('qualitie', pipeQualitieController::class);
+});
 

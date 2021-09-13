@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\strips;
 use App\Models\Buhta;
 use App\Models\apr;
+use App\Models\stripsTransferHistory;
 
 class shtripsController extends Controller
 {
@@ -133,12 +134,14 @@ class shtripsController extends Controller
         ;
         return view('FormPrint.OutfitStripping', ['vm' =>$vm, 'id' => $id, 'date' => $date, 'type' => $type, 'width' => $width, 'thicknesses' => $thicknesses, 'length' => $length]);
     }
+
     public function warehouseNum($id) // складской номер
     {
         $shtrips = strips::find($id);
         $name = $shtrips['buhta_id'] .'/'. $shtrips['width_in_millimeters'];
         return $name;
     }
+
     public function sumShtrips($id, Request $request) // общая сумма длины и веса при перемещении
     {
         $num = $request['0']; // количество из инпута переместить
@@ -147,12 +150,32 @@ class shtripsController extends Controller
         $sumWeight = $strip->weight_in_tons * $num;
         return [$sumLength, $sumWeight];
     }
+
     public function groupShtrips($id) // сгруппировать штрипс по общим параметрам, посчитать количество сгруппированных
     {
-        $prop = strips::with('TypesMetals', 'metalThicknesse')->find($id);
-
-        // $shtrips = strips::where($prop['weight_in_tons'], 'weight_in_tons')->first();
-        dd(strips::where($prop['weight_in_tons'])->get());
+        $shtrips = strips::with('TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->groupBy('weight_in_tons', 'length_in_meters', 'width_in_millimeters')->count();
         return $shtrips;
+    }
+
+    public function stripsTransfer(Request $request) // переместить штрипс(отправка)
+    {
+        $history = stripsTransferHistory::create([
+            'strips_id' => $request->id,
+            'outgoing_warehouse_id' => $request->warehouseOutgoing,
+            'incoming_warehouse_id'=> $request->warehouseInComing,
+            'user_sending_id' => $request->userSending,
+            'date_sending' => $request->dateSending
+        ]);
+        strips::find($request->id)->update(['available'=> '-1']);
+        return $history;
+    } // сделать цикл где будет запись для каждого айди пока не кончится каунт
+
+    public function stripsReceipt(Request $request) // переместить штрипс(получение)
+    {
+
+    }
+    public function getShtrips()
+    {
+        return strips::with('TypesMetals', 'metalThicknesse')->where('available', '-1')->get();
     }
 }

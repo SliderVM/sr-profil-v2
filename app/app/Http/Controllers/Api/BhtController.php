@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Buhta;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\MessageBag;
 
 class BhtController extends Controller
 {
@@ -38,29 +36,6 @@ class BhtController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                "name" => ["unique:buhtas,name"],
-                "warehouseId" => ["required"],
-                "receiptDate" => ["required"],
-                "typeMetalId" => ["required"],
-                "width" => ["required"],
-                "weight" => ["required"],
-                "metalThicknessId" => ["required"],
-                "length" => ["required"],
-                "price" => ["required"],
-                "available" => ["required"],
-                "counterpartyId" => ["required"]
-            ]
-        );
-        if ($validator->fails()) {
-            return [
-                "status" => false,
-                $errors = $validator->errors()
-            ];
-        };
-
         $buhta = buhta::create([
             "receipt_date" => $request->receiptDate,
             "warehouse_id" => $request->warehouseId,
@@ -74,11 +49,7 @@ class BhtController extends Controller
             "available" => $request->available,
             "counterparty_id" => $request->counterpartyId
         ]);
-
-        return [
-            "status" => true,
-            "buhta" => $buhta
-        ];
+        return $buhta;
     }
 
     /**

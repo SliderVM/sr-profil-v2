@@ -20,38 +20,45 @@
             <div v-if="visible">
                 <div>
                     <br>
-                    <v-modalbuht @send="loadBuhts"></v-modalbuht>
+                        <v-modalbuht @send="loadBuhts"></v-modalbuht>
+                    <br>
                 </div>
-                <table class="table table-sm table-hover small mt-4" id="buhta">
-                    <thead>
-                        <tr>
-                            <th>Наименование</th>
-                            <th>Контрагент</th>
-                            <th>Тип металла</th>
-                            <th>Ширина, мм</th>
-                            <th>Толщина, мм</th>
-                            <th>Длина, м</th>
-                            <th>Вес, тн</th>
-                            <th>Стоимость, руб</th>
-                            <th class="col-2">Операции</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <b-table-simple bordered>
+                    <b-thead>
+                        <b-tr>
+                            <b-th>Наименование</b-th>
+                            <b-th>Контрагент</b-th>
+                            <b-th>Тип металла</b-th>
+                            <b-th>Ширина, мм</b-th>
+                            <b-th>Толщина, мм</b-th>
+                            <b-th>Длина, м</b-th>
+                            <b-th>Вес, тн</b-th>
+                            <b-th>Стоимость, руб</b-th>
+                            <b-th class="col-2"></b-th>
+                        </b-tr>
+                    </b-thead>
+                    <b-tbody>
                         <buhta
                             v-for="buhta in buhtas"
                             :key="buhta.id"
                             :buhta="buhta"
                             @removeBuhta="loadBuhts"
                         />
-                    </tbody>
-                    <tfoot>
-                        <tr class="font-weight-bold">
-                            <td colspan="9">Итого:</td>
-                        </tr>
-                    </tfoot>
-                </table>
+                    </b-tbody>
+                    <b-tfoot>
+                        <b-tr>
+                            <b-td colspan="7">Итого: </b-td>
+                            <b-td colspan="4"></b-td>
+                        </b-tr>
+                    </b-tfoot>
+                </b-table-simple>
             </div>
             <div v-if="show">
+                <div>
+                    <br>
+                    <modal-shtrips></modal-shtrips>
+                    <br>
+                </div>
                 <shtrips :shtrips="shtripsArray" :wId="val"></shtrips>
             </div>
         </div>
@@ -60,21 +67,22 @@
 
 <script>
 import shtrips from '../views/Warehouses/Shtrips.vue'
-import buhta from "../components/buhta.vue";
+import modalShtrips from '../views/Warehouses/modalShtripsReceipt.vue'
+import buhta from "../components/buhta.vue"
+
 export default {
-    components: { buhta, shtrips},
+    components: {buhta, shtrips, modalShtrips},
     data: () => ({
         warehouseArray: [],
         options: [{ warehouseArray: '', value: '' }],
         warehouseT: {},
         selected: '',
         selectType: '',
-        visible: false,
+        visible: false, // бухты
+        show: false, // штрипс
         buhtas: [],
-        form: {},
+        shtripsArray: [],
         val: '',
-        show: false,
-        shtripsArray: []
     }),
     mounted() {
         this.loadwarehouse();
@@ -83,16 +91,9 @@ export default {
         loadBuhts() {
             axios.get("/api/buhtas/" + this.val + "/edit")
             .then(res => {
-                // if(res.data.length == 0)
-                // {
-                //     alert('Нет бухт!');
-                //     this.visible = false;
-                // }
-                // else {
-                    this.buhtas = res.data;
-                    this.visible = true;
-                }
-            );
+                this.buhtas = res.data;
+                this.visible = true;
+            })
         },
         loadwarehouse() {
             axios.get("/api/warehouse/create")

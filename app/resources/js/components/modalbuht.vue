@@ -2,30 +2,28 @@
     <div>
         <b-button @click="modalShow=!modalShow" size="sm" variant="outline-primary"><b-icon icon="plus-square"></b-icon> Приход металла</b-button>
         <b-modal v-model="modalShow" title="Приход металла" hide-header-close>
+
             <v-InputData @Vibe="Ran"></v-InputData>
-             <div class="form-group">
+            <div class="form-group">
                 <label>Наименование</label>
                 <input type="text" v-model="form.name" placeholder="Введите наименование" class="form-control" />
             </div>
-            <!-- <v-selectcounterparties></v-selectcounterparties> -->
+
             <div>
                 <label>Контрагенты</label>
                 <multiselect
                     v-model="Value"
                     :options="CounterpartiesArray"
-                    track-by="id"
                     label="name"
                     :options-limit="3"
                     open-direction="bottom"
                     :hide-selected="true"
                     placeholder="Начните вводить"
                     @open="CounterpartiesOpen"
-                    @select="CounterpartiesSearch"
-                >
+                    @select="CounterpartiesSearch">
                 </multiselect>
             </div>
 
-            <!-- <v-selectwarehouse></v-selectwarehouse> -->
             <div>
                 <label>Склад</label>
                 <select v-model="form.warehouseId">
@@ -34,20 +32,19 @@
                         class="mt-3"
                         v-for="warehouse in warehouseArray"
                         :key="warehouse.id"
-                        :value="warehouse.id"
-                        >{{ warehouse.name }}
+                        :value="warehouse.id">
+                        {{ warehouse.name }}
                     </option>
                 </select>
             </div>
-            <!-- <v-selecttype></v-selecttype> -->
+
             <div>
                 <label>Тип металла</label>
                 <select width="100" v-model="form.typeMetalId">
                     <option
                         v-for="types in selecttype"
                         :key="types.id"
-                        :value="types.id"
-                    >
+                        :value="types.id">
                         {{ types.name }}
                     </option>
                 </select>
@@ -73,7 +70,6 @@
                 />
             </div>
 
-            <!-- <v-selectthickness></v-selectthickness> -->
             <div>
                 <label>Толщина</label>
                 <select v-model="form.metalThicknessId">
@@ -100,18 +96,20 @@
                 />
             </div>
 
-            <!-- <v-checkbox></v-checkbox> -->
-            <input type="radio" id="negativeOne" value="-1" v-model="form.available" />
-            <label for="negativeOne">Бухта в пути</label>
-            <br />
-            <input type="radio" id="one" value="1" v-model="form.available" />
-            <label for="one">Бухта на складе</label>
+            <div>
+                <input type="radio" id="negativeOne" value="-1" v-model="form.available" />
+                <label for="negativeOne">Бухта в пути</label>
+                <br>
+                <input type="radio" id="one" value="1" v-model="form.available" />
+                <label for="one">Бухта на складе</label>
+            </div>
 
             <div slot="modal-footer">
                 <button @click="send" size="sm" class="btn btn-outline-primary">
                     Сохранить
                 </button>
             </div>
+
         </b-modal>
     </div>
 </template>
@@ -124,7 +122,6 @@ export default {
         modalShow: false,
         CounterpartiesArray: [],
         Value: "",
-        trackBy: "id",
         warehouseArray: [],
         optionsW: [{ warehouseArray: "", value: "" }],
         thicknessesArray: [],
@@ -184,19 +181,13 @@ export default {
             });
         },
         send() {
-            console.log(this.form);
             axios.post("/api/buhtas", this.form, {
-                    header: "Content-type: application/json"
+                headers: {"Content-type": "application/json"}
             })
-            .then(response => {
-                if(response.data.status = "") {
-                    console.log(response)
-                    this.form = response.data;
-                    this.modalShow = false;
-                    this.$emit("send", { form: this.form });
-                    this.form = "";
-                }
-                alert(response.data)
+            .then(res => {
+                this.modalShow = false;
+                this.$emit("send");
+                this.form = "";
             })
             .catch(error => {
                 console.log(error);

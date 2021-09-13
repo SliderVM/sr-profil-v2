@@ -11,8 +11,8 @@
             <b-tbody>
                 <b-tr>
                     <b-td>{{name}}</b-td>
-                    <b-td>{{kol}}</b-td>
-                    <b-td> <move :id="val" :available="kol"></move> </b-td>
+                    <b-td>{{sumShtrips}}</b-td>
+                    <b-td> <move :wId="wId" :available="sumShtrips" :id="val"></move> </b-td>
                 </b-tr>
             </b-tbody>
         </b-table-simple>
@@ -23,18 +23,18 @@
 import move from './shtripsMove.vue'
 export default {
     components: {move},
-    props: ['id', 'name', 'val'],
+    props: ['wId', 'name', 'val'],
     data: () => ({
-        kol: ''
+        sumShtrips: '' // общее количество штрипса
     }),
     mounted() {
         this.loadAmount();
     },
     methods: {
         loadAmount() {
-            axios.get('groupshtrips/' + this.val)
+            axios.get('groupshtrips/' + this.wId)
             .then(res => {
-                this.kol = res.data;
+                this.sumShtrips = res.data;
             });
         }
     }
