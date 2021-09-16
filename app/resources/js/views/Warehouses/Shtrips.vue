@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-table-simple bordered>
+        <b-table-simple>
             <b-thead>
                 <b-tr>
                     <b-th>Тип металла</b-th>

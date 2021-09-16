@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-        <b-table-simple bordered>
+        <b-table-simple>
             <b-thead>
                 <b-tr>
                     <b-th>Складской номер</b-th>

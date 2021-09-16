@@ -1,5 +1,5 @@
 <template>
-    <b-table-simple small bordered>
+    <b-table-simple small>
         <b-thead>
         <b-tr>
             <b-th>Ширина</b-th>

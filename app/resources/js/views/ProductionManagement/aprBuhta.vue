@@ -1,6 +1,6 @@
 <template>
     <div class="hidden" v-if="visible">
-         <b-table-simple bordered>
+         <b-table-simple>
             <b-thead>
                 <b-tr>
                     <b-th>Наименование</b-th>
@@ -11,6 +11,7 @@
                     <b-th>Длина, м</b-th>
                     <b-th>Вес, тн</b-th>
                     <b-th>Стоимость, руб</b-th>
+                    <b-th></b-th>
                 </b-tr>
             </b-thead>
            <b-tbody v-for="buhta in aprArray" :key="buhta.id">
@@ -23,10 +24,12 @@
                     <b-td>{{buhta.length}}</b-td>
                     <b-td>{{buhta.weight}}</b-td>
                     <b-td>{{buhta.price}}</b-td>
-                    <div class='btn-group'>
-                        <shtrips-modal :buhta="aprArray" :apr="aprs"></shtrips-modal>
-                        <print :buhta="aprArray"></print>
-                    </div>
+                    <b-td>
+                        <div class='btn-group'>
+                            <shtrips-modal :buhta="aprArray" :apr="aprs"></shtrips-modal>
+                            <print :buhta="aprArray"></print>
+                        </div>
+                    </b-td>
                 </b-tr>
                 <b-tr class="hidden" v-if="buhta.id === aprId">
                     <aprLoad :apr="aprs"></aprLoad>

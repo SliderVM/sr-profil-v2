@@ -6,7 +6,6 @@
             :current-page="currentPage"
             :items="test"
             small
-            bordered
         >
         <template #cell(opr)="row">
             <b-button size="sm" @click="row.row-selected" v-on:click="loadShtrips(row.item.id)" variant='outline-primary' class="mr-2">

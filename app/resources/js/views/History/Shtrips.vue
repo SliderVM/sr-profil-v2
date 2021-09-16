@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-table-simple bordered>
+        <b-table-simple>
             <b-thead>
                 <b-tr>
                     <b-th>Тип металла</b-th>
@@ -29,7 +29,7 @@
                 </b-tr>
                 <b-tr class="hidden" v-if="shtrips1.id === val">
                     <div class="container-fluid">
-                        <b-table-simple bordered>
+                        <b-table-simple>
                             <b-thead>
                                 <b-tr>
                                     <b-th>Складской номер</b-th>

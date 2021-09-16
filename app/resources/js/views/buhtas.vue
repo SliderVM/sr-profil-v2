@@ -23,7 +23,7 @@
                         <v-modalbuht @send="loadBuhts"></v-modalbuht>
                     <br>
                 </div>
-                <b-table-simple bordered>
+                <b-table-simple>
                     <b-thead>
                         <b-tr>
                             <b-th>Наименование</b-th>
