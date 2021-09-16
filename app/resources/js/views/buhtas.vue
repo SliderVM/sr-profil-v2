@@ -48,7 +48,7 @@
                     <b-tfoot>
                         <b-tr>
                             <b-td colspan="7">Итого: </b-td>
-                            <b-td colspan="4"></b-td>
+                            <b-td colspan="4">{{total}}</b-td>
                         </b-tr>
                     </b-tfoot>
                 </b-table-simple>
@@ -56,7 +56,7 @@
             <div v-if="show">
                 <div>
                     <br>
-                    <modal-shtrips></modal-shtrips>
+                    <modal-shtrips :wId="val"></modal-shtrips>
                     <br>
                 </div>
                 <shtrips :shtrips="shtripsArray" :wId="val"></shtrips>
@@ -84,6 +84,14 @@ export default {
         shtripsArray: [],
         val: '',
     }),
+    computed: {
+        total() {
+            let a = 0;
+            return this.buhtas.reduce(function (a, buhta) {
+                return a + Number(buhta.price) || 0
+            }, 0);
+        }
+    },
     mounted() {
         this.loadwarehouse();
     },

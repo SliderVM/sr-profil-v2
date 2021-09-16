@@ -16,9 +16,9 @@ class shtripsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() // ?
     {
-        return strips::with('counterparties','brigade', 'TypesMetals', 'metalThicknesse')->get();
+        return strips::with('counterparties','brigade', 'TypesMetals', 'metalThicknesse', 'pipeType')->get();
     }
 
     /**
@@ -26,9 +26,11 @@ class shtripsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() // получить штрипс и сумму штрипса для модалки подтвердить штрипс, count - количество неподтвержденного штрипса,shtrips весь неподтвержденный штрипс
     {
-        //
+        $shtrips = strips::with('TypesMetals', 'metalThicknesse', 'pipeType')->where('available', '-1')->get();
+        $count = strips::with('TypesMetals', 'metalThicknesse', 'pipeType')->where('available', '-1')->count();
+        return [$shtrips, $count];
     }
 
     /**
@@ -37,13 +39,13 @@ class shtripsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) // создать штрипс из апр в управлении производством
     {
         $widthAPR = 0; // общая длина штрипса
         $i = 0;
         while ($i < count($request->aprs)) {
             $widthAPR = $widthAPR + $request->aprs[$i]['width'];
-            $i = $i + 1;
+            $i++;
         }
         $k = 0;
         while($k < count($request->aprs)) {
@@ -68,7 +70,7 @@ class shtripsController extends Controller
         $k++;
         }
 
-        Buhta::find($request->buhtas[0]['id'])->update(['available'=> 0]); // после резки штрипса делать бухту недоступной
+        Buhta::find($request->buhtas[0]['id'])->update(['available'=> '-1']); // после резки штрипса делать бухту недоступной
     }
 
     /**
@@ -77,10 +79,10 @@ class shtripsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) // вывод штрипса по айди бухты
     {
         if(strips::where('strips.buhta_id', $id)->first()){
-            return strips::with('counterparties', 'brigade', 'TypesMetals', 'metalThicknesse')->where('buhta_id', $id)->get(); // вывод штрипса по айди бухты
+            return strips::with('counterparties', 'brigade', 'TypesMetals', 'metalThicknesse', 'pipeType')->where('buhta_id', $id)->get();
         }
     }
 
@@ -90,21 +92,9 @@ class shtripsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) // вывод штрипса по складам
     {
-        return strips::with('TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->groupBy('weight_in_tons', 'length_in_meters', 'width_in_millimeters')->get();
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return strips::with('TypesMetals', 'metalThicknesse', 'pipeType')->where('warehouse_id', $id)->where('available', '1')->groupBy('weight_in_tons', 'length_in_meters', 'width_in_millimeters')->get();
     }
 
     /**
@@ -113,7 +103,7 @@ class shtripsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) // удалить штрипс, сделать бухту доступной, откатить бухту в истории
     {
         $strips = strips::where('buhta_id', $id)->first();
         $strips->delete();
@@ -135,7 +125,7 @@ class shtripsController extends Controller
         return view('FormPrint.OutfitStripping', ['vm' =>$vm, 'id' => $id, 'date' => $date, 'type' => $type, 'width' => $width, 'thicknesses' => $thicknesses, 'length' => $length]);
     }
 
-    public function warehouseNum($id) // складской номер
+    public function warehouseNum($id) // складской номер для складов штрипса
     {
         $shtrips = strips::find($id);
         $name = $shtrips['buhta_id'] .'/'. $shtrips['width_in_millimeters'];
@@ -151,31 +141,51 @@ class shtripsController extends Controller
         return [$sumLength, $sumWeight];
     }
 
-    public function groupShtrips($id) // сгруппировать штрипс по общим параметрам, посчитать количество сгруппированных
+    public function groupShtrips(Request $request) // сгруппировать штрипс по общим параметрам, посчитать количество сгруппированных
     {
-        $shtrips = strips::with('TypesMetals', 'metalThicknesse')->where('warehouse_id', $id)->groupBy('weight_in_tons', 'length_in_meters', 'width_in_millimeters')->count();
-        return $shtrips;
+        $shtripsGroup = strips::find($request[1])->first();
+        $sum = strips::where('weight_in_tons', $shtripsGroup->weight_in_tons)->where('length_in_meters', $shtripsGroup->length_in_meters)->where('width_in_millimeters', $shtripsGroup->width_in_millimeters)->where('available', '1')->pluck('id');
+        $amount = $sum->count();
+        return [$amount, $sum];
     }
 
     public function stripsTransfer(Request $request) // переместить штрипс(отправка)
     {
-        $history = stripsTransferHistory::create([
-            'strips_id' => $request->id,
+        $i = 0;
+        while ($i < $request->count) {
+            stripsTransferHistory::create([
+            'strips_id' => $request->array[$i],
             'outgoing_warehouse_id' => $request->warehouseOutgoing,
             'incoming_warehouse_id'=> $request->warehouseInComing,
             'user_sending_id' => $request->userSending,
             'date_sending' => $request->dateSending
-        ]);
-        strips::find($request->id)->update(['available'=> '-1']);
-        return $history;
-    } // сделать цикл где будет запись для каждого айди пока не кончится каунт
+            ]);
+            strips::find($request->array[$i])->update(['available'=> '-1']);
+            $i++;
+        }
+    }
 
     public function stripsReceipt(Request $request) // переместить штрипс(получение)
     {
-
+        stripsTransferHistory::where('strips_id', $request->id)->update(['user_receipt_id'=> $request->userReceipt,
+        'date_receipt'=> $request->receiptDate]);
+        strips::find($request->id)->update(['available'=> 1]);
     }
-    public function getShtrips()
+
+    public function stripsCancel($id) // отменить перемещение штрипса между складами
     {
-        return strips::with('TypesMetals', 'metalThicknesse')->where('available', '-1')->get();
+        stripsTransferHistory::where('strips_id', $id)->delete();
+        strips::find($id)->update(['available'=> '1']);
+    }
+
+    public function shtripsHistory($id)
+    {
+        $sum = stripsTransferHistory::pluck('strips_id')->unique();dd($sum);
+        // $i = 0;
+        // while ($i < count($sum)) {
+        //     $test = strips::with('TypesMetals', 'metalThicknesse', 'pipeType')->where('id', $sum[$i])->get();
+        //     $i++;
+        // }
+        // return $test;
     }
 }

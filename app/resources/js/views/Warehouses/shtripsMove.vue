@@ -19,7 +19,7 @@
                 </div>
                 <div class="form-group col">
                     <label>Переместить, шт</label>
-                    <input type="number" class="form-control" @input="amount(id)" v-model="count" />
+                    <input type="number" class="form-control" @input="amount(id)" v-model="Form.count" />
                 </div>
             </div>
             <div class="row">
@@ -44,7 +44,7 @@
 <script>
 import warehouse from '../../components/addbuht/selectwarehouse.vue'
 export default {
-    props: ['wId', 'available', 'id'],
+    props: ['wId', 'available', 'id', 'array'],
     components: {warehouse},
     data: () => ({
         modalShow: false,
@@ -57,15 +57,17 @@ export default {
             tonage: '', // вес
             available: '', // общее количество
             userSending: '', // айди отправителя
-            count: ''
-        },
-        count: '' // количество перемещаемых штрипсов
+            count: '', // количество перемещаемых штрипсов
+            array: {} // массив айди таких же записей
+        }
     }),
     methods: {
         warehouse(data) {
             this.Form.warehouseInComing = data.selected;
+            this.Form.array = this.array;
         },
         send() { // сделать селект чтобы не выбирался текущий склад
+            this.Form.count = Number(this.Form.count);
             this.Form.id = this.id;
             this.Form.warehouseOutgoing = this.wId;
             this.Form.available = this.available;
@@ -78,7 +80,7 @@ export default {
             });
         },
         amount(id) {
-            axios.post('sumshtrips/' + id, this.count, {
+            axios.post('sumshtrips/' + id, this.Form.count, {
                 headers: {"Content-type": "application/json"}
             })
             .then((res) => {
@@ -90,8 +92,7 @@ export default {
         userCheck() {
             axios.get('/user')
             .then(response => {
-                this.Form.userSending = response.data.id
-                console.log(response.data.id)
+                this.Form.userSending = response.data.id;
             })
         }
     }

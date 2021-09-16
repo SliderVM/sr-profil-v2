@@ -12,7 +12,7 @@
                 <b-tr>
                     <b-td>{{name}}</b-td>
                     <b-td>{{sumShtrips}}</b-td>
-                    <b-td> <move :wId="wId" :available="sumShtrips" :id="val"></move> </b-td>
+                    <b-td> <move :wId="wId" :available="sumShtrips" :id="val" :array="array"></move> </b-td>
                 </b-tr>
             </b-tbody>
         </b-table-simple>
@@ -25,16 +25,18 @@ export default {
     components: {move},
     props: ['wId', 'name', 'val'],
     data: () => ({
-        sumShtrips: '' // общее количество штрипса
+        sumShtrips: '', // общее количество штрипса
+        array: {} // массив айди
     }),
     mounted() {
         this.loadAmount();
     },
     methods: {
         loadAmount() {
-            axios.get('groupshtrips/' + this.wId)
+            axios.post('groupshtrips', [this.wId, this.val])
             .then(res => {
-                this.sumShtrips = res.data;
+                this.sumShtrips = res.data[0];
+                this.array = res.data[1];
             });
         }
     }

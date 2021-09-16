@@ -25,16 +25,20 @@
         <br>
         <h5>История проката</h5>
         <div v-if="visible">
-            <buhta :warehouseKey="val1"></buhta>
+            <buhta :aprArray="aprArray"></buhta>
+        </div>
+        <div v-if="show">
+            <shtrips :shtrips="shtrips" :val1="val1"></shtrips>
         </div>
     </div>
 </div>
 </template>
 
 <script>
+import Shtrips from '../History/Shtrips.vue';
 import buhta from './buhtaHistory.vue'
 export default {
-    components: {buhta},
+    components: {buhta, Shtrips},
     data: () => ({
         warehouseArray: [],
         options: [
@@ -45,12 +49,22 @@ export default {
         selected: '',
         visible: true,
         shtripsArray: [],
-        val1: ''
+        val1: '',
+        aprArray: [],
+        buhtaArray: [],
+        show: false,
+        shtrips: []
     }),
     mounted() {
         this.loadwarehouse();
     },
     methods: {
+        loadShtrips() {
+            axios.get('shtripshistory/' + this.val1)
+            .then(res => {
+                this.shtrips = res.data
+            })
+        },
         smena(event) { // событие первого селекта, выбрать склад
             axios.get('/api/warehouse/' + event.target.value)
             .then((response) => {
@@ -67,12 +81,19 @@ export default {
             })
         },
         loadPage(event) { // событие второго селекта, выбрать тип склада
-            if(event.target.value == 1) { // если тип == бухта
-                this.visible = true;
-            }
-            else {
-                alert('Нет бухт');
+           if(event.target.value == "") {
+                this.show = false;
                 this.visible = false;
+            }
+            else if (event.target.value == 1) {
+                this.show = false;
+                this.visible = true
+            }
+            else
+            {
+                this.loadShtrips();
+                this.visible = false;
+                this.show = true;
             }
         }
     }

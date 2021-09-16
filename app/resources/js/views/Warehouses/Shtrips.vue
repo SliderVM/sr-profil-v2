@@ -15,16 +15,16 @@
                 </b-tr>
             </b-thead>
             <b-tbody v-for="shtrips1 in shtrips" :key="shtrips1.id">
-                <b-tr @click="te(shtrips1.id)">
+                <b-tr @click="truba(shtrips1.id)">
                     <b-td >{{shtrips1.types_metals.name}}</b-td>
                     <b-td>{{shtrips1.width_in_millimeters}}</b-td>
                     <b-td>{{shtrips1.metal_thicknesse.thicknesses}}</b-td>
                     <b-td>{{shtrips1.length_in_meters}}</b-td>
                     <b-td>{{shtrips1.weight_in_tons}}</b-td>
                     <b-td>{{shtrips1.cost}}</b-td>
-                    <b-td>{{sum}}</b-td>
-                    <b-td>{{pipe.name}}</b-td>
-                    <b-td>{{shtrips1.name}}</b-td>
+                    <b-td>{{shtrips1.cost * shtrips1.width_in_millimeters || 0}}</b-td>
+                    <b-td>{{shtrips1.pipe_type.name}}</b-td>
+                    <b-td>{{shtrips1.pipe_type.coefficient * (sumShtrips * shtrips1.width_in_millimeters)}}</b-td>
                 </b-tr>
                 <b-tr class="hidden" v-if="shtrips1.id === val">
                     <shtripsMore :wId="wId" :val="val" :name="name"></shtripsMore>
@@ -32,8 +32,8 @@
             </b-tbody>
             <b-tfoot>
                 <b-tr>
-                    <b-td colspan="7">Итого: </b-td>
-                    <b-td colspan="4">{{total}}</b-td>
+                    <b-td colspan="6">Итого: </b-td>
+                    <b-td colspan="5">{{total}}</b-td>
                 </b-tr>
             </b-tfoot>
         </b-table-simple>
@@ -46,23 +46,25 @@ export default {
     components: {shtripsMore},
     props: ['shtrips', 'wId'],
     data: () => ({
-        shtripsArray: [],
-        sum: '',
         val: '',
         visible: false,
         pipe: [],
-        total: '',
-        name: ''
+        name: '',
+        sumShtrips: ''
     }),
+    computed: {
+        total: function() {
+            let a = 0;
+            return this.shtrips.reduce(function (a, shtrips1) {
+                return a + shtrips1.cost * shtrips1.width_in_millimeters;
+            }, 0);
+        }
+    },
     methods: {
-        te(id) {
-            axios.get("/api/pipetype/" + id)
-            .then(res => {
-                this.pipe = res.data[0]
-                this.sum = res.data[1];
-                this.val = id;
-                this.nameShtrips();
-            });
+        truba(id) {
+            this.val = id;
+            this.nameShtrips();
+            this.loadAmount();
         },
         nameShtrips() {
             axios.post('shtripsnum/' + this.val)
@@ -70,14 +72,11 @@ export default {
                 console.log(res);
                 this.name = res.data
             })
-            .catch(error => {
-                console.log(error);
-            });
         },
         loadAmount() {
-            axios.get('groupshtrips/' + this.wId)
+            axios.post('groupshtrips', [this.wId, this.val])
             .then(res => {
-                this.sumShtrips = res.data;
+                this.sumShtrips = res.data[0];
             });
         }
     }

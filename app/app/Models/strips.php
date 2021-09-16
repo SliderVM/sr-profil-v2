@@ -26,4 +26,8 @@ class Strips extends Model
     {
         return $this->hasOne(metalThicknesse::class, 'id', 'metal_thicknesse_id');
     }
+    public function pipeType()
+    {
+        return $this->hasOne(pipeType::class, 'width_strip_in_millimeters', 'width_in_millimeters');
+    }
 }
