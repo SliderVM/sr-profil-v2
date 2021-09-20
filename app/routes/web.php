@@ -16,7 +16,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('shtripstransfer', [shtripsController::class, 'stripsTransfer']);
     Route::post('shtripsreceipt', 'Api\shtripsController@stripsReceipt');
     Route::post('shtripscancel/{id}', [shtripsController::class, 'stripsCancel']);
-    Route::get('histories', 'Api\BhtController@histories');
     Route::get('history/{id}', [BhtController::class, 'history']);
     Route::get('shtripshistory/{id}', [shtripsController::class, 'shtripsHistory']);
     Route::post('showOutfitStripping', 'Api\shtripsController@showOutfitStripping');

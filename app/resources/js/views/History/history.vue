@@ -25,7 +25,7 @@
         <br>
         <h5>История проката</h5>
         <div v-if="visible">
-            <buhta :aprArray="aprArray"></buhta>
+            <buhta :val1="val1"></buhta>
         </div>
         <div v-if="show">
             <shtrips :shtrips="shtrips" :val1="val1"></shtrips>
@@ -87,7 +87,8 @@ export default {
             }
             else if (event.target.value == 1) {
                 this.show = false;
-                this.visible = true
+                this.visible = true;
+                this.loadBuhtWarehouse();
             }
             else
             {

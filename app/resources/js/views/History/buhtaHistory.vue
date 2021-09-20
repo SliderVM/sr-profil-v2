@@ -17,7 +17,7 @@
             <b-card>
                 <b-table
                 id="my-table"
-                :fields="fields2"
+                :fields="fieldsShtrips"
                 :items="shtrips"
                 :per-page="perPage"
                 :current-page="currentPage"
@@ -25,7 +25,7 @@
                 </b-table>
                 <div class="mt-3">
                     <b-pagination
-                        v-model="currentPage2"
+                        v-model="currentPageShtrips"
                         :total-rows="shtripsRows"
                         :per-page="perPage"
                         aria-controls="my-table"
@@ -47,9 +47,9 @@
 
 <script>
 export default {
-    props: ["aprArray", 'wKey'],
+    props: ["val1"],
     data:() => ({
-        fields2: [ // поля таблицы штрипс
+        fieldsShtrips: [ // поля таблицы штрипс
             {key: 'id',
             label: 'ID штрипса'},
             {key: 'buhta_id',
@@ -96,11 +96,11 @@ export default {
             label: ''}
         ],
         shtrips: [],
-        perPage: 3,
+        perPage: 5,
         currentPage: 1,
-        currentPage2: 1,
+        currentPageShtrips: 1,
         visible: false,
-        test: []
+        test: [],
     }),
     mounted() {
         this.loadBuht();
@@ -114,18 +114,8 @@ export default {
         } // опредляет длину массива с данными для разбивки на страницы для таблицы штрипс
     },
     methods: {
-        loadBuhtWarehouse() {
-            axios.get('history/' + this.wKey) // получить бухты по айди склада
-            .then(res => {
-                this.aprArray = res.data
-            })
-        },
-        testing(data){
-            console.log(data);
-            this.test = this.aprArray;
-        },
         loadBuht() {
-            axios.get('histories') // получить бухты
+            axios.get('history', this.val1) // получить бухты
             .then(res => {
                 this.test = res.data;
                 this.visible = true;
