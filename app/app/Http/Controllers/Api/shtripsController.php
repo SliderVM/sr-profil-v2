@@ -180,12 +180,7 @@ class shtripsController extends Controller
 
     public function shtripsHistory($id)
     {
-        $sum = stripsTransferHistory::pluck('strips_id')->unique();dd($sum);
-        // $i = 0;
-        // while ($i < count($sum)) {
-        //     $test = strips::with('TypesMetals', 'metalThicknesse', 'pipeType')->where('id', $sum[$i])->get();
-        //     $i++;
-        // }
-        // return $test;
+        $t = strips::join('strips_transfer_histories', 'strips_id', 'strips.id')->where('warehouse_id', $id)->with('TypesMetals', 'metalThicknesse', 'pipeType')->get();
+        return $t;
     }
 }

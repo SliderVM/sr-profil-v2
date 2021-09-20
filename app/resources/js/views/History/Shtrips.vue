@@ -14,9 +14,9 @@
                     <b-th>Прогноз, тн</b-th>
                 </b-tr>
             </b-thead>
-            <b-tbody v-for="shtrips1 in shtrips" :key="shtrips1.id">
-                <b-tr @click="load(shtrips1.id)">
-                    <b-td>{{shtrips1.id}}</b-td>
+            <b-tbody v-for="shtrips1 in shtrips" :key="shtrips1.id" >
+                <b-tr @click="load(shtrips1.strips_id)" variant="success">
+                    <b-td>{{shtrips1.strips_id}}</b-td>
                     <b-td >{{shtrips1.types_metals.name}}</b-td>
                     <b-td>{{shtrips1.width_in_millimeters}}</b-td>
                     <b-td>{{shtrips1.metal_thicknesse.thicknesses}}</b-td>
@@ -27,7 +27,7 @@
                     <b-td>{{shtrips1.pipe_type.name}}</b-td>
                     <b-td>{{shtrips1.pipe_type.coefficient * (sumShtrips * shtrips1.width_in_millimeters)}}</b-td>
                 </b-tr>
-                <b-tr class="hidden" v-if="shtrips1.id === val">
+                <b-tr v-if="shtrips1.strips_id === val">
                     <div class="container-fluid">
                         <b-table-simple>
                             <b-thead>
@@ -42,8 +42,8 @@
                             <b-tbody>
                                 <b-tr>
                                     <b-td>{{name}}</b-td>
-                                    <b-td>{{sumShtrips}}</b-td>
-                                    <b-td></b-td>
+                                    <b-td >{{sumShtrips}}</b-td>
+                                    <b-td>{{shtrips1.strips_id}}</b-td>
                                     <b-td></b-td>
                                     <b-td></b-td>
                                 </b-tr>
@@ -86,12 +86,10 @@ export default {
             this.val = id;
             this.nameShtrips();
             this.loadAmount();
-            this.loadHistory();
         },
         nameShtrips() {
             axios.post('shtripsnum/' + this.val)
             .then (res => {
-                console.log(res);
                 this.name = res.data
             })
         },
