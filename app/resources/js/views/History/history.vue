@@ -25,10 +25,10 @@
         <br>
         <h5>История проката</h5>
         <div v-if="visible">
-            <buhta :val1="val1"></buhta>
+            <buhta :wID="wID"></buhta>
         </div>
         <div v-if="show">
-            <shtrips :shtrips="shtrips" :val1="val1"></shtrips>
+            <shtrips :wID="wID"></shtrips>
         </div>
     </div>
 </div>
@@ -49,7 +49,7 @@ export default {
         selected: '',
         visible: true,
         shtripsArray: [],
-        val1: '',
+        wID: '',
         aprArray: [],
         buhtaArray: [],
         show: false,
@@ -59,17 +59,11 @@ export default {
         this.loadwarehouse();
     },
     methods: {
-        loadShtrips() {
-            axios.get('shtripshistory/' + this.val1)
-            .then(res => {
-                this.shtrips = res.data
-            })
-        },
         smena(event) { // событие первого селекта, выбрать склад
             axios.get('/api/warehouse/' + event.target.value)
             .then((response) => {
                 this.warehouseT = response.data
-                this.val1 = event.target.value
+                this.wID = event.target.value;
                 this.selectType = ''
                 this.visible = false;
             })
@@ -88,11 +82,9 @@ export default {
             else if (event.target.value == 1) {
                 this.show = false;
                 this.visible = true;
-                this.loadBuhtWarehouse();
             }
             else
             {
-                this.loadShtrips();
                 this.visible = false;
                 this.show = true;
             }

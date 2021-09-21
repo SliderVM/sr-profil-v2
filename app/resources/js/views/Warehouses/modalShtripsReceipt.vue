@@ -20,6 +20,7 @@
                 </b-thead>
                 <b-tbody>
                     <b-tr v-for="shtrips in shtripsArray" :key="shtrips.id">
+                        <b-td>{{shtrips.id}}</b-td>
                         <b-td>{{shtrips.types_metals.name}}</b-td>
                         <b-td>{{shtrips.width_in_millimeters}}</b-td>
                         <b-td>{{shtrips.metal_thicknesse.thicknesses}}</b-td>
@@ -30,18 +31,18 @@
                         <b-td>{{shtrips.pipe_type.name}}</b-td>
                         <b-td>
                             <div class='btn-group'>
-                                <b-button @click="visible=!visible" size="sm" variant="outline-primary">Подтвердить</b-button>
+                                <b-button @click="visible=!visible" v-on:click="test(shtrips.id)" size="sm" variant="outline-primary">Подтвердить</b-button>
                                 <b-button @click="cancel(shtrips.id)" size="sm" variant="outline-primary">Отказаться</b-button>
                             </div>
+                            <div>
+                                <b-modal v-model="visible" hide-header-close title="Выберите дату получения">
+                                    <data-r @Vibe="dateReceipt"></data-r>
+                                    <div slot="modal-footer">
+                                        <b-button @click="send" size="sm" variant="primary">Сохранить</b-button>
+                                    </div>
+                                </b-modal>
+                            </div>
                         </b-td>
-                        <div>
-                            <b-modal v-model="visible" hide-header-close title="Выберите дату получения">
-                                <data-r @Vibe="dateReceipt"></data-r>
-                                <div slot="modal-footer">
-                                    <b-button @click="send(shtrips.id)" size="sm" variant="primary">Сохранить</b-button>
-                                </div>
-                            </b-modal>
-                        </div>
                     </b-tr>
                 </b-tbody>
             </b-table-simple>
@@ -72,6 +73,9 @@ export default {
         this.loadShtrips();
     },
     methods: {
+        test(id) {
+            this.Form.id = id;
+        },
         cancel(id) {
             axios.post('shtripscancel/' + id)
             .then(res => {
@@ -95,8 +99,8 @@ export default {
                 this.Form.userReceipt = response.data.id
             })
         },
-        send(id) {
-            this.Form.id = id;
+        send() {
+            console.log(this.Form.id);
             axios.post('shtripsreceipt', this.Form)
             .then(res => {
                 this.loadShtrips();

@@ -47,7 +47,7 @@
 
 <script>
 export default {
-    props: ["val1"],
+    props: ["wID"],
     data:() => ({
         fieldsShtrips: [ // поля таблицы штрипс
             {key: 'id',
@@ -74,8 +74,6 @@ export default {
             label: 'Стоимость, руб'}
         ],
         fields: [ // поля таблицы бухты
-            {key: 'warehouse_id',
-            label: 'ID'},
             {key: 'name',
             label: 'Наименование'},
             {key: 'counterparties.name',
@@ -96,7 +94,7 @@ export default {
             label: ''}
         ],
         shtrips: [],
-        perPage: 5,
+        perPage: 3,
         currentPage: 1,
         currentPageShtrips: 1,
         visible: false,
@@ -115,7 +113,9 @@ export default {
     },
     methods: {
         loadBuht() {
-            axios.get('history', this.val1) // получить бухты
+            axios.post('history', this.wID, {
+                headers: {"Content-type": "application/json"}
+            }) // получить все бухты или по складу(если пришел wID)
             .then(res => {
                 this.test = res.data;
                 this.visible = true;

@@ -167,9 +167,10 @@ class shtripsController extends Controller
 
     public function stripsReceipt(Request $request) // переместить штрипс(получение)
     {
+        $war = stripsTransferHistory::where('strips_id', $request->id)->get();
         stripsTransferHistory::where('strips_id', $request->id)->update(['user_receipt_id'=> $request->userReceipt,
         'date_receipt'=> $request->receiptDate]);
-        strips::find($request->id)->update(['available'=> 1]);
+        strips::find($request->id)->update(['available'=> 1, 'warehouse_id' => $war[0]['incoming_warehouse_id']]);
     }
 
     public function stripsCancel($id) // отменить перемещение штрипса между складами
@@ -181,6 +182,8 @@ class shtripsController extends Controller
     public function shtripsHistory($id)
     {
         $t = strips::join('strips_transfer_histories', 'strips_id', 'strips.id')->where('warehouse_id', $id)->with('TypesMetals', 'metalThicknesse', 'pipeType')->get();
-        return $t;
+        $us = stripsTransferHistory::join('users', 'user_sending_id', 'users.id')->pluck('name');
+        $rec =  stripsTransferHistory::join('users', 'user_receipt_id', 'users.id')->pluck('name');
+        return [$t, $us[0], $rec[0]];
     }
 }

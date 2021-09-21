@@ -30,4 +30,5 @@ class Strips extends Model
     {
         return $this->hasOne(pipeType::class, 'width_strip_in_millimeters', 'width_in_millimeters');
     }
+
 }
