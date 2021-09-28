@@ -66,6 +66,7 @@ export default {
                 this.wID = event.target.value;
                 this.selectType = ''
                 this.visible = false;
+                this.show = false;
             })
         },
         loadwarehouse() { // загрузка складов

@@ -1,123 +1,85 @@
 <template>
-    <div class="hidden" v-if="visible">
-        <b-table id="my-table"
-            :fields="fields"
-            :per-page="perPage"
-            :current-page="currentPage"
-            :items="test"
-            small
-        >
-        <template #cell(opr)="row">
-            <b-button size="sm" @click="row.row-selected" v-on:click="loadShtrips(row.item.id)" variant='outline-primary' class="mr-2">
-            {{ row.detailsShowing ? 'Скрыть' : 'Показать'}} штрипс
-            </b-button>
-            <b-button @click="restartBuht" :value="row.item.id" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon> Откатить прокат бухты</b-button>
-        </template>
-        <template #row-details>
-            <b-card>
-                <b-table
-                id="my-table"
-                :fields="fieldsShtrips"
-                :items="shtrips"
-                :per-page="perPage"
-                :current-page="currentPage"
-                small>
-                </b-table>
-                <div class="mt-3">
-                    <b-pagination
-                        v-model="currentPageShtrips"
-                        :total-rows="shtripsRows"
-                        :per-page="perPage"
-                        aria-controls="my-table"
-                        align="right"
-                    ></b-pagination>
-                </div>
-            </b-card>
-        </template>
-        </b-table>
-        <b-pagination
-            v-model="currentPage"
-            :total-rows="rows"
-            :per-page="perPage"
-            aria-controls="my-table"
-            align="right"
-        ></b-pagination>
+    <div v-if="visible">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Контрагент</th>
+                    <th>Тип металла</th>
+                    <th>Ширина, мм</th>
+                    <th>Толщина, мм</th>
+                    <th>Длина, м</th>
+                    <th>Вес, тн</th>
+                    <th>Стоимость, руб</th>
+                    <th class="col-2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="buhta in pageOfItems"
+                :key="buhta.id" @click="load(buhta.id)">
+                    <td>{{buhta.name}}</td>
+                    <td>{{buhta.counterparties.name}}</td>
+                    <td>{{buhta.types_metals.name}}</td>
+                    <td>{{buhta.width}}</td>
+                    <td>{{buhta.metal_thicknesse.thicknesses}}</td>
+                    <td>{{buhta.length}}</td>
+                    <td>{{buhta.weight}}</td>
+                    <td>{{buhta.price}}</td>
+                    <td> <b-button @click="restartBuht(buhta.id)" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon> Откатить прокат бухты</b-button></td>
+                </tr>
+            </tbody>
+        </table>
+        <shtrips v-if="show" :shtrips="shtrips" @cancel="loadShtrips"></shtrips>
+        <div class="d-flex justify-content-end pb-0 pt-3">
+            <jw-pagination :items="buhtas" @changePage="onChangePage" :pageSize="3" :labels="customLabels"></jw-pagination>
+        </div>
     </div>
 </template>
 
 <script>
+import shtrips from './shtripsHistory.vue'
+const customLabels = {
+    first: 'В начало',
+    last: 'В конец',
+    previous: 'Назад',
+    next: 'Вперед'
+};
 export default {
+    components: {shtrips},
     props: ["wID"],
     data:() => ({
-        fieldsShtrips: [ // поля таблицы штрипс
-            {key: 'id',
-            label: 'ID штрипса'},
-            {key: 'buhta_id',
-            label: 'ID бухты'},
-            {key: 'brigade.name',
-            label: 'Наименование бригады'},
-            {key: 'date_manufacture',
-            label: 'Дата проката'},
-            {key: 'counterparties.name',
-            label: 'Контрагент'},
-            {key: 'types_metals.name',
-            label: 'Тип металла'},
-            {key: 'width_in_millimeters',
-            label: 'Ширина, мм'},
-            {key: 'metal_thicknesse.thicknesses',
-            label: 'Толщина, мм'},
-            {key: 'length_in_meters',
-            label: 'Длина, м'},
-            {key: 'weight_in_tons',
-            label: 'Вес, тн'},
-            {key: 'cost',
-            label: 'Стоимость, руб'}
-        ],
-        fields: [ // поля таблицы бухты
-            {key: 'name',
-            label: 'Наименование'},
-            {key: 'counterparties.name',
-            label: 'Контрагент'},
-            {key: 'types_metals.name',
-            label: 'Тип металла'},
-            {key: 'width',
-            label: 'Ширина, мм'},
-            {key: 'metal_thicknesse.thicknesses',
-            label: 'Толщина, мм'},
-            {key: 'length',
-            label: 'Длина, м'},
-            {key: 'weight',
-            label: 'Вес, тн'},
-            {key: 'price',
-            label: 'Стоимость, руб'},
-            {key: 'opr',
-            label: ''}
-        ],
-        shtrips: [],
-        perPage: 3,
-        currentPage: 1,
-        currentPageShtrips: 1,
+        customLabels,
         visible: false,
-        test: [],
+        buhtas: [],
+        pageOfItems: [],
+        val: '',
+        show: false,
+        shtrips: []
     }),
     mounted() {
         this.loadBuht();
     },
-    computed: {
-        rows() {
-            return this.test.length
-        }, // опредляет длину массива с данными для разбивки на страницы для таблицы бухты
-        shtripsRows() {
-            return this.shtrips.length
-        } // опредляет длину массива с данными для разбивки на страницы для таблицы штрипс
-    },
     methods: {
+        load(id) {
+            this.show = true;
+            axios.get('/api/shtrips/' + id)
+            .then(res => {
+                if(res.data.length == 0) {
+                    alert('нет штрипса для данной бухты')
+                    this.show = false;
+                }
+                this.shtrips = res.data
+            })
+        },
+        onChangePage(buhtas) {
+            this.pageOfItems = buhtas;
+        },
         loadBuht() {
             axios.post('history', this.wID, {
                 headers: {"Content-type": "application/json"}
             }) // получить все бухты или по складу(если пришел wID)
             .then(res => {
-                this.test = res.data;
+                this.buhtas = res.data;
                 this.visible = true;
             })
         },
@@ -125,6 +87,7 @@ export default {
             axios.get('/api/shtrips/' + id)
             .then(res => {
                 this.shtrips = res.data
+                console.log(this.shtrips);
             })
         },
         restartBuht(event) {

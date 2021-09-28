@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
 use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Routing\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -33,7 +31,8 @@ class AuthController extends Controller
 
         $cookie = cookie('jwt', $token, 60 * 24);
 
-        return response(['msg' => 'yes!'])->withCookie($cookie);
+        return Auth::user();
+        // return response(['msg' => 'yes!'])->withCookie($cookie);
     }
 
     public function logout(Request $request)

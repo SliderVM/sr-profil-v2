@@ -1,5 +1,11 @@
 <template>
     <div>
+        <select v-model="selected" @change="test">
+            <option value="">Расход и приход</option>
+            <option value="1">Расход</option>
+            <option value="2">Приход</option>
+        </select>
+        <span>Выбрано: {{ selected }}</span>
         <b-table-simple>
             <b-thead>
                 <b-tr>
@@ -17,8 +23,8 @@
                 </b-tr>
             </b-thead>
             <b-tbody v-for="shtrips1 in shtrips" :key="shtrips1.id">
-                <b-tr @click="load(shtrips1.strips_id)" :variant="shtrips1.outgoing_warehouse_id == shtrips1.warehouse_id ? 'success' : 'danger'">
-                    <b-td>{{shtrips1.outgoing_warehouse_id == shtrips1.warehouse_id ? 'Приход' : 'Расход'}} {{ shtrips1.dateSending }}</b-td>
+                <b-tr @click="load(shtrips1.strips_id)" :variant="shtrips1.outgoing_warehouse_id == shtrips1.warehouse_id ? 'danger' : 'success'">
+                    <b-td>{{shtrips1.outgoing_warehouse_id == shtrips1.warehouse_id ? 'Расход' : 'Приход' }} {{shtrips1.date_sending}}</b-td>
                      <!-- если не получен то не видно, если отправлен то дата отправки, если получен то дата получения -->
                     <b-td>{{shtrips1.types_metals.name}}</b-td>
                     <b-td>{{shtrips1.width_in_millimeters}}</b-td>
@@ -31,7 +37,7 @@
                     <b-td>{{shtrips1.pipe_type.coefficient * (sumShtrips * shtrips1.width_in_millimeters)}}</b-td>
                     <b-td>
                         <div class='btn-group'>
-                            <b-button size="sm" variant='outline-dark' class="mr-2"> Откатить прокат
+                            <b-button size="sm" variant='outline-dark' @click="cancelShtrips(shtrips1.strips_id)" class="mr-2"> Откатить перемещение
                             </b-button>
                         </div>
                     </b-td>
@@ -63,8 +69,8 @@
             </b-tbody>
             <b-tfoot>
                 <b-tr>
-                    <b-td colspan="8">Итого: </b-td>
-                    <b-td colspan="4">{{total.toFixed(2)}}</b-td>
+                    <b-td colspan="7">Итого: </b-td>
+                    <b-td colspan="5">{{total.toFixed(2)}}</b-td>
                 </b-tr>
             </b-tfoot>
         </b-table-simple>
@@ -76,6 +82,7 @@ export default {
     components: {shtripsMore},
     props: [ 'wID'],
     data: () => ({
+        selected: '',
         val: '',
         visible: false,
         pipe: [],
@@ -86,7 +93,7 @@ export default {
         sendUser: ''
     }),
     computed: {
-        total() {
+        total() { // итого
             let a = 0;
             return this.shtrips.reduce(function (a, shtrips1) {
                 return a + shtrips1.cost * shtrips1.width_in_millimeters;
@@ -97,29 +104,47 @@ export default {
         this.loadShtrips();
     },
     methods: {
-        load(id) {
+        test(event) {
+            if(event.target.value == '') {
+                this.loadShtrips();
+            }
+            else if(event.target.value == 1) {
+                axios.get('shtripshistory/' + this.wID)
+                .then(res => {
+                    this.shtrips = res.data[1];
+                })
+            }
+            else if(event.target.value == 2) {
+                axios.get('shtripshistory/' + this.wID)
+                .then(res => {
+                    this.shtrips = res.data[2];
+                })
+            };
+        },
+        load(id) { // событие по клику на строку
             this.val = id;
             this.nameShtrips();
             this.loadAmount();
         },
-        nameShtrips() {
+        nameShtrips() { // складской номер
             axios.post('shtripsnum/' + this.val)
             .then (res => {
                 this.name = res.data
             })
         },
-        loadAmount() {
-            axios.post('groupshtrips', [this.wID, this.val])
+        loadAmount() { // количество штрипса
+            axios.post('amountshtrips',  [this.wID, this.val])
             .then(res => {
                 this.sumShtrips = res.data[0];
             });
         },
-        loadShtrips() {
+        loadShtrips() { // начальная загрузка
             axios.get('shtripshistory/' + this.wID)
             .then(res => {
+                console.log(res.data);
                 this.shtrips = res.data[0];
-                this.sendUser = res.data[1];
-                this.recUser = res.data[2];
+                this.sendUser = res.data[3];
+                this.recUser = res.data[4];
             })
         },
     }

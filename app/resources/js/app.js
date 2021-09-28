@@ -4,12 +4,16 @@ window.Vue = require('vue').default;
 
 import Vue from 'vue'
 import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
+import JwPagination from 'jw-vue-pagination'
 
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+function logged() {
+    return localStorage.getItem('user')
+}
 
-
+Vue.component('jw-pagination', JwPagination);
 Vue.component('v-header', require('./components/header.vue').default);
 Vue.component('login', require('./views/Auth/Login.vue').default);
 

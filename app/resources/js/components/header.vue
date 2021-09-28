@@ -3,14 +3,23 @@
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
                 <router-link to="/" class="top-brand">СР-Профиль</router-link>
-                <nav class="nav-main">
+                <nav class="nav-main" v-if="this.roleId === 1">
                     <router-link
                         :to="link.href"
                         v-for="link in links"
-                        :key="link.id"
-                        >{{ link.title }}</router-link>
+                        :key="link.id">
+                        {{ link.title }}
+                    </router-link>
                 </nav>
-                <b-button  variant="outline-primary" size="sm" @click.prevent="logout"><b-icon icon='box-arrow-right'></b-icon> Выход</b-button>
+                <nav class="nav-main" v-else>
+                    <router-link
+                        :to="link.href"
+                        v-for="link in links1"
+                        :key="link.id">
+                        {{ link.title }}
+                    </router-link>
+                </nav>
+                <b-button variant="outline-primary" size="sm" @click.prevent="logout"><b-icon icon='box-arrow-right'></b-icon> Выход</b-button>
             </div>
             <!-- <b-button size="sm" @click="logged">Проверить юзера</b-button> -->
         </div>
@@ -20,7 +29,8 @@
 <script>
 export default {
     data: () => ({
-        user: {},
+        roleId: '',
+        user: localStorage.getItem('user'),
         links: [
             {
                 title: "Склады",
@@ -46,8 +56,37 @@ export default {
                 title: "История",
                 href: "/history"
             }
+        ],
+        links1: [
+            {
+                title: "Склады",
+                href: "/buhtas"
+            },
+            {
+                title: "Управление производством",
+                href: "/productionmanagement"
+            },
+            {
+                title: "Заявки",
+                href: "/demands"
+            },
+            {
+                title: "Справочники",
+                href: "/info"
+            },
+            {
+                title: "Контрагенты",
+                href: "/info3"
+            }
         ]
     }),
+    created() {
+        axios.get('/user')
+        .then((response) => {
+            this.roleId = response.data.role_id;
+        });
+        console.log(this.user);
+    },
     methods: {
         logout() {
             axios.post('/logout')
@@ -59,12 +98,12 @@ export default {
                 console.log(errors)
             })
         },
-        // logged() { // получить авторизованного пользователя
-        //     axios.get('/user')
-        //     .then((response) => {
-        //         console.log(response)
-        //     })
-        // }
+        logged() { // получить авторизованного пользователя
+            axios.get('/user')
+            .then((response) => {
+                consle.log(response);
+            })
+        }
     }
 }
 </script>

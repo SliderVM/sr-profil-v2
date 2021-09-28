@@ -149,6 +149,14 @@ class shtripsController extends Controller
         return [$amount, $sum];
     }
 
+    public function amountShtrips(Request $request)
+    {
+        $shtripsGroup = stripsTransferHistory::join('strips', 'strips_id', 'strips.id')->where('strips_id', $request[1])->first();
+        $sum = stripsTransferHistory::where('outgoing_warehouse_id', $shtripsGroup->outgoing_warehouse_id)->where('incoming_warehouse_id', $shtripsGroup->incoming_warehouse_id)->where('user_sending_id', $shtripsGroup->user_sending_id)->where('user_receipt_id', $shtripsGroup->user_receipt_id)->where('date_sending', $shtripsGroup->date_sending)->where('date_receipt', $shtripsGroup->date_receipt)->where('strips_id', $shtripsGroup->strips_id)->pluck('id');
+        $amount = $sum->count();
+        return [$amount, $sum];
+    }
+
     public function stripsTransfer(Request $request) // переместить штрипс(отправка)
     {
         $i = 0;
@@ -176,14 +184,26 @@ class shtripsController extends Controller
     public function stripsCancel($id) // отменить перемещение штрипса между складами
     {
         stripsTransferHistory::where('strips_id', $id)->delete();
-        strips::find($id)->update(['available'=> '1']);
+        strips::find($id)->update(['available'=> 1]);
     }
 
     public function shtripsHistory($id)
     {
-        $t = strips::join('strips_transfer_histories', 'strips_id', 'strips.id')->where('warehouse_id', $id)->with('TypesMetals', 'metalThicknesse', 'pipeType')->get();
+        $t = strips::join('strips_transfer_histories', 'strips_id', 'strips.id')->where('warehouse_id', $id)->with('TypesMetals', 'metalThicknesse', 'pipeType')->get(); // вывод всех штрипсов в истории
+        $r = strips::join('strips_transfer_histories', 'strips_id', 'strips.id')->where('outgoing_warehouse_id', $id)->where('warehouse_id', $id)->with('TypesMetals', 'metalThicknesse', 'pipeType')->get(); // вывод штрипсов расход
+        $p = strips::join('strips_transfer_histories', 'strips_id', 'strips.id')->where('warehouse_id', $id)->where('incoming_warehouse_id', $id)->with('TypesMetals', 'metalThicknesse', 'pipeType')->get(); // вывод штрипсов приход
         $us = stripsTransferHistory::join('users', 'user_sending_id', 'users.id')->pluck('name');
         $rec =  stripsTransferHistory::join('users', 'user_receipt_id', 'users.id')->pluck('name');
-        return [$t, $us[0], $rec[0]];
+        return [$t, $r, $p, $us[0], $rec[0]];
+    }
+
+    public function cancelShtrips($id) // откатить штрипс, вернуть бухту доступной. Нельзя откатить если штрипс перемещался и/или уже недоступен
+    {
+        $shtrips = strips::find($id);
+        $test = stripsTransferHistory::where('strips_id', $id)->first();
+        if($shtrips->available != NULL || $test == NULL) {
+            buhta::find($shtrips->buhta_id)->update(['available' => 0]);$shtrips->delete();
+        }
+        echo 'Невозможно откатить бухту, так как она уже испоьзована и/или перемещена на другой склад';
     }
 }

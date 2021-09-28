@@ -11,7 +11,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', 'AuthController@user');
     Route::post('logout', 'AuthController@logout');
     Route::post('groupshtrips', 'Api\shtripsController@groupShtrips');
+    Route::post('amountshtrips', [shtripsController::class, 'amountShtrips']);
     Route::post('shtripstransfer', [shtripsController::class, 'stripsTransfer']);
+    Route::post('otmenashtrips/{id}', 'Api\shtripsController@cancelShtrips');
     Route::post('shtripsreceipt', 'Api\shtripsController@stripsReceipt');
     Route::post('shtripscancel/{id}', [shtripsController::class, 'stripsCancel']);
     Route::post('history', [BhtController::class, 'history']);

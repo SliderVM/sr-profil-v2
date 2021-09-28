@@ -55,12 +55,17 @@ export default {
         this.loadForm();
     },
     computed:{
-        remainder() {
-            let sumwidth = this.complects
-                .reduce(function(sum, current) {
-                    return sum -  current.form.width1 * current.form.amount;
-                }, this.buhta.width);
-            return sumwidth;
+        remainder: {
+            get() {
+                let sumwidth = this.complects
+                    .reduce(function(sum, current) {
+                        return sum -  current.form.width1 * current.form.amount;
+                    }, this.buhta.width);
+                return sumwidth;
+            },
+            set(val) {
+                console.log(this.get);
+            }
         }
     },
     methods: {

@@ -4,7 +4,7 @@
         {{user.name}}
     </td>
     <td>
-        {{user.email}} // будет роль вместо почты
+        {{user.role.title}}
     </td>
     <td>
         <div class='btn-group'>

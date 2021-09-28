@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return User::with('Role')->get();
     }
 
     /**
@@ -48,7 +48,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::where('id', $id)->with('Role')->get();
     }
 
     /**

@@ -26,9 +26,11 @@
     },
     "dependencies": {
         "install": "^0.13.0",
+        "jw-vue-pagination": "^1.0.3",
         "vue-jest": "^3.0.7",
         "vue-multiselect": "^2.1.6",
         "vue-router": "^3.5.2",
+        "vue2-filters": "^0.13.0",
         "vuelidate": "^0.7.6"
     }
 }

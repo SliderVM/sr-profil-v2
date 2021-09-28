@@ -7,7 +7,11 @@
             :per-page="perPage"
             :current-page="currentPage"
             small
-        ></b-table>
+        >
+        <template #cell(opr)='row'>
+            <b-button @click="cancelShtrips(row.item.id)" size="sm" variant='outline-primary'><b-icon icon="x"></b-icon> Откатить прокат бухты</b-button>
+        </template>
+        </b-table>
         <div class="mt-3">
             <b-pagination
                 v-model="currentPage"
@@ -23,7 +27,6 @@
 <script>
 export default {
     props: ['shtrips'],
-    name: 'strips',
     data: () => ({
         fields: [
             {key: 'id',
@@ -47,17 +50,28 @@ export default {
             {key: 'weight_in_tons',
             label: 'Вес, тн'},
             {key: 'cost',
-            label: 'Стоимость, руб'}
+            label: 'Стоимость, руб'},
+            {key: 'opr',
+            label: ''},
         ],
         perPage: 3,
         currentPage: 1,
-        shtripsArray: []
     }),
     computed: {
         rows() {
             return this.shtrips.length // опредляет длину массива с данными для разбивки на страницы
         }
     },
-
+    methods: {
+        cancelShtrips(id) { //откатить штрипс
+            axios.post('otmenashtrips/' + id)
+            .then(res => {
+                if(res.data.length) {
+                    alert(res.data)
+                }
+                this.$emit('cancel')
+            })
+        },
+    }
 }
 </script>
