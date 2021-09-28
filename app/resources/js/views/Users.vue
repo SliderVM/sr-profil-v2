@@ -4,12 +4,12 @@
         <div class="row">
             <div class="col-3">
                 <div class="list-group small">
-                     <router-link :to="link.href" v-for="link in links" :key="link.id" class="list-group-item">{{link.title}}</router-link>
+                    <router-link :to="link.href" v-for="link in links" :key="link.id" class="list-group-item">{{link.title}}</router-link>
                 </div>
             </div>
             <div class="col-9">
                 <h5 class="mb-3">Пользователи</h5>
-                <addUser></addUser>
+                <addUser @reg="loadUsers()"></addUser>
                 <table class="table table-sm mt-3 table-metal-weight">
                     <thead>
                         <tr>

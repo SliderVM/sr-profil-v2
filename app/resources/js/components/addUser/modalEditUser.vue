@@ -15,9 +15,18 @@
             <div class="form-group">
             <label>Пароль</label>
             <input type="password" id="password" v-model="editUser.password" class="form-control" >
-        </div> <div class="form-group">
-            <label>Роль пользователя</label>
-            <input type="text" v-model="editUser.role" class="form-control" />
+        </div>
+        <div class="form-group">
+            <select v-model="editUser.role_id" class="form-control">
+                <option
+                    size="sm"
+                    class="mt-3"
+                    v-for="role in rolesArray"
+                    :key="role.id"
+                    :value="role.id">
+                    {{ role.title }}
+                </option>
+            </select>
         </div>
         <div slot="modal-footer">
             <button size="sm" @click="updateUser" class="btn btn-primary input-group-addon">Обновить</button>
@@ -30,19 +39,27 @@
 export default {
     props: ["user"],
     data: () => ({
+        rolesArray: [],
         modalShow: false,
         editUser: {
             id: '',
             name: '',
             email:'',
             password:'',
-            role:'',
+            role_id:'',
         }
     }),
     mounted() {
         this.loadEditUser();
+        this.loadRole();
     },
     methods: {
+        loadRole() {
+            axios.get('api/user/create')
+            .then ((res) => {
+                this.rolesArray = res.data;
+            })
+        },
         loadEditUser() {
             this.editUser = this.user;
         },

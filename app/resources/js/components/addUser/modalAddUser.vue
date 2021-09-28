@@ -13,9 +13,18 @@
             <div class="form-group">
             <label>Пароль</label>
             <input type="password" id="password" class="form-control" v-model="reg.password">
-        </div> <div class="form-group">
-            <label>Роль пользователя</label>
-            <input type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <select v-model="reg.role_id" class="form-control">
+                <option
+                    size="sm"
+                    class="mt-3"
+                    v-for="role in rolesArray"
+                    :key="role.id"
+                    :value="role.id">
+                    {{ role.title }}
+                </option>
+            </select>
         </div>
         <div slot="modal-footer">
             <button @click="register" size="sm" class="btn btn-primary input-group-addon">Зарегистрировать</button>
@@ -27,13 +36,24 @@
 <script>
 export default {
     data: () => ({
+        rolesArray: [],
         reg: {
             name: '',
             email: '',
             password: '',
+            role_id: ''
         }
     }),
+    created() {
+        this.loadRole();
+    },
     methods: {
+        loadRole() {
+            axios.get('api/user/create')
+            .then ((res) => {
+                this.rolesArray = res.data;
+            })
+        },
         register() {
             axios.post("/register", this.reg, {
                 header: "Content-type: application/json"
@@ -41,6 +61,7 @@ export default {
             .then(response => {
                 this.$bvModal.hide('register')
                 this.reg = '';
+                this.$emit('reg');
             })
             .catch(error => {
                 console.log(error);
