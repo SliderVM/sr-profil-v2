@@ -16,10 +16,12 @@ class CreateUserWarehouseTypeTable extends Migration
         Schema::create('user_warehouse_type', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
+            $table->integer('warehouse_id')->unsigned();
             $table->bigInteger('warehouse_type_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('cascade');
             $table->foreign('warehouse_type_id')->references('id')->on('warehouse_types')->onDelete('cascade');
         });
     }
