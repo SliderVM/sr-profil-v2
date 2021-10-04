@@ -15,21 +15,21 @@
             <div class="row">
                 <div class="form-group col">
                     <label>Доступно, шт</label>
-                    <input type="number" class="form-control" disabled v-model="available" />
+                    <input v-model.number="available" class="form-control" disabled/>
                 </div>
                 <div class="form-group col">
                     <label>Переместить, шт</label>
-                    <input type="number" class="form-control" @input="amount(id)" v-model="Form.count" />
+                    <input v-model.number="Form.count" class="form-control" @input="amount(id)"/>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col">
                     <label>Общая длина</label>
-                    <input type="number" class="form-control" disabled placeholder="0.0" v-model="Form.length" />
+                    <input v-model.number="Form.length" class="form-control" disabled placeholder="0.0"/>
                 </div>
                 <div class="form-group col">
                     <label>Расчетный вес, тн</label>
-                    <input type="number" class="form-control" disabled placeholder="0.000" v-model="Form.tonage" />
+                    <input v-model.number="Form.tonage" class="form-control" disabled placeholder="0.000"/>
                 </div>
             </div>
             <div slot="modal-footer">

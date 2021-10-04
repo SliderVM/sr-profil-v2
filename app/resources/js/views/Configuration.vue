@@ -20,7 +20,7 @@
                     <tbody>
                         <tr v-for="conf in configurationArray" :key="conf.id">
                             <td>{{conf.name}}</td>
-                            <td><input type="number" v-model="conf.value" class="form-control form-control-sm" :readonly="status"></td>
+                            <td><input v-model.number="conf.value" class="form-control form-control-sm" :readonly="status"></td>
                             <td>
                                 <div class="input-group input-group-sm ">
                                     <button @click="red" v-if="isHidden" class="btn btn-sm btn-outline-primary"><b-icon icon="pencil"></b-icon> Редактировать</button>

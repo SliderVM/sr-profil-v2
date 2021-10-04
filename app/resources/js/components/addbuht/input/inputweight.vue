@@ -1,7 +1,7 @@
 <template>
     <div class="form-group">
         <label>Вес, т</label>
-        <input type="number" v-model="weight" @change="Ves" placeholder="0.00" class="form-control" />
+        <input v-model.number="weight" @change="Ves" placeholder="0.00" class="form-control" />
     </div>
 </template>
 

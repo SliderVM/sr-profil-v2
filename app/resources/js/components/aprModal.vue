@@ -10,17 +10,17 @@
             <div class="row">
                 <div class="col-4">
                     <b-input-group append="мм">
-                        <input type="number" v-model="complect.form.width1" placeholder="100" />
+                        <input v-model.number="complect.form.width1" placeholder="100" />
                     </b-input-group>
                 </div>
                 <div class="col-4">
                     <b-input-group append="тн">
-                        <input type="number" @input="amount" v-model="complect.form.tonage" placeholder="Количество тонн" />
+                        <input v-model.number="complect.form.tonage" @input="amount" placeholder="Количество тонн" />
                     </b-input-group>
                 </div>
                 <div class="col-4">
                     <b-input-group append="шт">
-                        <input type="number" @input="tonage" v-model="complect.form.amount" placeholder="Количество штук" />
+                        <input v-model.number="complect.form.amount" @input="tonage" placeholder="Количество штук" />
                     </b-input-group>
                 </div>
             </div>

@@ -7,24 +7,24 @@
         <type @selectType="type"></type>
         <div class="form-group">
             <label>Размер трубы, мм x мм</label>
-            <input type ="number" placeholder="20x20" v-model="Form.sizePipe" class="form-control" />
+            <input v-model.number="Form.sizePipe" placeholder="20x20" class="form-control" />
         </div>
         <div class="form-group">
             <label>Толщина трубы, мм</label>
-            <input type ="number" placeholder="0.2" v-model="Form.thicknessMetal"  class="form-control" />
+            <input v-model.number="Form.thicknessMetal" placeholder="0.2"  class="form-control" />
         </div>
         <div class="form-group">
             <label>Ширина штрипса, мм</label>
-            <input type ="number" placeholder="20" v-model="Form.widthShtrips" class="form-control" />
+            <input v-model.number="Form.widthShtrips" placeholder="20" class="form-control" />
         </div>
         <thickness @selectThickness="thicknesse"></thickness>
         <div class="form-group">
             <label>Вес одного метра трубы, м</label>
-            <input type ="number" placeholder="0.003" v-model="Form.weightPipe" class="form-control" />
+            <input v-model.number="Form.weightPipe" placeholder="0.003" class="form-control" />
         </div>
         <div class="form-group">
             <label>Количество труб в одной пачке, шт.</label>
-            <input type ="number" placeholder="10" v-model="Form.amountPipe" class="form-control" />
+            <input v-model.number="Form.amountPipe" placeholder="10" class="form-control" />
         </div>
         <div slot="modal-footer">
             <button @click="send" size="sm" class="btn btn-primary input-group-addon">Добавить</button>

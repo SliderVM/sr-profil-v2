@@ -14,7 +14,7 @@ use App\Http\Controllers\Api\shtripsController;
 use App\Http\Controllers\Api\configurationController;
 use App\Http\Controllers\Api\pipeController;
 use App\Http\Controllers\Api\pipeQualitieController;
-
+use App\Http\Controllers\Api\premissionsController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('buhtas', BhtController::class);
@@ -30,5 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('configuration', configurationController::class);
     Route::resource('pipetype', pipeController::class);
     Route::resource('qualitie', pipeQualitieController::class);
+    Route::resource('premission', premissionsController::class);
 });
 

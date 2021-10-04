@@ -52,9 +52,7 @@
 
             <div class="form-group">
                 <label>Ширина, мм</label>
-                <input
-                    type="number"
-                    v-model="form.width"
+                <input v-model.number="form.width"
                     placeholder="Укажите ширину бухты"
                     class="form-control"
                 />
@@ -62,9 +60,7 @@
 
             <div class="form-group">
                 <label>Длина</label>
-                <input
-                    type="number"
-                    v-model="form.length"
+                <input v-model.number="form.length"
                     placeholder="Укажите длину бухты"
                     class="form-control"
                 />
@@ -89,9 +85,7 @@
 
             <div class="form-group">
                 <label>Цена покупки, руб. за тн.</label>
-                <input
-                    type="number"
-                    v-model="form.price"
+                <input v-model.number="form.price"
                     class="form-control"
                 />
             </div>

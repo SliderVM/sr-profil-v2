@@ -1,7 +1,7 @@
 <template>
     <div class="form-group">
         <label>Цена покупки, руб. за тн.</label>
-        <input type="number" v-model="man" @change="Cash" class="form-control" />
+        <input v-model.number="man" @change="Cash" class="form-control" />
     </div>
 </template>
 
