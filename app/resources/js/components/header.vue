@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
                 <router-link to="/" class="top-brand">СР-Профиль</router-link>
-                <nav class="nav-main" v-if="this.roleId === 1">
+                <nav class="nav-main" v-if="this.user == 1">
                     <router-link
                         :to="link.href"
                         v-for="link in links"
@@ -21,7 +21,6 @@
                 </nav>
                 <b-button variant="outline-primary" size="sm" @click.prevent="logout"><b-icon icon='box-arrow-right'></b-icon> Выход</b-button>
             </div>
-            <!-- <b-button size="sm" @click="logged">Проверить юзера</b-button> -->
         </div>
     </div>
 </template>
@@ -29,8 +28,7 @@
 <script>
 export default {
     data: () => ({
-        roleId: '',
-        user: localStorage.getItem('user'),
+        user: '',
         links: [
             {
                 title: "Склады",
@@ -81,11 +79,7 @@ export default {
         ]
     }),
     created() {
-        axios.get('/user')
-        .then((response) => {
-            this.roleId = response.data.role_id;
-        });
-        console.log(this.user);
+        this.user = localStorage.getItem('user_role')
     },
     methods: {
         logout() {
@@ -96,12 +90,6 @@ export default {
             })
             .catch((errors) => {
                 console.log(errors)
-            })
-        },
-        logged() { // получить авторизованного пользователя
-            axios.get('/user')
-            .then((response) => {
-                consle.log(response);
             })
         }
     }

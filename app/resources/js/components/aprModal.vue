@@ -3,9 +3,9 @@
         <div class="border">
             <div class="row">
                 <label class="col-11">Тип резки {{this.complect.id}} {{this.complect}}</label>
-                    <b-input-group class="col-1">
-                        <b-button variant="outline-secondary" @click="del" size="sm"><b-icon icon="x"></b-icon></b-button>
-                    </b-input-group>
+                <b-input-group class="col-1">
+                    <b-button variant="outline-secondary" @click="del" size="sm"><b-icon icon="x"></b-icon></b-button>
+                </b-input-group>
             </div>
             <div class="row">
                 <div class="col-4">
@@ -20,10 +20,9 @@
                 </div>
                 <div class="col-4">
                     <b-input-group append="шт">
-                    <input type="number" @input="tonage" v-model="complect.form.amount" placeholder="Количество штук" />
+                        <input type="number" @input="tonage" v-model="complect.form.amount" placeholder="Количество штук" />
                     </b-input-group>
                 </div>
-
             </div>
         </div>
     </div>

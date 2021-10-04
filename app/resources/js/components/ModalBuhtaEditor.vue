@@ -14,11 +14,9 @@
             :complect="complect"
             v-for='complect in complects'
             :key='complect.id'
-            v-on:remove='removeApr'>
+            :remove='removeApr'>
             </v-aprModal>
-
             <br>
-
             <span class='btn btn-outline-primary' @click='addNewComplect'>Добавить тип резки</span>
             <span class="float-left">Обрезь: {{remainder}} мм</span>
             <div slot='modal-footer'>
@@ -64,7 +62,7 @@ export default {
                 return sumwidth;
             },
             set(val) {
-                console.log(this.get);
+                console.log(this.sumwidth);
             }
         }
     },
@@ -105,7 +103,7 @@ export default {
                 console.log(error);
             });
         },
-        removeApr(id) {
+        removeApr(id) { // переделать удаление
             console.log('removing form element', id)
             const index = this.complects.findIndex(f => f.id === id)
             this.complects.splice(index,1)

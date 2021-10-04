@@ -9,9 +9,7 @@ import JwPagination from 'jw-vue-pagination'
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
-function logged() {
-    return localStorage.getItem('user')
-}
+
 
 Vue.component('jw-pagination', JwPagination);
 Vue.component('v-header', require('./components/header.vue').default);

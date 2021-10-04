@@ -39,8 +39,8 @@ export default {
         login() {
             axios.post('/login', this.log)
             .then(response => {
-                console.log(response.data);
-                localStorage.setItem('user', response.data)
+                localStorage.setItem('user', [response.data.id, response.data.name])
+                localStorage.setItem('user_role', response.data.role_id)
                 window.location.href = '/'
             })
             .catch(error => {

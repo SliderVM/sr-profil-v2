@@ -23,7 +23,7 @@ export default {
 
     },
     methods: {
-        loadwarehouse() {
+        loadwarehouse() {  
             axios.get('/api/warehouse')
             .then(res => {
                 this.warehouseArray = res.data;

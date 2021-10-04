@@ -28,6 +28,12 @@
                 </option>
             </select>
         </div>
+        <label>Какие склады будут доступны?</label>
+        <warehouse :complect="complect"
+            v-for='complect in complects'
+            :key='complect.id'>
+        </warehouse>
+        <span class='btn btn-outline-primary' @click='addNewComplect'>Добавить склад</span>
         <div slot="modal-footer">
             <button size="sm" @click="updateUser" class="btn btn-primary input-group-addon">Обновить</button>
         </div>
@@ -36,9 +42,17 @@
 </template>
 
 <script>
+import warehouse from './warehouseUser.vue'
 export default {
+    components: {warehouse},
     props: ["user"],
     data: () => ({
+        complects: [{Test: {
+            id: 1,
+            selected: "",
+            selectType: "",
+        }}],
+        count: 2,
         rolesArray: [],
         modalShow: false,
         editUser: {
@@ -54,6 +68,19 @@ export default {
         this.loadRole();
     },
     methods: {
+        // Test2(data) {
+        //     this.Test.selected = data.selected;
+        //     this.Test.selectType = data.selectType;
+        //     console.log(data);
+
+        // },
+        addNewComplect() { // добавить новый тип резки
+			this.complects.push({Test: {
+                id: this.count++,
+                selected: "",
+                selectType: "",
+            }});
+		},
         loadRole() {
             axios.get('api/user/create')
             .then ((res) => {
