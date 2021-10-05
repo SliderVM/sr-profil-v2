@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use App\Models\user_warehouse;
+use App\Models\user_warehouse_type;
 
 class UserController extends Controller
 {
@@ -38,7 +40,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $i=0;
+        while($i < count($request[0])){
+            user_warehouse_type::create([
+                'user_id' => $request[1],
+                'warehouse_id' => $request[0][$i]['Form']['selected'],
+                'warehouse_type_id' => $request[0][$i]['Form']['selectType']
+            ]);
+        $i++;
+        }
     }
 
     /**

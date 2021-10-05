@@ -33,7 +33,6 @@ class AuthController extends Controller
         $cookie = cookie('jwt', $token, 60 * 24);
 
         return Auth::user();
-        // return response(['msg' => 'yes!'])->withCookie($cookie);
     }
 
     public function logout(Request $request)
@@ -41,7 +40,6 @@ class AuthController extends Controller
         Auth::guard('web')->logout();
         $cookie = Cookie::forget('jwt');
         return response()->json(['msg' => 'Не авторизован'])->withCookie($cookie);
-        return redirect('/welcome');
     }
     public function user()
     {

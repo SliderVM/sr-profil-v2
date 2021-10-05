@@ -1,53 +1,60 @@
 <template>
-    <div>
-        <div class='btn-group'>
-            <b-button @click="modalShow=!modalShow" size="sm" variant='outline-primary'><b-icon icon="pencil"></b-icon></b-button>
-        </div>
-        <b-modal v-model="modalShow" title="Обновление информации о пользователе" hide-header-close>
-            <div class="form-group">
-                <label>Имя</label>
-                <input type="text" id="name" v-model="editUser.name" class="form-control">
-            </div>
-            <div>
-                <label>E-Mail</label>
-                <input type="email" id="email" v-model="editUser.email" class="form-control" placeholder="user@example.com">
-            </div>
-                <div class="form-group">
-                <label>Пароль</label>
-                <input type="password" id="password" v-model="editUser.password" class="form-control">
-            </div>
-            <div class="form-group">
-                <select v-model="editUser.role_id" class="form-control">
-                    <option
-                        size="sm"
-                        class="mt-3"
-                        v-for="role in rolesArray"
-                        :key="role.id"
-                        :value="role.id">
-                        {{ role.title }}
-                    </option>
-                </select>
-            </div>
-            <label>Какие склады будут доступны?</label>
-            <warehouse :complect="complect"
-                v-for='complect in complects'
-                :key='complect.id'>
-            </warehouse>
-            <span class='btn btn-outline-primary' @click='addNewComplect'>Добавить склад</span>
-            <div slot="modal-footer">
-                <button size="sm" @click="updateUser" class="btn btn-primary input-group-addon">Обновить</button>
-            </div>
-        </b-modal>
+<div>
+    <div class='btn-group'>
+         <b-button @click="modalShow=!modalShow" size="sm" variant='outline-primary' ><b-icon icon="pencil"></b-icon></b-button>
     </div>
+    <b-modal v-model="modalShow" title="Обновление информации о пользователе" hide-header-close>
+        <div class="form-group">
+            Имя
+            <input type="text" id="name" v-model="editUser.name" class="form-control">
+        </div>
+        <div>
+            E-Mail
+            <input type="email" id="email" v-model="editUser.email" class="form-control" placeholder="user@example.com">
+        </div>
+            <div class="form-group">
+            Пароль
+            <input type="password" id="password" v-model="editUser.password" class="form-control" >
+        </div>
+        Роль
+        <div class="form-group">
+            <select v-model="editUser.role_id" class="form-control">
+                <option
+                    size="sm"
+                    class="mt-3"
+                    v-for="role in rolesArray"
+                    :key="role.id"
+                    :value="role.id">
+                    {{ role.title }}
+                </option>
+            </select>
+        </div>
+        Какие склады будут доступны?
+        <warehouse :complect="complect"
+            v-for='complect in complects'
+            :key='complect.id'>
+        </warehouse>
+        <br>
+        <span class='btn btn-outline-primary' @click='addNewComplect'>Добавить склад</span>
+        <div slot="modal-footer">
+            <button size="sm" @click="updateUser" class="btn btn-primary input-group-addon">Обновить</button>
+        </div>
+    </b-modal>
+</div>
 </template>
+
 <script>
 import warehouse from './warehouseUser.vue'
 export default {
     components: {warehouse},
     props: ["user"],
     data: () => ({
-        complects: [],
-        count: 1,
+        complects: [{Form: {
+            id: 1,
+            selected: "",
+            selectType: "",
+        }}],
+        count: 2,
         rolesArray: [],
         modalShow: false,
         editUser: {
@@ -64,11 +71,11 @@ export default {
     },
     methods: {
         addNewComplect() { // добавить новый тип резки
-			this.complects.push({
+			this.complects.push({Form: {
                 id: this.count++,
                 selected: "",
                 selectType: "",
-            })
+            }})
 		},
         loadRole() {
             axios.get('api/user/create')
@@ -86,11 +93,18 @@ export default {
             .then((response) => {
                 this.modalShow = false;
                 this.$emit('updateUser', response.data)
+                this.permissions();
             })
             .catch((error) => {
                 console.log(error);
             })
-        }
+        },
+        permissions() {
+            axios.post('api/user', [this.complects, this.user.id])
+            .then((res => {
+                console.log(res);
+            }))
+        },
     }
 }
 </script>
