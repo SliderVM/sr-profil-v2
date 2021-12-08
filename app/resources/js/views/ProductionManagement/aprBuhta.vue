@@ -1,5 +1,6 @@
 <template>
     <div class="hidden" v-if="visible">
+        <h5> Управление производством бухт</h5>
          <b-table-simple>
             <b-thead>
                 <b-tr>

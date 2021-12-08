@@ -23,9 +23,11 @@
             </select>
         </div>
         <br>
-        <h5> Управление производством </h5>
         <div v-if="visible">
             <buhta :warehouseKey="val1"></buhta>
+        </div>
+        <div v-if="show">
+            <pipe></pipe>
         </div>
     </div>
 </div>
@@ -33,8 +35,9 @@
 
 <script>
 import buhta from './aprBuhta.vue';
+import pipe from './pipe.vue'
 export default {
-    components: {buhta},
+    components: {buhta, pipe},
     data: () => ({
         warehouseArray: [],
         options: [
@@ -44,6 +47,7 @@ export default {
         selected: '',
         selectType: '',
         visible: false,
+        show: false,
         val1: ''
     }),
     mounted() {
@@ -69,8 +73,8 @@ export default {
                 this.visible = true
             }
             else {
-                alert('Нет бухт с АПР');
-                this.visible = false
+                this.show = true;
+                this.visible = false;
             }
         }
     }

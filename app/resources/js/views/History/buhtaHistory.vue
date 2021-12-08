@@ -39,10 +39,10 @@
 <script>
 import shtrips from './shtripsHistory.vue'
 const customLabels = {
-    first: 'В начало',
-    last: 'В конец',
-    previous: 'Назад',
-    next: 'Вперед'
+    first: '«',
+    last: '»',
+    previous: '‹',
+    next: '›'
 };
 export default {
     components: {shtrips},

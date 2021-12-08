@@ -2,7 +2,7 @@
     <div>
         <b-button @click="modalShow=!modalShow" size="sm" variant="outline-primary"><b-icon icon="arrow-left-right"></b-icon> Переместить</b-button>
 
-        <b-modal v-model="modalShow" title="Перемещение штрипса" hide-header-close>
+        <b-modal v-model="modalShow" title="Перемещение штрипса">
             <div class="row">
                 <div class="col">
                     <warehouse @selectWarehouse="warehouse"></warehouse>

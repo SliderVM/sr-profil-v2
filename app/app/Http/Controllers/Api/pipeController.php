@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pipe;
 use Illuminate\Http\Request;
-use App\Models\pipeType;
-use App\Models\Strips;
 
-class pipeController extends Controller
+class PipeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class pipeController extends Controller
      */
     public function index()
     {
-        return pipeType::with('TypesMetals', 'metalThicknesse')->get();
+        //
     }
 
     /**
@@ -37,12 +36,12 @@ class pipeController extends Controller
      */
     public function store(Request $request)
     {
-        $pipe = pipeType::create([
-            'name' => $request -> sizePipe,
-            'metal_thicknesse_id' => $request -> metalThicknesseId, 'width_strip_in_millimeters' => $request -> widthShtrips, 'types_metal_id' => $request -> TypeMetalId,
-            'coefficient' => $request -> weightPipe,
-            'thickness_in_millimeters' => $request -> thicknessMetal,
-            'pipe_in_pack' => $request -> amountPipe,
+        $pipe = Pipe::create([
+            'pipe_type_id' => $request->pipeSize,
+            'warehouse_id' => 3,
+            'pipe_quality_id' => $request->pipeSort,
+            'length_one_pipe' => $request->length,
+            'number' => $request->amount,
         ]);
 
         return $pipe;
@@ -56,7 +55,7 @@ class pipeController extends Controller
      */
     public function show($id)
     {
-        //
+        return Pipe::with('pipeType', 'pipeType.TypesMetals', 'pipeType.metalThicknesse')->where('warehouse_id', $id)->get();
     }
 
     /**

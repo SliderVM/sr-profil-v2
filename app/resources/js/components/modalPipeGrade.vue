@@ -3,7 +3,7 @@
         <div class='btn-group'>
             <b-button @click="modalShow=!modalShow" size="sm" variant='outline-primary'><b-icon icon="plus-square"></b-icon> Добавить</b-button>
         </div>
-        <b-modal v-model="modalShow" title="Добавление сорта трубы" hide-header-close>
+        <b-modal v-model="modalShow" title="Добавление сорта трубы">
             <div class="form-group">
             <label>Наименование</label>
             <input type ="text" v-model="Form.gradeName" class="form-control" />

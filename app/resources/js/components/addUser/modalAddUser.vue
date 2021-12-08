@@ -1,7 +1,7 @@
 <template>
 <div>
     <b-button v-b-modal.register size="sm" variant="outline-primary" ><b-icon icon="plus-square"></b-icon> Добавить пользователя</b-button>
-    <b-modal id="register" title="Регистрация" hide-header-close>
+    <b-modal id="register" title="Регистрация">
         <div class="form-group">
             Имя
             <input type="text" id="name" class="form-control" v-model="reg.name">

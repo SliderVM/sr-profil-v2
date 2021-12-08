@@ -1,8 +1,8 @@
 <template>
-<div class="container-fluid">
+<div>
     <b-button @click='modalShow=!modalShow' size='sm' variant='outline-primary'><b-icon icon="check2"></b-icon> Подтвердить получение</b-button>
 
-    <b-modal v-model='modalShow' size="xl" hide-header-close title="Подтвердить получение штрипса" footer-text-variant="danger">
+    <b-modal v-model='modalShow' size="xl" title="Подтвердить получение штрипса" footer-text-variant="danger">
         <div>
             <b-table-simple>
                 <b-thead>
@@ -35,7 +35,7 @@
                                 <b-button @click="cancel(shtrips.id)" size="sm" variant="outline-primary">Отказаться</b-button>
                             </div>
                             <div>
-                                <b-modal v-model="visible" hide-header-close title="Выберите дату получения">
+                                <b-modal v-model="visible" title="Выберите дату получения">
                                     <data-r @Vibe="dateReceipt"></data-r>
                                     <div slot="modal-footer">
                                         <b-button @click="send" size="sm" variant="primary">Сохранить</b-button>

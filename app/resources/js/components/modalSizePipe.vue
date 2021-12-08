@@ -3,7 +3,7 @@
         <div class='btn-group'>
             <b-button @click="modalShow=!modalShow" size="sm" variant='outline-primary'><b-icon icon="plus-square"></b-icon> Добавить</b-button>
         </div>
-        <b-modal v-model="modalShow" title="Добавление типа трубы" hide-header-close>
+        <b-modal v-model="modalShow" title="Добавление типа трубы">
         <type @selectType="type"></type>
         <div class="form-group">
             <label>Размер трубы, мм x мм</label>

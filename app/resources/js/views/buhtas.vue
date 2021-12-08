@@ -1,87 +1,85 @@
 <template>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-3">
-                <select v-model="selected" class="form-control col-3" name="sklad" @change="smena">
+    <b-container fluid>
+        <b-row class="mt-2">
+            <b-col cols="3">
+                <b-form-select v-model="selected" name="sklad" @change="smena">
                     <option disabled value="">Выберите склад</option>
-                    <option size="sm" class="mt-3" v-for="warehouse in warehouseArray" :key="warehouse.id" :value="warehouse.id">
+                    <option v-for="(warehouse, index) in warehouseArray" :key="index" :value="warehouse.id">
                         {{ warehouse.name }}
                     </option>
-                </select>
-            </div>
-            <div class="col-3">
-                <select v-model="selectType" class="form-control col-3" @change="loadPage">
+                </b-form-select>
+            </b-col>
+            <b-col cols="3">
+                <b-form-select v-model="selectType" @change="loadPage">
                     <option value="">Выберите тип склада</option>
-                    <option size="sm" class="mt-3" v-for="warehouset in warehouseT.warehouse_types" :key="warehouset.id" :value="warehouset.id">
+                    <option v-for="warehouset in warehouseT.warehouse_types" :key="warehouset.id" :value="warehouset.id">
                         {{ warehouset.name }}
                     </option>
-                </select>
-            </div>
-            <div v-if="visible">
-                <div>
-                    <br>
-                        <v-modalbuht @send="loadBuhts"></v-modalbuht>
-                    <br>
-                </div>
-                <b-table-simple>
-                    <b-thead>
-                        <b-tr>
-                            <b-th>Наименование</b-th>
-                            <b-th>Контрагент</b-th>
-                            <b-th>Тип металла</b-th>
-                            <b-th>Ширина, мм</b-th>
-                            <b-th>Толщина, мм</b-th>
-                            <b-th>Длина, м</b-th>
-                            <b-th>Вес, тн</b-th>
-                            <b-th>Стоимость, руб</b-th>
-                            <b-th class="col-2"></b-th>
-                        </b-tr>
-                    </b-thead>
-                    <b-tbody>
-                        <buhta
-                            v-for="buhta in buhtas"
-                            :key="buhta.id"
-                            :buhta="buhta"
-                            @removeBuhta="loadBuhts"
-                        />
-                    </b-tbody>
-                    <b-tfoot>
-                        <b-tr>
-                            <b-td colspan="7">Итого: </b-td>
-                            <b-td colspan="4">{{total}}</b-td>
-                        </b-tr>
-                    </b-tfoot>
-                </b-table-simple>
-            </div>
-            <div v-if="show">
-                <div>
-                    <br>
-                    <modal-shtrips :wId="val"></modal-shtrips>
-                    <br>
-                </div>
-                <shtrips :shtrips="shtripsArray" :wId="val"></shtrips>
-            </div>
+                </b-form-select>
+            </b-col>
+        </b-row>
+        <div v-if="visible">
+            <v-modalbuht @send="loadBuhts" class="mt-2 mb-2"></v-modalbuht>
+            <b-table-simple>
+                <b-thead>
+                    <b-tr>
+                        <b-th>Наименование</b-th>
+                        <b-th>Контрагент</b-th>
+                        <b-th>Тип металла</b-th>
+                        <b-th>Ширина, мм</b-th>
+                        <b-th>Толщина, мм</b-th>
+                        <b-th>Длина, м</b-th>
+                        <b-th>Вес, тн</b-th>
+                        <b-th>Стоимость, руб</b-th>
+                        <b-th class="col-2"></b-th>
+                    </b-tr>
+                </b-thead>
+                <b-tbody>
+                    <buhta
+                        v-for="buhta in buhtas"
+                        :key="buhta.id"
+                        :buhta="buhta"
+                        @removeBuhta="loadBuhts"
+                    />
+                </b-tbody>
+                <b-tfoot>
+                    <b-tr>
+                        <b-td colspan="7">Итого: </b-td>
+                        <b-td colspan="4">{{total}}</b-td>
+                    </b-tr>
+                </b-tfoot>
+            </b-table-simple>
         </div>
-    </div>
+        <div v-if="show">
+            <modal-shtrips :wId="val" class="mt-2 mb-2"></modal-shtrips>
+            <shtrips :shtrips="shtripsArray" :wId="val"></shtrips>
+        </div>
+        <div v-if="view">
+            <pipe :pipeArray="pipeArray"></pipe>
+        </div>
+    </b-container>
 </template>
 
 <script>
+import pipe from './pipes/pipe.vue'
 import shtrips from '../views/Warehouses/Shtrips.vue'
 import modalShtrips from '../views/Warehouses/modalShtripsReceipt.vue'
 import buhta from "../components/buhta.vue"
 
 export default {
-    components: {buhta, shtrips, modalShtrips},
+    components: {buhta, shtrips, modalShtrips, pipe},
     data: () => ({
+        selected: '',
         warehouseArray: [],
         options: [{ warehouseArray: '', value: '' }],
         warehouseT: {},
-        selected: '',
         selectType: '',
         visible: false, // бухты
         show: false, // штрипс
+        view: false, // труба
         buhtas: [],
         shtripsArray: [],
+        pipeArray: [],
         val: '',
     }),
     computed: {
@@ -109,30 +107,39 @@ export default {
                 this.warehouseArray = res.data;
             });
         },
-        loadPage(event) {
-            if(event.target.value == "") {
+        loadPage(value) {
+            if(value == "") {
                 this.show = false;
                 this.visible = false;
+                this.view = false;
             }
-            else if (event.target.value == 1) {
+            else if (value == "1") {
                 this.loadBuhts();
                 this.show = false;
+                this.view = false;
             }
-            else
-            {
+            else if(value == "2") {
                 this.loadShtrips();
                 this.visible = false;
-                this.show = true;
+                this.view = false;
+            }
+            else if(value == "3")
+            {
+                this.loadPipe();
+                this.visible = false;
+                this.show = false;
+                this.view = true;
             }
         },
-        smena(event) {
-            axios.get("/api/warehouse/" + event.target.value)
+        smena(value) { // селект выбора типа склада
+            this.val = value;
+            this.selectType = '';
+            this.show = false;
+            this.visible = false;
+            this.view = false;
+            axios.get("/api/warehouse/" +  value)
             .then(response => {
                 this.warehouseT = response.data;
-                this.selectType = ''
-                this.val = event.target.value;
-                this.show = false;
-                this.visible = false;
             });
         },
         loadShtrips() {
@@ -142,6 +149,13 @@ export default {
                 this.show = true;
             });
         },
+        loadPipe() {
+            axios.get("api/pipe/" + this.val)
+            .then(res => {
+                console.log(res.data[0]);
+                this.pipeArray = res.data[0];
+            })
+        }
     }
 }
 </script>

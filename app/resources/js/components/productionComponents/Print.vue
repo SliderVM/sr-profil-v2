@@ -1,7 +1,7 @@
 <template>
 <div>
     <b-button @click='modalShow=!modalShow' size='sm' :value="buhta.id" variant='outline-primary'><b-icon icon='printer'></b-icon> Распечатать наряд</b-button>
-        <b-modal v-model="modalShow" title="Распечатать наряд" hide-header-close>
+        <b-modal v-model="modalShow" title="Распечатать наряд">
             <div class="form-group">
                 <label>Выберите дату</label>
                 <input type="Date" v-model="Form.dateOutfit" placeholder="Введите дату производства" class="form-control" />

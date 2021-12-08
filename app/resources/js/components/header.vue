@@ -1,34 +1,42 @@
 <template>
-    <div class="top">
-        <div class="container-fluid">
-            <div class="d-flex align-items-center justify-content-between">
-                <router-link to="/" class="top-brand">СР-Профиль</router-link>
-                <nav class="nav-main" v-if="this.user == 1">
+    <b-navbar toggleable="lg" type="light" variant="light">
+        <b-navbar-brand href="/"> СР-Профиль</b-navbar-brand>
+
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-collapse id="nav-collapse" is-nav>
+                <b-navbar-nav class="nav-main" v-if="this.user == 1">
                     <router-link
                         :to="link.href"
                         v-for="link in links"
                         :key="link.id">
                         {{ link.title }}
                     </router-link>
-                </nav>
-                <nav class="nav-main" v-else>
+                </b-navbar-nav>
+                <b-navbar-nav class="nav-main" v-else>
                     <router-link
                         :to="link.href"
                         v-for="link in links1"
                         :key="link.id">
                         {{ link.title }}
                     </router-link>
-                </nav>
-                <b-button variant="outline-primary" size="sm" @click.prevent="logout"><b-icon icon='box-arrow-right'></b-icon> Выход</b-button>
-            </div>
-        </div>
-    </div>
+                </b-navbar-nav>
+            <b-navbar-nav class="ml-auto">
+                <b-nav-item-dropdown right>
+                    <template #button-content>
+                        <em>{{userName}}</em>
+                    </template>
+                    <b-dropdown-item @click.prevent="logout"><b-icon icon='box-arrow-right'></b-icon> Выход</b-dropdown-item>
+                </b-nav-item-dropdown>
+            </b-navbar-nav>
+        </b-collapse>
+    </b-navbar>
 </template>
 
 <script>
 export default {
     data: () => ({
         user: '',
+        userName: '',
         links: [
             {
                 title: "Склады",
@@ -80,16 +88,13 @@ export default {
     }),
     created() {
         this.user = localStorage.getItem('user_role')
+        this.userName = localStorage.getItem('user_name')
     },
     methods: {
         logout() {
             axios.post('/logout')
-            .then((response) => {
-                console.log(response);
+            .then((res) => {
                 window.location.href = '/'
-            })
-            .catch((errors) => {
-                console.log(errors)
             })
         }
     }

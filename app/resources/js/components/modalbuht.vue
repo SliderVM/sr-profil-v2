@@ -1,109 +1,128 @@
 <template>
     <div>
         <b-button @click="modalShow=!modalShow" size="sm" variant="outline-primary"><b-icon icon="plus-square"></b-icon> Приход металла</b-button>
-        <b-modal v-model="modalShow" title="Приход металла" hide-header-close>
-
-            <v-InputData @Vibe="Ran"></v-InputData>
-            <div class="form-group">
-                <label>Наименование</label>
-                <input type="text" v-model="form.name" placeholder="Введите наименование" class="form-control" />
-            </div>
-
-            <div>
-                <label>Контрагенты</label>
-                <multiselect
-                    v-model="Value"
-                    :options="CounterpartiesArray"
-                    label="name"
-                    :options-limit="3"
-                    open-direction="bottom"
-                    :hide-selected="true"
-                    placeholder="Начните вводить"
-                    @open="CounterpartiesOpen"
-                    @select="CounterpartiesSearch">
-                </multiselect>
-            </div>
-
-            <div>
-                <label>Склад</label>
-                <select v-model="form.warehouseId">
-                    <option
-                        size="sm"
-                        class="mt-3"
-                        v-for="warehouse in warehouseArray"
-                        :key="warehouse.id"
-                        :value="warehouse.id">
-                        {{ warehouse.name }}
-                    </option>
-                </select>
-            </div>
-
-            <div>
-                <label>Тип металла</label>
-                <select width="100" v-model="form.typeMetalId">
-                    <option
-                        v-for="types in selecttype"
-                        :key="types.id"
-                        :value="types.id">
-                        {{ types.name }}
-                    </option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Ширина, мм</label>
-                <input v-model.number="form.width"
-                    placeholder="Укажите ширину бухты"
-                    class="form-control"
-                />
-            </div>
-
-            <div class="form-group">
-                <label>Длина</label>
-                <input v-model.number="form.length"
-                    placeholder="Укажите длину бухты"
-                    class="form-control"
-                />
-            </div>
-
-            <div>
-                <label>Толщина</label>
-                <select v-model="form.metalThicknessId">
-                    <option
-                        size="sm"
-                        class="mt-3"
-                        v-for="thicknesse in thicknessesArray"
-                        :key="thicknesse.id"
-                        :value="thicknesse.id"
-                    >
-                        {{ thicknesse.thicknesses }}
-                    </option>
-                </select>
-            </div>
-
-            <v-InputWeight @Ves="VesTonna"></v-InputWeight>
-
-            <div class="form-group">
-                <label>Цена покупки, руб. за тн.</label>
-                <input v-model.number="form.price"
-                    class="form-control"
-                />
-            </div>
-
-            <div>
-                <input type="radio" id="negativeOne" value="-1" v-model="form.available" />
-                <label for="negativeOne">Бухта в пути</label>
-                <br>
-                <input type="radio" id="one" value="1" v-model="form.available" />
-                <label for="one">Бухта на складе</label>
-            </div>
-
+        <b-modal size="lg" v-model="modalShow" title="Приход металла">
+            <b-row>
+                <b-col>
+                    <b-form-group id="input-group-Date" label="Дата" label-for="input-Date">
+                        <b-form-datepicker id="input-Date" v-model="form.receiptDate" class="mb-2"></b-form-datepicker>
+                    </b-form-group>
+                </b-col>
+                <b-col>
+                    <b-form-group id="input-group-name" label="Наименование" label-for="input-name">
+                        <b-form-input
+                        id="input-name"
+                        v-model="form.name" placeholder="Введите наименование"
+                        required
+                        ></b-form-input>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col>
+                    <b-form-group id="input-group-Counterparties" label="Контрагенты" label-for="Counterparties">
+                        <multiselect
+                            id="Counterparties"
+                            v-model="Value"
+                            :options="CounterpartiesArray"
+                            label="name"
+                            :options-limit="3"
+                            open-direction="bottom"
+                            :hide-selected="true"
+                            placeholder="Начните вводить"
+                            @open="CounterpartiesOpen"
+                            @select="CounterpartiesSearch">
+                        </multiselect>
+                    </b-form-group>
+                </b-col>
+                <b-col>
+                    <b-form-group id="input-group-warehouse" label="Склад" label-for="warehouse">
+                        <b-form-select v-model="form.warehouseId" id="warehouse">
+                            <option
+                                size="sm"
+                                class="mt-3"
+                                v-for="warehouse in warehouseArray"
+                                :key="warehouse.id"
+                                :value="warehouse.id">
+                                {{ warehouse.name }}
+                            </option>
+                        </b-form-select>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col>
+                    <b-form-group id="input-group-typeMetal" label="Тип металла" label-for="typeMetal">
+                        <b-form-select v-model="form.typeMetalId" id="typeMetal">
+                            <option
+                                v-for="types in selecttype"
+                                :key="types.id"
+                                :value="types.id">
+                                {{ types.name }}
+                            </option>
+                        </b-form-select>
+                    </b-form-group>
+                </b-col>
+                <b-col>
+                    <b-form-group id="input-group-width" label="Ширина, мм" label-for="width">
+                    <b-form-input
+                            id="width"
+                            v-model.number="form.width"
+                            placeholder="Укажите ширину бухты"
+                            required>
+                        </b-form-input>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col>
+                    <b-form-group id="input-group-length" label="Длина" label-for="length">
+                    <b-form-input
+                            id="length"
+                            v-model.number="form.length"
+                            placeholder="Укажите длину бухты"
+                            required>
+                        </b-form-input>
+                    </b-form-group>
+                </b-col>
+                <b-col>
+                    <b-form-group id="input-group-metalThickness" label="Толщина" label-for="metalThickness">
+                        <b-form-select v-model="form.metalThicknessId" id="metalThickness">
+                            <option
+                                size="sm"
+                                class="mt-3"
+                                v-for="thicknesse in thicknessesArray"
+                                :key="thicknesse.id"
+                                :value="thicknesse.id">
+                                {{ thicknesse.thicknesses }}
+                            </option>
+                        </b-form-select>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col>
+                    <v-InputWeight @Ves="VesTonna"></v-InputWeight>
+                </b-col>
+                <b-col>
+                    <b-form-group id="input-group-price" label="Цена покупки, руб. за тн." label-for="price">
+                        <b-form-input
+                            id="price"
+                            v-model.number="form.price"
+                            required>
+                        </b-form-input>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <b-form-group v-slot="{ ariaDescribedby }">
+                    <b-form-radio-group value="-1" v-model="form.available" :aria-describedby="ariaDescribedby" name="some-radios">Бухта в пути</b-form-radio-group>
+                    <b-form-radio-group value="1" v-model="form.available" :aria-describedby="ariaDescribedby" name="some-radios" >Бухта на складе</b-form-radio-group>
+            </b-form-group>
             <div slot="modal-footer">
                 <button @click="send" size="sm" class="btn btn-outline-primary">
                     Сохранить
                 </button>
             </div>
-
         </b-modal>
     </div>
 </template>
@@ -142,9 +161,6 @@ export default {
         this.loadthicknesse();
     },
     methods: {
-        Ran(data) {
-            this.form.receiptDate = data.receiptDate;
-        },
         VesTonna(data) {
             this.form.weight = data.weight;
         },
